@@ -236,6 +236,18 @@ const projects = (await getCollection("work"))
       padding: 8px;
     }
 
+    @media (prefers-color-scheme: dark) {
+      .mention-card:hover {
+        cursor: pointer;
+        background-image: linear-gradient(
+          to right,
+          #141925 0%,
+          #0e121b 50%,
+          #090b11 100%
+        );
+      }
+    }
+
     @media (min-width: 50em) {
       .mention-card {
         border-radius: 1.5rem;
