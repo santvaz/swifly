@@ -13,7 +13,7 @@ import Icon from "../components/Icon.astro";
     <header
       class="border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center max-w-fit h-screen shadow-md"
     >
-      <div class="section flex justify-center items-center flex-col">
+      <div class="section flex justify-center items-center flex-col w-full">
         <div class="logo flex flex-row p-4">
           <Icon icon="swifly" size="2.6em" />
           <h1 class="mx-2 sr-only">Swifly</h1>
@@ -33,26 +33,26 @@ import Icon from "../components/Icon.astro";
         </div>
       </div>
 
-      <nav class="flex justify-center items-center">
+      <nav class="flex justify-center items-center w-full">
         <ul class="flex flex-col justify-center items-center w-full">
           <li
-            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+            class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
           >
             <Icon icon="settings" size="2em" />
           </li>
           <li
-            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+            class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
           >
             <Icon icon="chat" size="2em" />
           </li>
           <li
-            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+            class="my-1 p-6 border-y border-y-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
           >
             <Icon icon="user" size="2em" />
           </li>
         </ul>
       </nav>
-      <nav>
+      <nav class="w-full">
         <ul>
           <li class="hover:text-grape-200 p-4 border-t-grape-900">
             Cerrar sesión
