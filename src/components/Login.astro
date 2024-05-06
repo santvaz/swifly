@@ -4,20 +4,19 @@
     type="text"
     name="username"
     id="username"
-    class="bg-gray-800 bg-opacity-50 px-8 py-4 rounded-xl border border-x-gray-800 border-y-gray-600"
+    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
   />
   <label for="password" class="text-xl">Clave</label>
   <input
     type="password"
     name="password"
     id="password"
-    class="bg-gray-800 bg-opacity-50 px-8 py-4 rounded-xl border border-x-gray-800 border-y-gray-600"
+    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
   />
-  <input
-    type="submit"
-    value="Iniciar sesión"
-    class="px-8 py-4 mt-8 bg-purple-900 rounded-full hover:bg-purple-800 cursor-pointer border border-x-purple-400 border-y-purple-500"
-  />
+  <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
+  <div class="utils text-sm flex flex-col items-center justify-center">
+    <a href="/forgot" class="hover:opacity-80 m-2">He olvidado mi contraseña</a>
+  </div>
 </section>
 
 <style>
@@ -33,6 +32,29 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+  }
+
+  #login {
+    color: white;
+    cursor: pointer;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+    border-radius: 9999px;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    background-color: rgb(89 28 135 / var(--tw-border-opacity));
+    border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+    border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+  }
+
+  #login:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(107 33 168 / var(--tw-bg-opacity));
   }
 
   .skills h2 {
