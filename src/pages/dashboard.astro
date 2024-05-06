@@ -1,0 +1,64 @@
+---
+import Icon from "../components/Icon.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-grape-300">
+    <header
+      class="border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center max-w-fit h-screen shadow-md"
+    >
+      <div class="section flex justify-center items-center flex-col">
+        <div class="logo flex flex-row p-4">
+          <Icon icon="swifly" size="2.6em" />
+          <h1 class="mx-2 sr-only">Swifly</h1>
+        </div>
+        <div class="profile flex justify-center flex-col items-center relative">
+          <div
+            class="pfp rounded-full border border-grape-300 bg-grape-50 size-12"
+          >
+          </div>
+          <div
+            class="status rounded-full size-3 bg-green-600 absolute top-9 left-12"
+          >
+          </div>
+          <div class="welcome mt-4">
+            <h2>Bienvenido,</h2>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex justify-center items-center">
+        <ul class="flex flex-col justify-center items-center w-full">
+          <li
+            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+          >
+            <Icon icon="settings" size="2em" />
+          </li>
+          <li
+            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+          >
+            <Icon icon="chat" size="2em" />
+          </li>
+          <li
+            class="my-1 p-6 border border-y-grape-300 border-x-grape-950 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+          >
+            <Icon icon="user" size="2em" />
+          </li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          <li class="hover:text-grape-200 p-4 border-t-grape-900">
+            Cerrar sesión
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </body>
+</html>
