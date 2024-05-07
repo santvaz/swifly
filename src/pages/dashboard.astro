@@ -3,14 +3,19 @@ import Icon from "../components/Icon.astro";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
+    <style>
+      .padre-proyectos > div {
+        margin: 10px;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container flex flex-row min-w-full absolute bg-slate-200">
+  <body class="bg-gray-100">
+    <div class="container flex flex-row min-w-full absolute bg-gray-200">
       <header
         class="fixed z-20 rounded-sm border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center w-fit h-screen shadow-md"
       >
@@ -63,7 +68,7 @@ import Icon from "../components/Icon.astro";
       >
         <nav class="mx-24">
           <div
-            class="search flex flex-row items-center justify-center relative"
+            class="search-wrapper flex flex-row items-center justify-center relative"
           >
             <input
               class="bg-gray-200 border border-gray-300 px-8 py-2 rounded-xl"
@@ -81,38 +86,300 @@ import Icon from "../components/Icon.astro";
           <ul class="flex flex-row items-center justify-evenly">
             <li>
               <div
-                class="rounded-lg create flex flex-row items-center justify-center text-grape-900"
+                class="rounded-lg create flex flex-row items-center justify-center text-grape-900 cursor-pointer hover:bg-grape-100"
               >
                 <Icon icon="plus" size="2em" />
               </div>
             </li>
             <li class="mx-4">
-              <Icon icon="notification" size="2em" />
-              <h4 class="sr-only">Notificaciones</h4>
-            </li>
-
-            <li class="ml-8 mr-4">
-              <div
-                class="profile flex justify-center flex-col items-center relative"
-              >
-                <div
-                  class="pfp rounded-full border border-grape-900 overflow-hidden size-12 shadow-lg cursor-pointer hover:opacity-90"
-                >
-                  <img
-                    class="object-cover size-full"
-                    src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
-                    alt="Foto de perfil"
-                  />
+              <div class="relative inline-block text-left">
+                <div>
+                  <button
+                    type="button"
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+                    id="menu-button"
+                    aria-expanded="true"
+                    aria-haspopup="true"
+                  >
+                    <Icon icon="bell" size="2em" />
+                    <h4 class="sr-only">Notificaciones</h4>
+                  </button>
                 </div>
+
+                <!--
+                  Dropdown menu, show/hide based on menu state.
+              
+                  Entering: "transition ease-out duration-100"
+                    From: "transform opacity-0 scale-95"
+                    To: "transform opacity-100 scale-100"
+                  Leaving: "transition ease-in duration-75"
+                    From: "transform opacity-100 scale-100"
+                    To: "transform opacity-0 scale-95"
+                -->
                 <div
-                  class="status rounded-full size-3 bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
+                  class="notification-menu absolute right-0 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
+                  tabindex="-1"
                 >
+                  <div
+                    class="notification-header flex flex-row justify-center items-center"
+                  >
+                    <Icon icon="notification" size="1.4em" />
+                    <h5
+                      class="text-xl p-6 text-grape-900 font-semibold not-sr-only"
+                    >
+                      Notificaciones
+                    </h5>
+                  </div>
+                  <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0">Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1">Duplicate</a
+                    >
+                  </div>
+                  <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0">Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1">Duplicate</a
+                    >
+                  </div>
+                  <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0">Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1">Duplicate</a
+                    >
+                  </div>
+                  <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0">Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1">Duplicate</a
+                    >
+                  </div>
+                  <div class="py-1" role="none">
+                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-0">Edit</a
+                    >
+                    <a
+                      href="#"
+                      class="text-gray-700 block px-4 py-2 text-sm"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1">Duplicate</a
+                    >
+                  </div>
                 </div>
               </div>
+
+              <li class="ml-8 mr-4">
+                <div
+                  class="profile flex justify-center flex-col items-center relative"
+                >
+                  <div
+                    class="pfp rounded-full border border-grape-900 overflow-hidden size-12 shadow-lg cursor-pointer hover:opacity-90"
+                  >
+                    <img
+                      class="object-cover size-full"
+                      src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
+                      alt="Foto de perfil"
+                    />
+                  </div>
+                  <div
+                    class="status status-online rounded-full size-3 bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
+                  >
+                  </div>
+                </div>
+              </li>
             </li>
           </ul>
         </nav>
+        <div
+          class="content w-full max-w-8xl absolute flex flex-col md:flex-row gap-4 justify-start items-start top-40 left-40"
+        >
+          <main
+            class="flex flex-col gap-2 justify-center items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm w-full max-w-6xl"
+          >
+            <h2 class="font-semibold text-2xl not-sr-only">Mis proyectos</h2>
+            <hr class="h-px w-full text-gray-400 my-4" />
+            <section
+              class="my-projects flex flex-row justify-start flex-wrap basis-1/3 gap-2"
+            >
+              <div
+                class="project rounded-xl h-32 w-64 bg-red-400 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-plum-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+            </section>
+            <h2 class="font-semibold text-2xl not-sr-only">
+              Proyectos en los que estoy colaborando
+            </h2>
+            <hr class="h-px w-full text-gray-400 my-4" />
+            <section
+              class="collab-projects flex flex-row justify-start flex-wrap basis-1/3 gap-2"
+            >
+              <div
+                class="project rounded-xl h-32 w-64 bg-yellow-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-red-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+              <div
+                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
+              >
+                <h5 class="font-semibold">Título</h5>
+                <div class="p-4 w-full"></div>
+              </div>
+            </section>
+          </main>
+          <aside
+            class="bg-white border border-gray-300 flex flex-col justify-center items-start p-12 w-full max-w-lg rounded-lg"
+          >
+            <h2 class="font-semibold text-2xl not-sr-only">Mensajes</h2>
+            <hr class="h-px w-full text-gray-400 my-4" />
+            <div class="chat-messages">
+              <div
+                class="chat flex gap-2 text-gray-600 flex-row justify-center items-center border-b border-b-gray-200 p-2"
+              >
+                <div class="chat-pfp rounded-full size-10 bg-gray-300">
+                  <img src="" alt="" />
+                </div>
+                <h5 class="font-semibold text-base">Usuario</h5>
+              </div>
+            </div>
+          </aside>
+        </div>
       </section>
     </div>
   </body>
+
+  <style>
+    main > section {
+      margin: 24px 0px 24px 0px;
+    }
+
+    .notification-menu {
+      scrollbar-width: thin;
+    }
+
+    .notification-menu > div:not(.notification-header):hover {
+      background-color: #f0edfa;
+    }
+  </style>
 </html>
