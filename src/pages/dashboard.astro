@@ -7,58 +7,112 @@ import Icon from "../components/Icon.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Dashboard</title>
   </head>
-  <body class="bg-grape-300">
-    <header
-      class="border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center max-w-fit h-screen shadow-md"
-    >
-      <div class="section flex justify-center items-center flex-col w-full">
-        <div class="logo flex flex-row p-4">
-          <Icon icon="swifly" size="2.6em" />
-          <h1 class="mx-2 sr-only">Swifly</h1>
-        </div>
-        <div class="profile flex justify-center flex-col items-center relative">
-          <div
-            class="pfp rounded-full border border-grape-300 bg-grape-50 size-12"
-          >
-          </div>
-          <div
-            class="status rounded-full size-3 bg-green-600 absolute top-9 left-12"
-          >
-          </div>
-          <div class="welcome mt-4">
-            <h2>Bienvenido,</h2>
+  <body>
+    <div class="container flex flex-row min-w-full absolute bg-slate-200">
+      <header
+        class="fixed z-20 rounded-sm border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center w-fit h-screen shadow-md"
+      >
+        <div class="section flex justify-center items-center flex-col w-full">
+          <div class="logo flex flex-row p-4 cursor-pointer">
+            <a href="/dashboard" aria-label="swifly">
+              <Icon icon="swifly" size="2.6em" />
+            </a>
+            <h1 class="mx-2 sr-only">Swifly</h1>
           </div>
         </div>
-      </div>
 
-      <nav class="flex justify-center items-center w-full">
-        <ul class="flex flex-col justify-center items-center w-full">
-          <li
-            class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
+        <nav class="flex justify-center items-center w-full">
+          <ul class="flex flex-col justify-center items-center w-full">
+            <li
+              class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
+            >
+              <Icon icon="user" size="2em" />
+              <h4 class="sr-only">Mis proyectos</h4>
+            </li>
+            <li
+              class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
+            >
+              <Icon icon="chat" size="2em" />
+              <h4 class="sr-only">Mensajes</h4>
+            </li>
+            <li
+              class="my-1 p-6 border-y border-y-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
+            >
+              <Icon icon="settings" size="2em" />
+              <h4 class="sr-only">Ajustes</h4>
+            </li>
+          </ul>
+        </nav>
+        <nav class="w-full">
+          <ul>
+            <li
+              class="hover:text-grape-50 p-4 border-t-grape-900 cursor-pointer"
+            >
+              <a href="/">
+                <Icon icon="signout" size="2em" />
+                <h4 class="sr-only">Cerrar sesión</h4>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section
+        class="top-bar z-10 fixed flex flex-row justify-between items-center w-full h-16 border-b border-b-gray-300 bg-white"
+      >
+        <nav class="mx-24">
+          <div
+            class="search flex flex-row items-center justify-center relative"
           >
-            <Icon icon="settings" size="2em" />
-          </li>
-          <li
-            class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
-          >
-            <Icon icon="chat" size="2em" />
-          </li>
-          <li
-            class="my-1 p-6 border-y border-y-grape-300 hover:opacity-50 bg-grape-950 hover:bg-grape-900 hover:text-grape-50 cursor-pointer"
-          >
-            <Icon icon="user" size="2em" />
-          </li>
-        </ul>
-      </nav>
-      <nav class="w-full">
-        <ul>
-          <li class="hover:text-grape-200 p-4 border-t-grape-900">
-            Cerrar sesión
-          </li>
-        </ul>
-      </nav>
-    </header>
+            <input
+              class="bg-gray-200 border border-gray-300 px-8 py-2 rounded-xl"
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Buscar"
+            />
+            <div class="magnifying-glass relative right-10 text-gray-400">
+              <Icon icon="search" size="2em" />
+            </div>
+          </div>
+        </nav>
+        <nav class="text-grape-950 flex flex-row items-center justify-center">
+          <ul class="flex flex-row items-center justify-evenly">
+            <li>
+              <div
+                class="rounded-lg create flex flex-row items-center justify-center text-grape-900"
+              >
+                <Icon icon="plus" size="2em" />
+              </div>
+            </li>
+            <li class="mx-4">
+              <Icon icon="notification" size="2em" />
+              <h4 class="sr-only">Notificaciones</h4>
+            </li>
+
+            <li class="ml-8 mr-4">
+              <div
+                class="profile flex justify-center flex-col items-center relative"
+              >
+                <div
+                  class="pfp rounded-full border border-grape-900 overflow-hidden size-12 shadow-lg cursor-pointer hover:opacity-90"
+                >
+                  <img
+                    class="object-cover size-full"
+                    src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
+                    alt="Foto de perfil"
+                  />
+                </div>
+                <div
+                  class="status rounded-full size-3 bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
+                >
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </div>
   </body>
 </html>
