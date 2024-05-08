@@ -1,6 +1,8 @@
 ---
 import Icon from "../components/Icon.astro";
 import Dropdown from "../components/Dropdown.astro";
+import { Image } from "astro:assets";
+const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -16,243 +18,320 @@ import Dropdown from "../components/Dropdown.astro";
     </style>
   </head>
   <body class="bg-gray-100">
-    <div class="container flex flex-row min-w-full absolute bg-gray-200">
+    <div
+      class="nav-wrapper fixed top-0 z-40 w-full bg-white-500 flex flex-row justify-center items-center bg-white border-b border-b-gray-300 shadow-xs"
+    >
       <header
-        class="fixed z-20 rounded-sm border border-grape-900 bg-grape-950 text-grape-300 flex flex-col justify-between items-center w-fit h-screen shadow-md"
+        class="flex justify-between items-center w-full max-w-7xl bg-white"
       >
-        <div class="section flex justify-center items-center flex-col w-full">
-          <div class="logo flex flex-row p-4 cursor-pointer">
+        <div class="section flex justify-start items-start flex-col w-full">
+          <div
+            class="logo flex flex-row cursor-pointer p-2 bg-grape-950 text-grape-300 hover:bg-opacity-95"
+          >
             <a href="/dashboard" aria-label="swifly">
               <Icon icon="swifly" size="2.6em" />
             </a>
             <h1 class="mx-2 sr-only">Swifly</h1>
           </div>
         </div>
-
-        <nav class="flex justify-center items-center w-full">
-          <ul class="flex flex-col justify-center items-center w-full">
-            <li
-              class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
-            >
-              <Icon icon="user" size="2em" />
-              <h4 class="sr-only">Mis proyectos</h4>
-            </li>
-            <li
-              class="my-1 p-6 border-t border-t-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
-            >
-              <Icon icon="chat" size="2em" />
-              <h4 class="sr-only">Mensajes</h4>
-            </li>
-            <li
-              class="my-1 p-6 border-y border-y-grape-300 hover:opacity-50 bg-grape-950 hover:text-grape-50 cursor-pointer"
-            >
-              <Icon icon="settings" size="2em" />
-              <h4 class="sr-only">Ajustes</h4>
-            </li>
-          </ul>
-        </nav>
-        <nav class="w-full">
-          <ul>
-            <li
-              class="hover:text-grape-50 p-4 border-t-grape-900 cursor-pointer"
-            >
-              <a href="/">
-                <Icon icon="signout" size="2em" />
-                <h4 class="sr-only">Cerrar sesión</h4>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <section
-        class="top-bar z-10 fixed flex flex-row justify-between items-center w-full h-16 border-b border-b-gray-300 bg-white"
-      >
-        <nav class="mx-24">
-          <div
-            class="search-wrapper flex flex-row items-center justify-center relative"
-          >
-            <input
-              class="bg-gray-200 border border-gray-300 px-8 py-2 rounded-xl"
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Buscar"
-            />
-            <div class="magnifying-glass relative right-10 text-gray-400">
-              <Icon icon="search" size="2em" />
-            </div>
-          </div>
-        </nav>
         <nav class="text-grape-950 flex flex-row items-center justify-center">
           <ul class="flex flex-row items-center justify-evenly">
-            <li>
+            <li
+              class="inline-flex cursor-pointer w-full justify-center mx-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+            >
               <div
                 class="rounded-lg create flex flex-row items-center justify-center text-grape-900 cursor-pointer hover:bg-grape-100"
               >
                 <Icon icon="plus" size="2em" />
               </div>
             </li>
-            <li class="mx-4">
+            <li
+              class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+            >
+              <Icon icon="search" size="2em" />
+            </li>
+            <li class="mx-1.5">
               <Dropdown />
-              <li class="ml-8 mr-4">
+            </li>
+            <li
+              class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
+            >
+              <Icon icon="signout" size="2em" />
+            </li>
+            <li class="ml-8 mr-4">
+              <div
+                class="profile flex justify-center flex-col items-center relative"
+              >
                 <div
-                  class="profile flex justify-center flex-col items-center relative"
+                  class="pfp rounded-full border border-grape-900 overflow-hidden size-12 shadow-lg cursor-pointer hover:opacity-90"
                 >
-                  <div
-                    class="pfp rounded-full border border-grape-900 overflow-hidden size-12 shadow-lg cursor-pointer hover:opacity-90"
-                  >
-                    <img
-                      class="object-cover size-full"
-                      src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
-                      alt="Foto de perfil"
-                    />
-                  </div>
-                  <div
-                    class="status status-online rounded-full size-3 bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
-                  >
-                  </div>
+                  <Image
+                    src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
+                    alt="A bird."
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
                 </div>
-              </li>
+                <div
+                  class="status status-online rounded-full size-3 bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
+                >
+                </div>
+              </div>
             </li>
           </ul>
         </nav>
-        <div
-          class="content w-full max-w-8xl absolute flex flex-col md:flex-row gap-4 justify-start items-start top-40 left-40"
-        >
-          <main
-            class="flex flex-col gap-2 justify-center items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm w-full max-w-6xl"
-          >
-            <h2 class="font-semibold text-2xl not-sr-only">Mis proyectos</h2>
-            <hr class="h-px w-full text-gray-400 my-4" />
-            <section
-              class="my-projects flex flex-row justify-start flex-wrap basis-1/3 gap-2"
-            >
-              <div
-                class="project rounded-xl h-32 w-64 bg-red-400 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-plum-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-            </section>
-            <h2 class="font-semibold text-2xl not-sr-only">
-              Proyectos en los que estoy colaborando
-            </h2>
-            <hr class="h-px w-full text-gray-400 my-4" />
-            <section
-              class="collab-projects flex flex-row justify-start flex-wrap basis-1/3 gap-2"
-            >
-              <div
-                class="project rounded-xl h-32 w-64 bg-yellow-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-purple-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-red-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-              <div
-                class="project rounded-xl h-32 w-64 bg-orange-300 backdrop-opacity-10 flex flex-col items-center justify-center"
-              >
-                <h5 class="font-semibold">Título</h5>
-                <div class="p-4 w-full"></div>
-              </div>
-            </section>
-          </main>
-          <aside
-            class="bg-white border border-gray-300 flex flex-col justify-center items-start p-12 w-full max-w-lg rounded-lg"
-          >
-            <h2 class="font-semibold text-2xl not-sr-only">Mensajes</h2>
-            <hr class="h-px w-full text-gray-400 my-4" />
-            <div class="chat-messages">
-              <div
-                class="chat flex gap-2 text-gray-600 flex-row justify-center items-center border-b border-b-gray-200 p-2"
-              >
-                <div class="chat-pfp rounded-full size-10 bg-gray-300">
-                  <img src="" alt="" />
-                </div>
-                <h5 class="font-semibold text-base">Usuario</h5>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
+      </header>
     </div>
+    <div
+      class="content p-8 md:p-0 mt-24 w-full flex flex-col md:flex-row gap-4 justify-center items-start"
+    >
+      <main
+        class="flex flex-col gap-2 justify-center items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm w-full max-w-2xl"
+      >
+        <h2 class="font-semibold text-2xl not-sr-only">Mis proyectos</h2>
+        <hr class="h-px w-full text-gray-400 my-4" />
+        <section
+          class="my-projects flex flex-row justify-center items-center sm:justify-start flex-wrap basis-1/3 gap-2"
+        >
+          <div
+            class="project rounded-xl h-32 w-64 bg-plum-300 hover:bg-opacity-85 flex flex-col items-center justify-center cursor-pointer"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+          <div
+            class="project rounded-xl h-32 w-64 bg-plum-300 hover:bg-opacity-85 flex flex-col items-center justify-center cursor-pointer"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+        </section>
+        <h2 class="font-semibold text-2xl not-sr-only">
+          Proyectos en los que estoy colaborando
+        </h2>
+        <hr class="h-px w-full text-gray-400 my-4" />
+        <section
+          class="collab-projects flex flex-row justify-center items-center sm:justify-start flex-wrap basis-1/3 gap-2"
+        >
+          <div
+            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+          <div
+            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+          <div
+            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+          <div
+            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+          <div
+            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+          >
+            <h5 class="font-semibold">Título</h5>
+            <div class="p-4 w-full"></div>
+          </div>
+        </section>
+      </main>
+      <aside
+        class="bg-white border border-gray-300 flex flex-col justify-center items-start p-12 w-full max-w-lg rounded-lg"
+      >
+        <h2 class="font-semibold text-2xl not-sr-only">Mensajes</h2>
+        <hr class="h-px w-full text-gray-400 my-4 mb-4" />
+
+        <div class="chat-messages flex h-96 w-full">
+          <div
+            class="chatflex flex-col gap-2 text-gray-600 justify-center items-center w-full overflow-auto"
+          >
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1528892952291-009c663ce843?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHBvcnRyYWl0fGVufDB8fDB8fHww"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+            <div
+              class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+            >
+              <hr class="h-px w-full text-gray-400 my-4" />
+              <div
+                class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                >
+                  <Image
+                    src="https://www.pngitem.com/pimgs/m/289-2895214_user-silhouette-hd-png-download.png"
+                    alt="Foto de perfil"
+                    width="100"
+                    height="100"
+                    class="object-cover size-full"
+                  />
+                </div>
+                <h5 class="font-semibold text-sm">Usuario</h5>
+              </div>
+              <hr class="h-px w-full text-gray-400 my-4" />
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <footer
+      class="mt-16 bg-grape-950 text-grape-200 w-full flex justify-center items-center"
+    >
+      <div
+        class="footer-wrapper bg-grape-950 w-full max-w-7xl h-32 flex justify-between items-center text-sm font-semibold"
+      >
+        <div class="group p-6">
+          <p>&copy; {currentYear} Swifly</p>
+        </div>
+        <p class="socials flex gap-4 p-6">
+          <a
+            class="border-b border-b-grape-950 hover:border-b-grape-300"
+            href="https://X.com/me"
+          >
+            X</a
+          >
+          <a
+            class="border-b border-b-grape-950 hover:border-b-grape-300"
+            href="https://github.com/me"
+          >
+            GitHub</a
+          >
+          <a
+            class="border-b border-b-grape-950 hover:border-b-grape-300"
+            href="https://instagram.com/me"
+          >
+            Instagram</a
+          >
+        </p>
+      </div>
+    </footer>
   </body>
-
-  <style>
-    main > section {
-      margin: 24px 0px 24px 0px;
-    }
-
-    .notification-menu {
-      scrollbar-width: thin;
-    }
-
-    .notification-menu > div:not(.notification-header):hover {
-      background-color: #f0edfa;
-    }
-  </style>
 </html>
+
+<style>
+  main > section {
+    margin: 24px 0px 24px 0px;
+  }
+
+  * {
+    scrollbar-width: thin;
+  }
+</style>
