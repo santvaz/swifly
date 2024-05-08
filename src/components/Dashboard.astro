@@ -1,0 +1,89 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<div class="relative inline-block text-left">
+  <div>
+    <button
+      type="button"
+      class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+      id="menu-button"
+      aria-expanded="true"
+      aria-haspopup="true"
+    >
+      <Icon icon="bell" size="2em" />
+      <h4 class="sr-only">Notificaciones</h4>
+    </button>
+  </div>
+  <div
+    class="notification-menu hidden absolute right-0 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="menu-button"
+    tabindex="-1"
+  >
+    <div class="notification-header flex flex-row justify-center items-center">
+      <Icon icon="notification" size="1.4em" />
+      <h5 class="text-xl p-6 text-grape-900 font-semibold not-sr-only">
+        Notificaciones
+      </h5>
+    </div>
+    <div class="py-1" role="none">
+      <a
+        href="#"
+        class="text-gray-700 block px-4 py-2 text-sm"
+        role="menuitem"
+        tabindex="-1"
+        id="menu-item-0">Edit</a
+      >
+      <a
+        href="#"
+        class="text-gray-700 block px-4 py-2 text-sm"
+        role="menuitem"
+        tabindex="-1"
+        id="menu-item-1">Duplicate</a
+      >
+    </div>
+  </div>
+</div>
+
+<script>
+  let isOpen = false;
+  const menuButton = document.getElementById("menu-button");
+  const notificationMenu = document.querySelector(".notification-menu");
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+    if (isOpen) {
+      notificationMenu.classList.remove("hidden");
+      menuButton.setAttribute("aria-expanded", "true");
+    } else {
+      notificationMenu.classList.add("hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function onWindowClick(event) {
+    if (
+      !event.target.closest(".notification-menu") &&
+      !event.target.closest("#menu-button")
+    ) {
+      isOpen = false;
+      notificationMenu.classList.add("hidden");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  menuButton.addEventListener("click", toggleMenu);
+  window.addEventListener("click", onWindowClick);
+</script>
+
+<style>
+  .notification-menu {
+    scrollbar-width: thin;
+  }
+
+  .notification-menu > div:not(.notification-header):hover {
+    background-color: #f0edfa;
+  }
+</style>
