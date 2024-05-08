@@ -28,21 +28,57 @@ import Icon from "./Icon.astro";
         Notificaciones
       </h5>
     </div>
-    <div class="py-1" role="none">
-      <a
-        href="#"
-        class="text-gray-700 block px-4 py-2 text-sm"
-        role="menuitem"
-        tabindex="-1"
-        id="menu-item-0">Edit</a
+    <div class="py-1 divide-y divide-gray-100" role="none">
+      <div
+        class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
       >
-      <a
-        href="#"
-        class="text-gray-700 block px-4 py-2 text-sm"
-        role="menuitem"
-        tabindex="-1"
-        id="menu-item-1">Duplicate</a
+        <div
+          class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+        >
+          <img
+            class="image object-cover"
+            src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          />
+        </div>
+        <div
+          class="text text-xs flex flex-row gap-1 justify-center items-center"
+        >
+          <strong>Usuario</strong><p>
+            te ha invitado a su proyecto. Pulsa para ver más.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="py-1 divide-y divide-gray-100" role="none">
+      <div
+        class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
       >
+        <div
+          class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+        >
+          <img
+            class="image object-cover"
+            src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          />
+        </div>
+        <div
+          class="text text-xs flex flex-row gap-1 justify-center items-center"
+        >
+          <strong>Usuario</strong><p>
+            te ha invitado a su proyecto. Pulsa para ver más.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="notification-utils py-1 divide-y divide-gray-100" role="none">
+      <div
+        class="utils m-4 text-grape-800 flex flex-row justify-center items-center gap-2"
+      >
+        <div class="flex flex-row w-full justify-between items-start text-sm">
+          <strong>Limpiar notificaciones</strong>
+          <strong>Ver todo</strong>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -83,7 +119,17 @@ import Icon from "./Icon.astro";
     scrollbar-width: thin;
   }
 
-  .notification-menu > div:not(.notification-header):hover {
+  .notification-menu
+    > div:not(.notification-header):not(.notification-utils):hover {
     background-color: #f0edfa;
+  }
+
+  .utils > div > * {
+    cursor: pointer;
+    border-bottom: 1px solid white;
+  }
+
+  .utils > div > *:hover {
+    border-bottom: 1px solid #693f98;
   }
 </style>

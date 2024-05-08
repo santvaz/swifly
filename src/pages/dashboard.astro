@@ -90,30 +90,26 @@ const currentYear = new Date().getFullYear();
       </header>
     </div>
     <div
-      class="content p-8 md:p-0 mt-24 w-full flex flex-col md:flex-row gap-4 justify-center items-start"
+      class="content p-8 md:p-0 mt-24 w-full flex flex-col xl:flex-row gap-4 justify-center items-start"
     >
       <main
         class="flex flex-col gap-2 justify-center items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm w-full max-w-4xl"
       >
-        <h2 class="font-semibold text-2xl not-sr-only">Mis proyectos</h2>
+        <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
+          Mis proyectos
+        </h2>
         <hr class="h-px w-full text-gray-400 my-4" />
         <section
           class="my-projects flex flex-row justify-center items-center sm:justify-start flex-wrap basis-1/3 gap-2"
         >
           <div
-            class="project rounded-xl h-32 w-64 bg-grape-300 hover:bg-opacity-85 flex flex-col items-center justify-center cursor-pointer"
+            class="project rounded-xl h-32 w-64 border border-gray-200 bg-gray-50 hover:bg-opacity-85 flex flex-col items-center justify-start cursor-pointer"
           >
-            <h5 class="font-semibold">Título</h5>
-            <div class="p-4 w-full"></div>
-          </div>
-          <div
-            class="project rounded-xl h-32 w-64 bg-grape-300 hover:bg-opacity-85 flex flex-col items-center justify-center cursor-pointer"
-          >
-            <h5 class="font-semibold">Título</h5>
+            <h5 class="font-semibold text-gray-400 p-2">Título de proyecto</h5>
             <div class="p-4 w-full"></div>
           </div>
         </section>
-        <h2 class="font-semibold text-2xl not-sr-only">
+        <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
           Proyectos en los que estoy colaborando
         </h2>
         <hr class="h-px w-full text-gray-400 my-4" />
@@ -121,33 +117,9 @@ const currentYear = new Date().getFullYear();
           class="collab-projects flex flex-row justify-center items-center sm:justify-start flex-wrap basis-1/3 gap-2"
         >
           <div
-            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
+            class="project rounded-xl h-32 w-64 border border-gray-200 bg-gray-50 hover:bg-opacity-85 flex flex-col items-center justify-start cursor-pointer"
           >
-            <h5 class="font-semibold">Título</h5>
-            <div class="p-4 w-full"></div>
-          </div>
-          <div
-            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
-          >
-            <h5 class="font-semibold">Título</h5>
-            <div class="p-4 w-full"></div>
-          </div>
-          <div
-            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
-          >
-            <h5 class="font-semibold">Título</h5>
-            <div class="p-4 w-full"></div>
-          </div>
-          <div
-            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
-          >
-            <h5 class="font-semibold">Título</h5>
-            <div class="p-4 w-full"></div>
-          </div>
-          <div
-            class="project rounded-xl h-32 w-64 bg-orange-300 hover:bg-opacity-85 cursor-pointer flex flex-col items-center justify-center"
-          >
-            <h5 class="font-semibold">Título</h5>
+            <h5 class="font-semibold text-gray-400 p-2">Título de proyecto</h5>
             <div class="p-4 w-full"></div>
           </div>
         </section>
@@ -156,7 +128,18 @@ const currentYear = new Date().getFullYear();
         <section
           class="bg-white flex flex-col justify-center items-start p-12 w-full max-w-lg rounded-xl border border-gray-300"
         >
-          <h2 class="font-semibold text-2xl not-sr-only">Mensajes</h2>
+          <div
+            class="chat-title w-full flex flex-row justify-between items-center text-grape-800"
+          >
+            <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
+              Mensajes
+            </h2>
+            <div
+              class="add-chat hover:bg-grape-200 rounded-full cursor-pointer p-1"
+            >
+              <Icon icon="plus" size="1.5em" />
+            </div>
+          </div>
           <hr class="h-px w-full text-gray-400 my-4 mb-4" />
           <div class="aside-wrapper w-full">
             <div class="chat-messages flex h-96 w-full">
@@ -164,142 +147,169 @@ const currentYear = new Date().getFullYear();
                 class="chat flex flex-col gap-2 justify-center items-center w-full overflow-auto"
               >
                 <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer"
+                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-gray-50 rounded-md cursor-pointer text-gray-400"
                 >
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                   <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+                    class="chat-user-wrapper w-full flex flex-row justify-between items-center gap-2"
                   >
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="flex flex-row justify-center items-center gap-6"
                     >
-                      <Image
-                        src="https://images.unsplash.com/photo-1528892952291-009c663ce843?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fHBvcnRyYWl0fGVufDB8fDB8fHww"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <div
+                        class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden shadow-md border border-gray-300"
+                      >
+                        <Image
+                          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D"
+                          alt="Foto de perfil"
+                          width="100"
+                          height="100"
+                          loading="eager"
+                          class="object-cover size-full"
+                        />
+                      </div>
+                      <h5 class="font-semibold text-sm">Usuario</h5>
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
+
+                    <div
+                      class="delete flex justify-self-end hover:text-red-400"
+                    >
+                      <Icon icon="close" size="1em" />
+                    </div>
                   </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                 </div>
                 <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-gray-50 rounded-md cursor-pointer text-gray-400"
                 >
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                   <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+                    class="chat-user-wrapper w-full flex flex-row justify-between items-center gap-2"
                   >
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="flex flex-row justify-center items-center gap-6"
                     >
-                      <Image
-                        src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <div
+                        class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden shadow-md border border-gray-300"
+                      >
+                        <Image
+                          src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                          alt="Foto de perfil"
+                          width="100"
+                          height="100"
+                          loading="eager"
+                          class="object-cover size-full"
+                        />
+                      </div>
+                      <h5 class="font-semibold text-sm">Usuario</h5>
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
+
+                    <div
+                      class="delete flex justify-self-end hover:text-red-400"
+                    >
+                      <Icon icon="close" size="1em" />
+                    </div>
                   </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                 </div>
                 <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-gray-50 rounded-md cursor-pointer text-gray-400"
                 >
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                   <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+                    class="chat-user-wrapper w-full flex flex-row justify-between items-center gap-2"
                   >
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="flex flex-row justify-center items-center gap-6"
                     >
-                      <Image
-                        src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <div
+                        class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden shadow-md border border-gray-300"
+                      >
+                        <Image
+                          src="https://images.unsplash.com/photo-1596075780750-81249df16d19?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                          alt="Foto de perfil"
+                          width="100"
+                          height="100"
+                          loading="eager"
+                          class="object-cover size-full"
+                        />
+                      </div>
+                      <h5 class="font-semibold text-sm">Usuario</h5>
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
+
+                    <div
+                      class="delete flex justify-self-end hover:text-red-400"
+                    >
+                      <Icon icon="close" size="1em" />
+                    </div>
                   </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                 </div>
                 <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-gray-50 rounded-md cursor-pointer text-gray-400"
                 >
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                   <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+                    class="chat-user-wrapper w-full flex flex-row justify-between items-center gap-2"
                   >
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="flex flex-row justify-center items-center gap-6"
                     >
-                      <Image
-                        src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <div
+                        class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden shadow-md border border-gray-300"
+                      >
+                        <Image
+                          src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                          alt="Foto de perfil"
+                          width="100"
+                          height="100"
+                          loading="eager"
+                          class="object-cover size-full"
+                        />
+                      </div>
+                      <h5 class="font-semibold text-sm">Usuario</h5>
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
+
+                    <div
+                      class="delete flex justify-self-end hover:text-red-400"
+                    >
+                      <Icon icon="close" size="1em" />
+                    </div>
                   </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                 </div>
                 <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
+                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-gray-50 rounded-md cursor-pointer text-gray-400"
                 >
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                   <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
+                    class="chat-user-wrapper w-full flex flex-row justify-between items-center gap-2"
                   >
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="flex flex-row justify-center items-center gap-6"
                     >
-                      <Image
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <div
+                        class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden shadow-md border border-gray-300"
+                      >
+                        <Image
+                          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                          alt="Foto de perfil"
+                          width="100"
+                          height="100"
+                          loading="eager"
+                          class="object-cover size-full"
+                        />
+                      </div>
+                      <h5 class="font-semibold text-sm">Usuario</h5>
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
-                  </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
-                </div>
-                <div
-                  class="chat-section-wrapper flex flex-col justify-center w-full items-start hover:bg-grape-50 rounded-xl cursor-pointer text-gray-400"
-                >
-                  <hr class="h-px w-full text-gray-400 my-4" />
-                  <div
-                    class="chat-user-wrapper flex flex-row justify-center items-center gap-2"
-                  >
+
                     <div
-                      class="chat-pfp rounded-full size-10 bg-gray-300 overflow-hidden"
+                      class="delete flex justify-self-end hover:text-red-400"
                     >
-                      <Image
-                        src="https://www.pngitem.com/pimgs/m/289-2895214_user-silhouette-hd-png-download.png"
-                        alt="Foto de perfil"
-                        width="100"
-                        height="100"
-                        loading="eager"
-                        class="object-cover size-full"
-                      />
+                      <Icon icon="close" size="1em" />
                     </div>
-                    <h5 class="font-semibold text-sm">Usuario</h5>
                   </div>
-                  <hr class="h-px w-full text-gray-400 my-4" />
+                  <hr class="h-px w-full text-gray-400 my-2" />
                 </div>
               </div>
             </div>
@@ -309,7 +319,9 @@ const currentYear = new Date().getFullYear();
         <section
           class="calendar-wrapper border border-gray-300 rounded-xl bg-white my-4 p-8"
         >
-          <h5 class="not-sr-only font-semibold text-2xl">Calendario</h5>
+          <h2 class="text-grape-800 not-sr-only font-semibold text-2xl">
+            Calendario
+          </h2>
           <hr class="h-px w-full text-gray-400 my-4" />
           <div class="calendar">
             <Calendar />
