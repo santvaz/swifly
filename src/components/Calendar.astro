@@ -4,25 +4,31 @@
 
 <div
   id="calendar"
-  class="bg-grape-100 border border-gray-300 rounded-lg h-fit flex flex-col justify-center items-center font-semibold text-grape-950 w-full"
+  class="bg-grape-100 p-4 border border-grape-300 rounded-lg h-fit flex flex-col justify-center items-center font-semibold text-grape-950 w-full shadow-md"
 >
-  <div class="month w-full">
-    <ul class="grid grid-cols-4 items-center justify-center">
+  <div class="month w-full p-2 mt-2 rounded-full bg-grape-200">
+    <ul class="grid grid-cols-4">
       <li
         id="prev"
-        class="cursor-pointer flex items-center justify-center rounded-full"
+        class="cursor-pointer flex items-center justify-center rounded-full hover:bg-grape-300 mx-1"
       >
         &#10094;
       </li>
-      <li id="month" class=""></li>
-      <li id="year" class=""></li>
-      <li id="next" class="cursor-pointer flex items-center justify-center">
+      <li id="month"></li>
+      <li id="year"></li>
+      <li
+        id="next"
+        class="cursor-pointer flex items-center justify-center rounded-full hover:bg-grape-300 mx-1"
+      >
         &#10095;
       </li>
     </ul>
   </div>
 
-  <ul id="weekdays" class="text-center grid grid-cols-7 my-4 mx-2 w-full">
+  <ul
+    id="weekdays"
+    class="bg-grape-200 rounded-xl p-2 text-center grid grid-cols-7 my-4 mx-2 w-full"
+  >
     <li>L</li>
     <li>M</li>
     <li>X</li>
@@ -32,15 +38,12 @@
     <li>D</li>
   </ul>
 
-  <ul id="days" class="px-2 py-4 gap-4 grid grid-cols-7 w-full text-center">
+  <ul
+    id="days"
+    class="px-6 py-2 gap-4 grid grid-cols-7 w-full text-center bg-grape-200 rounded-xl"
+  >
   </ul>
 </div>
-
-<style is:global>
-  li .active {
-    color: red;
-  }
-</style>
 
 <script>
   // set variables
@@ -52,18 +55,18 @@
   let calendarBody = document.getElementById("days");
 
   let months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
   ];
 
   // next and previous functionality
@@ -104,6 +107,7 @@
     // and testing for sunday because it became the 7th day
     blankDates(firstDay === 0 ? 6 : firstDay - 1);
     // adding the dates to the calendar
+    const active = ["active", "bg-grape-300", "rounded-full"];
     for (let day = 1; day <= totalDays; day++) {
       // create li node with text content & apend to body
       let cell = document.createElement("li");
@@ -114,7 +118,7 @@
         month === today.getMonth() &&
         year === today.getFullYear()
       ) {
-        cell.classList.add("active");
+        cell.classList.add(...active);
       }
 
       // appending date attributes to single date li element
@@ -166,10 +170,3 @@
     showCalendar(month, year);
   }
 </script>
-
-<style>
-  .active {
-    background-color: purple;
-    border-radius: 9999px;
-  }
-</style>
