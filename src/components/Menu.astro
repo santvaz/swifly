@@ -1,0 +1,69 @@
+---
+import { string } from "astro/zod";
+import Icon from "./Icon.astro";
+---
+
+<div class={Astro.props.clase}>
+  <div class="relative inline-block text-left">
+    <div>
+      <button
+        type="button"
+        class="dropdown-menu inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+        id="menu-button"
+        aria-expanded="true"
+        aria-haspopup="true"
+      >
+        <Icon icon={Astro.props.icon} size="2em" />
+        <h4 class="sr-only">{Astro.props.srtitle}</h4>
+      </button>
+    </div>
+    <div
+      class="notification-menu hidden absolute right-0 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
+      role="menu"
+      aria-orientation="vertical"
+      aria-labelledby="menu-button"
+      tabindex="-1"
+    >
+      <div
+        class="notification-header flex flex-row justify-center items-center"
+      >
+        <Icon icon="notification" size="1.4em" />
+        <h5 class="text-xl p-6 text-grape-900 font-semibold not-sr-only">
+          {Astro.props.title}
+        </h5>
+      </div>
+      <slot name="children" />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let isOpen = false;
+    const menuButtons = document.querySelectorAll(".dropdown-menu");
+    menuButtons.forEach((button, index) => {
+      const menu = document.querySelector(`.menu-${index + 1}`);
+
+      button.addEventListener("click", function () {
+        isOpen = !isOpen;
+        if (menu) {
+          if (isOpen) {
+            menu.classList.remove("hidden");
+            button.setAttribute("aria-expanded", "true");
+          } else {
+            menu.classList.add("hidden");
+            button.setAttribute("aria-expanded", "false");
+          }
+        }
+      });
+
+      window.addEventListener("click", function (event) {
+        if (!(event.target as Element).closest(`.menu-${index + 1}`)) {
+          isOpen = false;
+          menu.classList.add("hidden");
+          button.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
+  });
+</script>
