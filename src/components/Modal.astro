@@ -1,0 +1,83 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<button
+  class="openModalButton px-4 py-2 bg-grape-50 text-grape-800 border border-grape-700 rounded-lg"
+  ><Icon icon={Astro.props.btn} size="2em" /></button
+>
+<div
+  class="bgModal modalToggle fixed z-40 top-0 left-0 h-screen w-screen flex items-center justify-center"
+>
+  <dialog class="modalContent modalToggle z-50 w-full max-w-4xl rounded-xl">
+    <div
+      class="flex bg-white rounded-xl border h-fit min-h-2xl flex-col items-center justify-start p-12"
+    >
+      <div class="title flex flex-row w-full justify-between items-center">
+        <h4
+          class="text-lg font-semibold text-grape-900 w-full border-b border-b-gray-200"
+        >
+          {Astro.props.title}
+        </h4>
+        <div
+          class="close mx-1 text-red-500 hover:text-red-700 bg-red-100 rounded-full cursor-pointer"
+        >
+          <Icon icon="close" size="1.2em" />
+        </div>
+      </div>
+      <slot name="children" />
+    </div>
+  </dialog>
+</div>
+
+<script>
+  const modals = Array.from(
+    document.querySelectorAll(".modalContent")
+  ) as HTMLElement[];
+  const bgModals = Array.from(
+    document.querySelectorAll(".bgModal")
+  ) as HTMLElement[];
+  const openModalButtons = Array.from(
+    document.querySelectorAll(".openModalButton")
+  ) as HTMLElement[];
+  const closeButtons = Array.from(
+    document.querySelectorAll(".close")
+  ) as HTMLElement[];
+
+  // hide on load
+  modals.forEach((modal) => (modal.style.display = "none"));
+  bgModals.forEach((bgModal) => (bgModal.style.display = "none"));
+
+  // open modal
+  openModalButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      modals[index].style.display = "block";
+      bgModals[index].style.display = "block";
+    });
+  });
+
+  // close modal
+  closeButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      modals[index].style.display = "none";
+      bgModals[index].style.display = "none";
+    });
+  });
+
+  // close modal when you click outside the container
+  bgModals.forEach((bgModal, index) => {
+    bgModal.addEventListener("click", (event) => {
+      if (event.target === bgModal) {
+        modals[index].style.display = "none";
+        bgModal.style.display = "none";
+      }
+    });
+  });
+</script>
+
+<style>
+  .bgModal {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+  }
+</style>

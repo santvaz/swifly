@@ -1,9 +1,9 @@
 ---
 import Icon from "../components/Icon.astro";
-import Dropdown from "../components/Dropdown.astro";
 import { Image } from "astro:assets";
 import Calendar from "../components/Calendar.astro";
 import Menu from "../components/Menu.astro";
+import Modal from "../components/Modal.astro";
 const currentYear = new Date().getFullYear();
 ---
 
@@ -37,32 +37,168 @@ const currentYear = new Date().getFullYear();
           </div>
         </div>
         <nav class="text-grape-950 flex flex-row items-center justify-center">
-          <ul class="flex flex-row items-center justify-evenly">
-            <li
-              class="inline-flex cursor-pointer w-full justify-center mx-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
-            >
-              <div
-                class="rounded-lg create flex flex-row items-center justify-center text-grape-900 cursor-pointer hover:bg-grape-100"
+          <ul class="flex flex-row items-center justify-evenly gap-1">
+            <li>
+              <Menu
+                clase="add-project dropdown"
+                icon="plus"
+                sr-title="Crear nuevo proyecto"
+                title="Crear nuevo proyecto"
               >
-                <Icon icon="plus" size="2em" />
-                <h5 class="sr-only">Crear proyecto</h5>
-              </div>
+                <div slot="children">
+                  <div
+                    class="create-wrapper w-full flex flex-row items-center justify-center"
+                  >
+                    <form
+                      action="/project-"
+                      method="post"
+                      class="flex flex-col justify-center items-start px-12 py-4 m-2 bg-grape-50 border border-grape-200 rounded-xl gap-4"
+                    >
+                      <label
+                        for="project-title"
+                        class="font-semibold text-leading"
+                        >Título del proyecto</label
+                      >
+                      <input
+                        type="text"
+                        name="project-title"
+                        id="project-title"
+                        class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                      />
+                      <label for="summary" class="font-semibold text-leading"
+                        >Resumen de proyecto</label
+                      >
+                      <input
+                        type="text"
+                        name="summary"
+                        id="summary"
+                        class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                        placeholder="0/120"
+                      />
+                      <label
+                        for="project-description"
+                        class="font-semibold text-leading">Descripción</label
+                      >
+                      <input
+                        type="text"
+                        name="project-description"
+                        id="project-description"
+                        class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                      />
+                      <input
+                        type="submit"
+                        value="Crear"
+                        class="w-1/2 self-center mt-2 p-2 cursor-pointer hover:bg-grape-400 hover:text-grape-900 bg-grape-300 text-lg border border-grape-800 text-grape-800 rounded-xl"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </Menu>
             </li>
-            <li
-              class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
-            >
-              <Icon icon="search" size="2em" />
-              <h5 class="sr-only">Buscar</h5>
+            <li>
+              <Menu
+                clase="search-menu dropdown"
+                icon="search"
+                sr-title="Buscador"
+                title="Buscar"
+              >
+                <div
+                  slot="children"
+                  class="flex flex-row h-24 justify-center items-center"
+                >
+                  <div class="search-wrapper w-full">
+                    <form
+                      action="/search"
+                      method="get"
+                      class="flex flex-row w-full items-center justify-center gap-2"
+                    >
+                      <input
+                        class="text-left rounded-xl h-12 w-[70%] px-2 bg-grape-50 border border-grape-200 focus:bg-grape-200"
+                        type="text"
+                        name="q"
+                        placeholder="Buscar..."
+                      />
+                      <button class="hover:bg-grape-100 rounded-full">
+                        <Icon icon="send" size="1.3em" />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </Menu>
             </li>
-            <li class="mx-1.5">
-              <Dropdown />
-              <h5 class="sr-only">Notificaciones</h5>
+            <li>
+              <Menu
+                clase="notification-menu dropdown"
+                icon="bell"
+                sr-title="Notificaciones"
+                title="Notificaciones"
+              >
+                <div slot="children">
+                  <div
+                    class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+                  >
+                    <div
+                      class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                    >
+                      <img
+                        class="image object-cover"
+                        src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      />
+                    </div>
+                    <div
+                      class="text text-xs flex flex-row gap-1 justify-center items-center"
+                    >
+                      <strong>Usuario</strong><p>
+                        te ha invitado a su proyecto. Pulsa para ver más.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="py-1 divide-y divide-gray-100" role="none">
+                    <div
+                      class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+                    >
+                      <div
+                        class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                      >
+                        <img
+                          class="image object-cover"
+                          src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        />
+                      </div>
+                      <div
+                        class="text text-xs flex flex-row gap-1 justify-center items-center"
+                      >
+                        <strong>Usuario</strong><p>
+                          te ha invitado a su proyecto. Pulsa para ver más.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="notification-utils py-1 divide-y divide-gray-100"
+                    role="none"
+                  >
+                    <div
+                      class="utils m-4 text-grape-800 flex flex-row justify-center items-center gap-2"
+                    >
+                      <div
+                        class="flex flex-row w-full justify-between items-start text-sm"
+                      >
+                        <strong>Limpiar notificaciones</strong>
+                        <strong>Ver todo</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Menu>
             </li>
             <li
               class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
             >
-              <Icon icon="signout" size="2em" />
-              <h5 class="sr-only">Cerrar sesión</h5>
+              <a href="/">
+                <Icon icon="signout" size="2em" />
+                <h5 class="sr-only">Cerrar sesión</h5>
+              </a>
             </li>
             <li class="ml-8 mr-4">
               <div
@@ -85,16 +221,6 @@ const currentYear = new Date().getFullYear();
                 >
                 </div>
               </div>
-            </li>
-            <li>
-              <Menu
-                clase="search-menu dropdown"
-                icon="search"
-                sr-title="Buscador"
-                title="Buscar"
-              >
-                <!-- Aquí mi contenido -->
-              </Menu>
             </li>
           </ul>
         </nav>
@@ -338,8 +464,64 @@ const currentYear = new Date().getFullYear();
             <Calendar />
           </div>
         </section>
+        <Modal btn="moon-stars" title="Crear un proyecto nuevo">
+          <div slot="children" class="w-full">
+            <div
+              class="create-wrapper w-full flex flex-row items-center justify-start"
+            >
+              <form
+                action="/project-"
+                method="post"
+                class="flex flex-col justify-center items-start
+                w-full gap-2"
+              >
+                <div
+                  class="inputs flex flex-col w-full gap-4 py-8 text-grape-950"
+                >
+                  <label for="project-title" class="font-semibold text-leading"
+                    >Título del proyecto</label
+                  >
+                  <input
+                    type="text"
+                    name="project-title"
+                    id="project-title"
+                    class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                    placeholder="Título"
+                  />
+                  <label for="summary" class="font-semibold text-leading"
+                    >Resumen</label
+                  >
+                  <input
+                    type="text"
+                    name="summary"
+                    id="summary"
+                    class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                    placeholder="Resumen del proyecto"
+                  />
+                  <label
+                    for="project-description"
+                    class="font-semibold text-leading">Descripción</label
+                  >
+                  <textarea
+                    rows="4"
+                    cols="50"
+                    name="project-description"
+                    id="project-description"
+                    class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200 h-32"
+                    placeholder="Descripción del proyecto"></textarea>
+                  <input
+                    type="submit"
+                    value="Crear"
+                    class="w-1/2 self-center mt-2 p-2 cursor-pointer hover:bg-grape-400 hover:text-grape-900 bg-grape-300 text-lg border border-grape-800 text-grape-800 rounded-xl"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
       </aside>
     </div>
+
     <footer
       class="mt-16 bg-grape-950 text-grape-200 w-full flex justify-center items-center"
     >
