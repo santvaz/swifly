@@ -1,5 +1,4 @@
 ---
-import { string } from "astro/zod";
 import Icon from "./Icon.astro";
 ---
 
@@ -18,7 +17,7 @@ import Icon from "./Icon.astro";
       </button>
     </div>
     <div
-      class="notification-menu hidden absolute right-0 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
+      class="dropdown-content notification-menu hidden absolute right-0 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="menu-button"
@@ -27,7 +26,7 @@ import Icon from "./Icon.astro";
       <div
         class="notification-header flex flex-row justify-center items-center"
       >
-        <Icon icon="notification" size="1.4em" />
+        <Icon icon={Astro.props.icon} size="1.4em" />
         <h5 class="text-xl p-6 text-grape-900 font-semibold not-sr-only">
           {Astro.props.title}
         </h5>
@@ -40,29 +39,57 @@ import Icon from "./Icon.astro";
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     let isOpen = false;
-    const menuButtons = document.querySelectorAll(".dropdown-menu");
-    menuButtons.forEach((button, index) => {
-      const menu = document.querySelector(`.menu-${index + 1}`);
+    const dropdowns = document.querySelectorAll(".dropdown");
 
-      button.addEventListener("click", function () {
-        isOpen = !isOpen;
-        if (menu) {
-          if (isOpen) {
-            menu.classList.remove("hidden");
-            button.setAttribute("aria-expanded", "true");
-          } else {
-            menu.classList.add("hidden");
-            button.setAttribute("aria-expanded", "false");
-          }
-        }
+    function toggleMenu(dropdown) {
+      isOpen = !isOpen;
+      const dropdownContent = dropdown.querySelector(".dropdown-content");
+      if (isOpen) {
+        dropdownContent.classList.remove("hidden");
+        dropdown.setAttribute("aria-expanded", "true");
+      } else {
+        dropdownContent.classList.add("hidden");
+        dropdown.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    function onWindowClick(event, dropdown) {
+      const dropdownContent = dropdown.querySelector(".dropdown-content");
+      if (!event.target.closest(".dropdown")) {
+        isOpen = false;
+        dropdownContent.classList.add("hidden");
+        dropdown.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    dropdowns.forEach((dropdown) => {
+      dropdown.addEventListener("click", function (event) {
+        toggleMenu(dropdown);
+        window.addEventListener("click", function (event) {
+          onWindowClick(event, dropdown);
+        });
+        event.stopPropagation();
       });
+    });
 
-      window.addEventListener("click", function (event) {
-        if (!(event.target as Element).closest(`.menu-${index + 1}`)) {
-          isOpen = false;
-          menu.classList.add("hidden");
-          button.setAttribute("aria-expanded", "false");
-        }
+    dropdowns.forEach((dropdown) => {
+      dropdown.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    const dropdownContents = document.querySelectorAll(".dropdown-content");
+    dropdownContents.forEach((content) => {
+      content.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    document.addEventListener("click", function () {
+      dropdowns.forEach((dropdown) => {
+        const dropdownContent = dropdown.querySelector(".dropdown-content");
+        dropdownContent.classList.add("hidden");
+        dropdown.setAttribute("aria-expanded", "false");
       });
     });
   });
