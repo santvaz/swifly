@@ -5,6 +5,7 @@ import Calendar from "../components/Calendar.astro";
 import Menu from "../components/Menu.astro";
 import Modal from "../components/Modal.astro";
 const currentYear = new Date().getFullYear();
+import colorToggle from "../components/colorToggle.astro";
 ---
 
 <!doctype html>
@@ -95,6 +96,9 @@ const currentYear = new Date().getFullYear();
                 </div>
               </Menu>
             </li>
+            <li>
+              <colorToggle/>
+              </li>
             <li>
               <Menu
                 clase="search-menu dropdown"
@@ -270,11 +274,18 @@ const currentYear = new Date().getFullYear();
           >
             <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
               Mensajes
-            </h2>
+            </h2> 
             <div
-              class="add-chat hover:bg-grape-200 rounded-full cursor-pointer p-1"
+              class="add-chat cursor-pointer p-1"
             >
-              <Icon icon="plus" size="1.5em" />
+              <Modal btn="plus" size="1.2em" title="Mandar un mensaje privado">
+                <div slot="children" class="w-full">
+                  <form action="" method="post" class="flex flex-col gap-4 justify-center items-start w-full bg-red-500">
+                    <label for="search-username">Buscar por nombre de usuario</label>
+                    <input type="text" id="user-value" name="user-value">
+                  </form>
+                </div>
+              </Modal>
             </div>
           </div>
           <hr class="h-px w-full text-gray-400 my-4 mb-4" />

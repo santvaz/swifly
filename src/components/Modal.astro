@@ -4,12 +4,14 @@ import Icon from "./Icon.astro";
 
 <button
   class="openModalButton px-4 py-2 bg-grape-50 text-grape-800 border border-grape-700 rounded-lg"
-  ><Icon icon={Astro.props.btn} size="2em" /></button
+  ><Icon icon={Astro.props.btn} size={Astro.props.size} /></button
 >
 <div
-  class="bgModal modalToggle fixed z-40 top-0 left-0 h-screen w-screen flex items-center justify-center"
+  class="bgModal bg-red-500 modalToggle fixed z-40 top-0 left-0 h-screen w-screen flex items-center justify-center"
 >
-  <dialog class="modalContent modalToggle z-50 w-full max-w-4xl rounded-xl">
+  <dialog
+    class="modalContent modalToggle z-50 w-full max-w-4xl rounded-xl relative top-10"
+  >
     <div
       class="flex bg-white rounded-xl border h-fit min-h-2xl flex-col items-center justify-start p-12"
     >
