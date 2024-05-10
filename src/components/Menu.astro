@@ -5,19 +5,29 @@ import Icon from "./Icon.astro";
 <div class={Astro.props.clase}>
   <div class="relative inline-block text-left">
     <div>
-      <button
-        type="button"
-        class="dropdown-menu inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
-        id="menu-button"
-        aria-expanded="true"
-        aria-haspopup="true"
-      >
-        <Icon icon={Astro.props.icon} size="2em" />
-        <h4 class="sr-only">{Astro.props.srtitle}</h4>
-      </button>
+      {
+        // custom button for dropdown menu if needed
+        Astro.props.useCustomButton ? (
+          <slot name="button" />
+        ) : (
+          // else go for default
+          <button
+            type="button"
+            class="dropdown-menu inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+            id="menu-button"
+            aria-expanded="true"
+            aria-haspopup="true"
+          >
+            <Icon icon={Astro.props.icon} size="2em" />
+            <h4 class="sr-only" aria-label="Icono">
+              {Astro.props.srtitle}
+            </h4>
+          </button>
+        )
+      }
     </div>
     <div
-      class="dropdown-content notification-menu hidden absolute right-0 z-10 mt-2 max-h-96 w-[500px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
+      class="dropdown-content notification-menu hidden absolute -right-36 z-10 mt-2 max-h-96 w-[400px] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto"
       role="menu"
       aria-orientation="vertical"
       aria-labelledby="menu-button"

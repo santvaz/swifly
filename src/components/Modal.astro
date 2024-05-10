@@ -2,8 +2,7 @@
 import Icon from "./Icon.astro";
 ---
 
-<button
-  class="openModalButton px-4 py-2 bg-grape-50 text-grape-800 border border-grape-700 rounded-lg"
+<button class={`openModalButton ${Astro.props.extra}`}
   ><Icon icon={Astro.props.btn} size={Astro.props.size} /></button
 >
 <div

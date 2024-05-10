@@ -1,0 +1,256 @@
+---
+import Image from "astro/components/Image.astro";
+import Icon from "./Icon.astro";
+import Menu from "./Menu.astro";
+import Modal from "./Modal.astro";
+---
+
+<div
+  class="nav-wrapper fixed top-0 z-40 w-full bg-white-500 flex flex-row justify-center items-center bg-white border-b border-b-gray-300 shadow-xs"
+>
+  <header class="flex justify-between items-center w-full max-w-7xl bg-white">
+    <div class="section flex justify-start items-start flex-col w-full">
+      <div
+        class="logo flex flex-row cursor-pointer p-2 bg-grape-950 text-grape-300 hover:bg-opacity-95"
+      >
+        <a href="/dashboard" aria-label="swifly">
+          <Icon icon="swifly" size="2.6em" />
+        </a>
+        <h1 class="mx-2 sr-only">Swifly</h1>
+      </div>
+    </div>
+    <nav class="text-grape-950 flex flex-row items-center justify-center">
+      <ul class="flex flex-row items-center justify-evenly gap-1">
+        <li>
+          <Modal
+            extra="rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+            btn="plus"
+            size="2em"
+            title="Crear un proyecto nuevo"
+            class="create"
+          >
+            <div slot="children" class="w-full">
+              <div
+                class="create-wrapper w-full flex flex-row items-center justify-start"
+              >
+                <form
+                  action="/project-"
+                  method="post"
+                  class="flex flex-col justify-center items-start
+                      w-full gap-2"
+                >
+                  <div
+                    class="inputs flex flex-col w-full gap-4 py-8 text-grape-950"
+                  >
+                    <label
+                      for="project-title"
+                      class="font-semibold text-leading"
+                      >Título del proyecto</label
+                    >
+                    <input
+                      type="text"
+                      name="project-title"
+                      id="project-title"
+                      class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                      placeholder="Título"
+                    />
+                    <label for="summary" class="font-semibold text-leading"
+                      >Resumen</label
+                    >
+                    <input
+                      type="text"
+                      name="summary"
+                      id="summary"
+                      class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                      placeholder="Resumen del proyecto"
+                    />
+                    <label
+                      for="project-description"
+                      class="font-semibold text-leading">Descripción</label
+                    >
+                    <textarea
+                      rows="4"
+                      cols="50"
+                      name="project-description"
+                      id="project-description"
+                      class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200 h-32"
+                      placeholder="Descripción del proyecto"></textarea>
+                    <input
+                      type="submit"
+                      value="Crear"
+                      class="w-1/2 self-center mt-2 p-2 cursor-pointer hover:bg-grape-400 hover:text-grape-900 bg-grape-300 text-lg border border-grape-800 text-grape-800 rounded-xl"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Modal>
+        </li>
+        <li>
+          <colorToggle></colorToggle>
+        </li>
+        <li>
+          <Menu
+            clase="search-menu dropdown"
+            icon="search"
+            sr-title="Buscador"
+            title="Buscar"
+          >
+            <div
+              slot="children"
+              class="flex flex-row h-24 justify-center items-center"
+            >
+              <div class="search-wrapper w-full">
+                <form
+                  action="/search"
+                  method="get"
+                  class="flex flex-row w-full items-center justify-center gap-2"
+                >
+                  <input
+                    class="text-left rounded-xl h-12 w-[70%] px-2 bg-grape-50 border border-grape-200 focus:bg-grape-200"
+                    type="text"
+                    name="q"
+                    placeholder="Buscar..."
+                  />
+                  <button class="hover:bg-grape-100 rounded-full">
+                    <Icon icon="send" size="1.3em" />
+                  </button>
+                </form>
+              </div>
+            </div>
+          </Menu>
+        </li>
+        <li>
+          <Menu
+            clase="notification-menu dropdown"
+            icon="bell"
+            sr-title="Notificaciones"
+            title="Notificaciones"
+          >
+            <div slot="children">
+              <div
+                class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                >
+                  <img
+                    class="image object-cover"
+                    src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  />
+                </div>
+                <div
+                  class="text text-xs flex flex-row gap-1 justify-center items-center"
+                >
+                  <strong>Usuario</strong><p>
+                    te ha invitado a su proyecto. Pulsa para ver más.
+                  </p>
+                </div>
+              </div>
+              <div class="py-1 divide-y divide-gray-100" role="none">
+                <div
+                  class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+                >
+                  <div
+                    class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                  >
+                    <img
+                      class="image object-cover"
+                      src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    />
+                  </div>
+                  <div
+                    class="text text-xs flex flex-row gap-1 justify-center items-center"
+                  >
+                    <strong>Usuario</strong><p>
+                      te ha invitado a su proyecto. Pulsa para ver más.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="notification-utils py-1 divide-y divide-gray-100"
+                role="none"
+              >
+                <div
+                  class="utils m-4 text-grape-800 flex flex-row justify-center items-center gap-2"
+                >
+                  <div
+                    class="flex flex-row w-full justify-between items-start text-sm"
+                  >
+                    <strong>Limpiar notificaciones</strong>
+                    <strong>Ver todo</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Menu>
+        </li>
+        <li
+          class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
+        >
+          <a href="/">
+            <Icon icon="signout" size="2em" aria-label="Cerrar sesión" />
+            <h5 class="sr-only">Cerrar sesión</h5>
+          </a>
+        </li>
+        <li class="ml-8 mr-4">
+          <Menu
+            clase="notification-menu dropdown"
+            sr-title="Configuración de perfil"
+            title="Configuración de perfil"
+            useCustomButton={true}
+          >
+            <!-- custom button content -->
+            <div
+              slot="button"
+              class="profile flex justify-center flex-col items-center relative"
+            >
+              <div
+                class="pfp rounded-full border border-grape-900 overflow-hidden size-12 mt-2 shadow-lg cursor-pointer hover:opacity-90"
+              >
+                <Image
+                  src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
+                  alt="Foto de perfil personal"
+                  width="100"
+                  height="100"
+                  loading="eager"
+                  class="object-cover size-full"
+                />
+              </div>
+              <div
+                class="status status-online rounded-full size-3 shadow-inner bg-green-600 absolute top-11 left-8 border-t border-t-green-700"
+              >
+              </div>
+            </div>
+            <div slot="children">
+              <div
+                class="user-menu text-gray-500 flex flex-row justify-center items-center gap-2"
+              >
+                <div
+                  class="sec flex w-full flex-col items-start justify-center text-gray-600 divide-y divide-y-gray-900"
+                >
+                  <div
+                    class="w-full p-4 hover:bg-gray-50 text-sm cursor-pointer"
+                  >
+                    Cambiar contraseña
+                  </div>
+                  <div
+                    class="w-full p-4 hover:bg-gray-50 text-sm cursor-pointer"
+                  >
+                    Editar foto de perfil
+                  </div>
+                  <div
+                    class="w-full p-4 text-red-600 hover:bg-red-50 text-sm cursor-pointer"
+                  >
+                    Borrar cuenta
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Menu>
+        </li>
+      </ul>
+    </nav>
+  </header>
+</div>
