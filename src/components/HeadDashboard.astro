@@ -1,0 +1,15 @@
+---
+const {
+  title = "Swifly | ",
+  description = "Gestión de proyectos colaborativos y en equipo",
+} = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" property="og:description" content={description} />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title} {Astro.props.subtitle}</title>
+  <link rel="icon" type="image/svg+xml" href="/swifly.svg" />
+</head>

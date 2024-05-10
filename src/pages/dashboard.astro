@@ -5,20 +5,12 @@ import Calendar from "../components/Calendar.astro";
 import Modal from "../components/Modal.astro";
 import DashboardNav from "../components/DashboardNav.astro";
 const currentYear = new Date().getFullYear();
+import HeadDashboard from "../components/HeadDashboard.astro";
 ---
 
-<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <style>
-      .padre-proyectos > div {
-        margin: 10px;
-      }
-    </style>
-  </head>
+  <!-- head -->
+  <HeadDashboard subtitle="Dashboard" />
   <body class="bg-gray-100">
     <!-- dashboard navigation bar -->
     <DashboardNav />
@@ -339,20 +331,18 @@ const currentYear = new Date().getFullYear();
       </div>
     </footer>
     <!-- end footer tag -->
-  </body>
+    <style>
+      main > section {
+        margin: 24px 0px 24px 0px;
+      }
+
+      * {
+        scrollbar-width: thin;
+      }
+
+      input {
+        box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+      }
+    </style>
+  </body><!--  styling that is easier to get done without tailwind or astro -->
 </html>
-
-<!--  styling that is easier to get done without tailwind or astro -->
-<style>
-  main > section {
-    margin: 24px 0px 24px 0px;
-  }
-
-  * {
-    scrollbar-width: thin;
-  }
-
-  input {
-    box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-  }
-</style>
