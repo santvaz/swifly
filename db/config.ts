@@ -8,7 +8,6 @@ const usuarios = defineTable({
     username: column.text({unique: true}),
     password: column.text(),
     email: column.text({unique: true}),
-    role: column.text(),
     created_at: column.date({default: NOW}),
     deleted_at: column.date({optional: true}),
   }
