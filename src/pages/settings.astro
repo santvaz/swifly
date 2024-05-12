@@ -1,0 +1,120 @@
+---
+import DashboardNav from "../components/DashboardNav.astro";
+import HeadDashboard from "../components/HeadDashboard.astro";
+import Icon from "../components/Icon.astro";
+---
+
+<html lang="es">
+  <HeadDashboard subtitle="Configuración" />
+  <body class="bg-gray-100 flex flex-col justify-center items-center">
+    <DashboardNav />
+    <div
+      class="settings-container mt-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
+    >
+      <h2>Perfil</h2>
+      <span>Gestiona tu configuración de perfil</span>
+      <hr class="h-px w-full text-gray-400 my-4" />
+      <div class="settings flex flex-col gap-4 items-start justify-center">
+        <div class="settings-title">
+          <h3>Cambiar imagen</h3>
+          <span>Sube una foto en formato JPEG o PNG de máximo 5MB</span>
+        </div>
+        <div
+          class="settings-avatar flex flex-row justify-start items-center gap-6 w-full"
+        >
+          <div class="settings-pfp size-20 bg-gray-300 rounded-full shadow-md">
+          </div>
+          <div class="avatar-upload">
+            <button
+              class="px-6 py-2 flex flex-row items-center justify-center gap-2 font-semibold bg-gray-200 rounded-lg border border-gray-400 shadow-md hover:bg-gray-300 text-gray-700"
+            >
+              Subir imagen
+              <Icon icon="upload" size="1.4em" />
+            </button>
+          </div>
+        </div>
+        <hr class="h-px w-full text-gray-400 my-4" />
+        <div class="settings-title">
+          <h3>Modificar</h3>
+          <span>Cambia tus credenciales de usuario</span>
+        </div>
+        <div class="username-change my-4">
+          <label for="settings-username">Usuario</label>
+          <form action="post">
+            <div class="input-icon relative top-9 left-2 text-gray-400">
+              <Icon icon="at" size="1.4em" />
+            </div>
+            <input
+              type="text"
+              name="settings-username"
+              id="settings-username"
+              class="px-9 py-3 bg-gray-200 rounded-lg focus:bg-gray-300 focus:ring-inset focus:ring-2 focus:ring-blue-600 shadow-inner"
+            />
+            <input
+              type="submit"
+              value="Cambiar usuario"
+              class="bg-blue-600 p-3 rounded-lg text-white font-semibold cursor-pointer hover:bg-blue-700"
+            />
+          </form>
+        </div>
+        <div class="password-change my-4">
+          <label for="settings-password">Cambiar contraseña</label>
+          <form
+            action="post"
+            class="flex flex-col justify-start items-start gap-4"
+          >
+            <div class="input-icon relative top-[90px] left-2 text-gray-400">
+              <Icon icon="password" size="1.4em" />
+            </div>
+            <p>Contraseña actual</p>
+            <input
+              type="text"
+              name="settings-password"
+              id="settings-password"
+              class="px-9 py-3 bg-gray-200 rounded-lg focus:bg-gray-300 focus:ring-inset focus:ring-2 focus:ring-blue-600 shadow-inner"
+            />
+            <p>Nueva contraseña</p>
+            <input
+              type="text"
+              name="settings-password"
+              id="settings-password"
+              class="px-9 py-3 bg-gray-200 rounded-lg focus:bg-gray-300 focus:ring-inset focus:ring-2 focus:ring-blue-600 shadow-inner"
+            />
+            <p>Repetir nueva contraseña</p>
+            <input
+              type="text"
+              name="settings-password"
+              id="settings-password"
+              class="px-9 py-3 bg-gray-200 rounded-lg focus:bg-gray-300 focus:ring-inset focus:ring-2 focus:ring-blue-600 shadow-inner"
+            />
+            <input
+              type="submit"
+              value="Cambiar contraseña"
+              class="bg-blue-600 p-3 w-full rounded-lg text-white font-semibold cursor-pointer hover:bg-blue-700"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+    <style>
+      h2 {
+        @apply text-3xl font-semibold py-1 text-slate-700;
+      }
+
+      h3 {
+        @apply text-xl font-semibold py-1 text-slate-700;
+      }
+
+      span {
+        @apply text-gray-500 text-lg;
+      }
+
+      label {
+        @apply text-lg;
+      }
+
+      p {
+      }
+    </style>
+  </body>
+</html>
