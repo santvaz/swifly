@@ -1,6 +1,7 @@
 ---
 import DashboardNav from "../components/DashboardNav.astro";
 import HeadDashboard from "../components/HeadDashboard.astro";
+import Icon from "../components/Icon.astro";
 ---
 
 <html lang="es">
@@ -10,35 +11,205 @@ import HeadDashboard from "../components/HeadDashboard.astro";
     <div
       class="project-container mt-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
     >
-      <div class="task-card w-full h-screen">
-        <div class="relative mb-3">
-          <h6 class="mb-0">
-            <button
-              class="relative flex items-center w-full p-4 font-semibold text-left transition-all ease-in border-b border-solid cursor-pointer border-slate-100 text-slate-700 rounded-t-1 group text-dark-500"
-              data-collapse-target="collapse-1"
+      <div class="project-wrapper flex flex-row justify-start items-end gap-2">
+        <h2>Título de proyecto</h2>
+        <div
+          class="project-edit cursor-pointer text-grape-900 text-opacity-75 hover:text-opacity-100"
+        >
+          <Icon icon="edit" size="0.9em" />
+        </div>
+      </div>
+      <div class="project-utils">
+        <button
+          class="add-card flex flex-row items-center justify-center gap-2 bg-plum-200 border border-plum-600 rounded-lg p-2 text-plum-600 font-semibold shadow-sm my-4 hover:opacity-90"
+          >Añadir lista
+          <Icon icon="plus" size="1.6em" />
+        </button>
+      </div>
+      <div
+        class="card-container flex flex-row justify-start items-start gap-4 max-w-full"
+      >
+        <div class="task-card">
+          <div class="task-title">
+            <span>To Do</span>
+            <div
+              class="task-title-icons flex flex-row items-center justify-center"
             >
-              <span>Lorem Ipsum</span>
-              <i
-                class="absolute right-0 pt-1 text-xs fa fa-plus group-open:opacity-0"
-              ></i>
-              <i
-                class="absolute right-0 pt-1 text-xs opacity-0 fa fa-minus group-open:opacity-100"
-              ></i>
-            </button>
-          </h6>
-          <div
-            data-collapse="collapse-1"
-            class="h-0 overflow-hidden transition-all duration-300 ease-in-out"
-          >
-            <div class="p-4 text-sm leading-normal text-blue-gray-500/80">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-              sunt quidem, aliquam esse eveniet veritatis dolore ad. Voluptates
-              at magnam rem ab eos, modi temporibus iste distinctio deleniti
-              voluptatum nesciunt.
+              <div class="add-task">
+                <Icon icon="plus" size="1.5em" />
+              </div>
+              <div class="more-task">
+                <Icon icon="dots" size="1.5em" />
+              </div>
+              <div class="delete-task">
+                <Icon icon="delete" size="1.5em" />
+              </div>
             </div>
+          </div>
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Fusionar proyectos</h5>
+            <p>
+              Fusionar los proyectos individuales de cada compañero en uno solo.
+            </p>
+          </div>
+        </div>
+        <div class="task-card">
+          <div class="task-title">
+            <span>Doing</span>
+            <div
+              class="task-title-icons flex flex-row items-center justify-center"
+            >
+              <div class="add-task">
+                <Icon icon="plus" size="1.5em" />
+              </div>
+              <div class="more-task">
+                <Icon icon="dots" size="1.5em" />
+              </div>
+              <div class="more-task">
+                <Icon icon="delete" size="1.5em" />
+              </div>
+            </div>
+          </div>
+
+          <div class="task flex flex-col justify-start items-start p-2">
+            <div class="title-del">
+              <h5>Lorem ipsum</h5>
+              <div class="del-icon">
+                <Icon icon="x" size="0.8em" />
+              </div>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Cupiditate asperiores iure accusamus, ipsum fugit explicabo in,
+              eum itaque est ipsa quos iste ullam quaerat consectetur assumenda
+              enim commodi ducimus temporibus?
+            </p>
+          </div>
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Lorem ipsum</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Cupiditate asperiores iure accusamus, ipsum fugit explicabo in,
+              eum itaque est ipsa quos iste ullam quaerat consectetur assumenda
+              enim commodi ducimus temporibus?
+            </p>
+          </div>
+        </div>
+        <div class="task-card">
+          <div class="task-title">
+            <span>Done</span>
+            <div
+              class="task-title-icons flex flex-row items-center justify-center"
+            >
+              <div class="add-task">
+                <Icon icon="plus" size="1.5em" />
+              </div>
+              <div class="more-task">
+                <Icon icon="dots" size="1.5em" />
+              </div>
+              <div class="delete-task">
+                <Icon icon="delete" size="1.5em" />
+              </div>
+            </div>
+          </div>
+
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Realizar la documentación</h5>
+            <p>
+              Elaborar un documento explicativo con toda la información técnica
+              del proyecto.
+            </p>
+          </div>
+
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Realizar la documentación</h5>
+            <p>
+              Elaborar un documento explicativo con toda la información técnica
+              del proyecto.
+            </p>
+          </div>
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Lorem ipsum</h5>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Cupiditate asperiores iure accusamus, ipsum fugit explicabo in,
+              eum itaque est ipsa quos iste ullam quaerat consectetur assumenda
+              enim commodi ducimus temporibus?
+            </p>
+          </div>
+        </div>
+        <div class="task-card">
+          <div class="task-title">
+            <span>Tareas de Ana</span>
+            <div
+              class="task-title-icons flex flex-row items-center justify-center"
+            >
+              <div class="add-task">
+                <Icon icon="plus" size="1.5em" />
+              </div>
+              <div class="more-task">
+                <Icon icon="dots" size="1.5em" />
+              </div>
+              <div class="delete-task">
+                <Icon icon="delete" size="1.5em" />
+              </div>
+            </div>
+          </div>
+          <div class="task flex flex-col justify-start items-start p-2">
+            <h5>Fusionar proyectos</h5>
+            <p>
+              Fusionar los proyectos individuales de cada compañero en uno solo.
+            </p>
           </div>
         </div>
       </div>
     </div>
+    <style>
+      .project-wrapper {
+        @apply text-2xl font-semibold text-grape-900 py-4 px-2 mb-12;
+      }
+
+      .card-container {
+        scrollbar-width: auto;
+        overflow-x: auto;
+      }
+
+      .task-card {
+        @apply w-full min-h-96 min-w-72 bg-gray-100 border border-gray-300 shadow-sm rounded-xl p-4 text-base divide-y divide-gray-200 flex flex-col justify-start items-start gap-4;
+      }
+
+      .task-card span {
+        @apply text-xl font-semibold w-full;
+      }
+
+      .task-title {
+        @apply flex flex-row justify-between items-center w-full bg-white rounded-xl border border-gray-200 p-2;
+      }
+
+      .task-title-icons > div {
+        @apply cursor-pointer hover:bg-gray-200 rounded-full;
+      }
+
+      .task {
+        @apply flex w-full min-h-32 bg-white rounded-xl cursor-pointer shadow-sm p-6;
+      }
+
+      .task h5 {
+        @apply my-2 font-semibold text-xl;
+      }
+
+      .task p {
+        @apply text-gray-500;
+      }
+
+      .title-del {
+        @apply flex flex-row items-center justify-between w-full;
+      }
+
+      .del-icon {
+        @apply bg-gray-200 rounded-full p-1 hover:bg-gray-300;
+      }
+    </style>
   </body>
 </html>

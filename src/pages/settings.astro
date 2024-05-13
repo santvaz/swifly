@@ -9,14 +9,14 @@ import Icon from "../components/Icon.astro";
   <body class="bg-gray-100 flex flex-col justify-center items-center">
     <DashboardNav />
     <div
-      class="settings-container mt-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
+      class="settings-container my-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
     >
       <h2>Perfil</h2>
       <span>Gestiona tu configuración de perfil</span>
       <hr class="h-px w-full text-gray-400 my-4" />
       <div class="settings flex flex-col gap-4 items-start justify-center">
         <div class="settings-title">
-          <h3>Cambiar imagen</h3>
+          <h3>Cambiar avatar</h3>
           <span>Sube una foto en formato JPEG o PNG de máximo 5MB</span>
         </div>
         <div
@@ -94,8 +94,33 @@ import Icon from "../components/Icon.astro";
             />
           </form>
         </div>
+        <hr class="h-px w-full text-gray-400 my-4" />
+        <div class="settings-title">
+          <h3>Cuenta</h3>
+          <span>Sobre tu cuenta de usuario</span>
+        </div>
+        <div
+          class="account my-4 flex flex-col justify-center items-start gap-4"
+        >
+          <label for="settings-delete">Eliminar cuenta permanentemente</label>
+          <button
+            class="bg-red-600 p-3 w-full rounded-lg text-white font-semibold cursor-pointer hover:bg-red-700"
+            >Eliminar permanentemente</button
+          >
+          <label for="settings-cancel">Dar de baja temporalmente</label>
+          <button
+            class="bg-orange-600 p-3 w-full rounded-lg text-white font-semibold cursor-pointer hover:bg-orange-700"
+            >Dar de baja</button
+          >
+        </div>
+        <div class="cancel-text text-sm text-gray-500 flex w-full">
+          Dar de baja no borrará tu cuenta y sus datos permanentemente. Si en
+          algún momento quieres recuperarla, bastará con iniciar sesión de nuevo
+          para reactivarla.
+        </div>
       </div>
     </div>
+
     <style>
       h2 {
         @apply text-3xl font-semibold py-1 text-slate-700;
