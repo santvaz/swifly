@@ -2,6 +2,7 @@
 import DashboardNav from "../components/DashboardNav.astro";
 import HeadDashboard from "../components/HeadDashboard.astro";
 import Icon from "../components/Icon.astro";
+import WrappedPopover from "../components/ui/WrappedPopover.tsx";
 ---
 
 <html lang="es">
@@ -25,7 +26,14 @@ import Icon from "../components/Icon.astro";
           >Añadir lista
           <Icon icon="plus" size="1.6em" />
         </button>
+        <div
+          class="flex flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
+        >
+          <WrappedPopover client:load />
+          <Icon icon="plus" size="1.6em" />
+        </div>
       </div>
+
       <div
         class="card-container flex flex-row justify-start items-start gap-4 max-w-full"
       >
