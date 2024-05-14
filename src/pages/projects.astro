@@ -52,13 +52,8 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
         </div>
       </div>
       <div class="project-utils">
-        <button
-          class="add-card flex flex-row items-center justify-center gap-2 bg-plum-200 border border-plum-600 rounded-lg p-2 text-plum-600 font-semibold shadow-sm my-4 hover:opacity-90"
-          >Añadir lista
-          <Icon icon="plus" size="1.6em" />
-        </button>
         <div
-          class="flex w-full flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
+          class="flex w-full max-w-36 flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
         >
           <WrappedPopover title="Añadir lista" client:only="react">
             <div class="flex flex-col items-center justify-start">
