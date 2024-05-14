@@ -17,7 +17,38 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
         <div
           class="project-edit cursor-pointer text-grape-900 text-opacity-75 hover:text-opacity-100"
         >
-          <Icon icon="edit" size="0.9em" />
+          <div
+            class="project-edit-popover flex flex-row gap-1 items-end justify-center"
+          >
+            <Icon icon="edit" size="0.9em" />
+            <div class="popover text-sm text-gray-400 font-semibold">
+              <WrappedPopover title="Editar" client:only="react">
+                <div class="flex flex-col items-center justify-start">
+                  <form
+                    action="post"
+                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                  >
+                    <label for="project-edit-title">Nombre de proyecto</label>
+                    <span class="text-gray-400 font-normal p-1 text-sm"
+                      >Modifica el nombre de tu proyecto</span
+                    >
+                    <hr class="h-px w-full text-gray-400 my-3" />
+                    <input
+                      type="text"
+                      name="project-edit-title"
+                      id="project-edit-title"
+                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                    />
+                    <input
+                      type="submit"
+                      value="Cambiar"
+                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+                    />
+                  </form>
+                </div>
+              </WrappedPopover>
+            </div>
+          </div>
         </div>
       </div>
       <div class="project-utils">
@@ -27,9 +58,33 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
           <Icon icon="plus" size="1.6em" />
         </button>
         <div
-          class="flex flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
+          class="flex w-full flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
         >
-          <WrappedPopover client:load />
+          <WrappedPopover title="Añadir lista" client:only="react">
+            <div class="flex flex-col items-center justify-start">
+              <form
+                action="post"
+                class="rounded-lg w-full flex flex-col justify-center items-center text-plum-900 font-semibold"
+              >
+                <label for="list-title">Título de lista</label>
+                <span class="text-gray-400 font-normal p-1 text-sm"
+                  >Pon un nombre a tu nueva lista</span
+                >
+                <hr class="h-px w-full text-gray-400 my-3" />
+                <input
+                  type="text"
+                  name="list-title"
+                  id="list-title"
+                  class="w-full shadow-inner p-2 rounded-lg border border-plum-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-plum-900 my-2"
+                />
+                <input
+                  type="submit"
+                  value="Añadir"
+                  class="w-full bg-plum-800 rounded-lg p-2 text-white cursor-pointer hover:bg-plum-900"
+                />
+              </form>
+            </div>
+          </WrappedPopover>
           <Icon icon="plus" size="1.6em" />
         </div>
       </div>
