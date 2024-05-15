@@ -1,0 +1,20 @@
+/* for webkit browsers like chrome and safari */
+.custom-kanban::-webkit-scrollbar {
+    width: thin;
+}
+
+.custom-kanban::-webkit-scrollbar-track {
+    background: #e7e3fc;
+    border-radius: 10px;
+}
+
+.custom-kanban::-webkit-scrollbar-thumb {
+    background-color: #ab8eeb;
+    border-radius: 10px;
+}
+
+/* for firefox */
+.custom-kanban {
+    scrollbar-width: thin;
+    scrollbar-color: #ab8eeb #e7e3fc;
+}

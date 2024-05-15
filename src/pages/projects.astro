@@ -3,6 +3,7 @@ import DashboardNav from "../components/DashboardNav.astro";
 import HeadDashboard from "../components/HeadDashboard.astro";
 import Icon from "../components/Icon.astro";
 import WrappedPopover from "../components/ui/WrappedPopover.tsx";
+import Board from "../components/ui/Board.tsx";
 ---
 
 <html lang="es">
@@ -10,10 +11,12 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
   <body class="bg-gray-100 flex flex-col justify-center items-center">
     <DashboardNav />
     <div
-      class="project-container mt-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
+      class="project-container flex flex-col justify-center items-center mt-24 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
     >
-      <div class="project-wrapper flex flex-row justify-start items-end gap-2">
-        <h2>Título de proyecto</h2>
+      <div
+        class="project-wrapper flex flex-row justify-start m-12 items-end gap-2 w-full"
+      >
+        <h2 class="ml-10">Título de proyecto</h2>
         <div
           class="project-edit cursor-pointer text-grape-900 text-opacity-75 hover:text-opacity-100"
         >
@@ -51,7 +54,8 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
           </div>
         </div>
       </div>
-      <div class="project-utils">
+
+      <!-- <div class="project-utils">
         <div
           class="flex w-full max-w-36 flex-row justify-start items-center gap-2 bg-plum-200 border border-plum-600 text-plum-600 p-2 rounded-lg font-semibold my-4"
         >
@@ -221,7 +225,10 @@ import WrappedPopover from "../components/ui/WrappedPopover.tsx";
             </p>
           </div>
         </div>
-      </div>
+      </div> -->
+    </div>
+    <div class="kanban-board my-8">
+      <Board client:only="react" />
     </div>
     <style>
       .project-wrapper {

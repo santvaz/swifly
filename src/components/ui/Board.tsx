@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
+import './ui-styles/styles.css';
 
 export const CustomKanban = () => {
   return (
-    <div className="h-screen w-full bg-neutral-900 text-neutral-50">
+    <div className="flex items-center justify-center">
+      <div className="custom-kanban flex overflow-auto h-screen bg-neutral-100 border border-gray-300 rounded-lg">
       <Board />
+    </div>
     </div>
   );
 };
@@ -15,32 +18,32 @@ const Board = () => {
   const [cards, setCards] = useState(DEFAULT_CARDS);
 
   return (
-    <div className="flex h-full w-full gap-3 overflow-scroll p-12">
+    <div className="flex flex-col gap-24 xl:gap-3 xl:flex-row h-full w-full p-12">
       <Column
         title="Backlog"
         column="backlog"
-        headingColor="text-neutral-500"
+        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
         cards={cards}
         setCards={setCards}
       />
       <Column
-        title="TODO"
-        column="todo"
-        headingColor="text-yellow-200"
+        title="To Do"
+        column="To Do"
+        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
         cards={cards}
         setCards={setCards}
       />
       <Column
-        title="In progress"
+        title="Doing"
         column="doing"
-        headingColor="text-blue-200"
+        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
         cards={cards}
         setCards={setCards}
       />
       <Column
-        title="Complete"
+        title="Done"
         column="done"
-        headingColor="text-emerald-200"
+        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
         cards={cards}
         setCards={setCards}
       />
@@ -155,7 +158,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     <div className="w-56 shrink-0">
       <div className="mb-3 flex items-center justify-between">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-        <span className="rounded text-sm text-neutral-400">
+        <span className="relative right-5 text-sm text-grape-900 font-semibold bg-neutral-200 h-fit rounded-md">
           {filteredCards.length}
         </span>
       </div>
@@ -164,7 +167,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         className={`h-full w-full transition-colors ${
-          active ? "bg-neutral-800/50" : "bg-neutral-800/0"
+          active ? "bg-gray-200/50" : "bg-gray-300/0"
         }`}
       >
         {filteredCards.map((c) => {
@@ -186,9 +189,9 @@ const Card = ({ title, id, column, handleDragStart }) => {
         layoutId={id}
         draggable="true"
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+        className="cursor-grab rounded border border-gray-300 shadow-inner bg-gray-100 p-3 active:cursor-grabbing"
       >
-        <p className="text-sm text-neutral-100">{title}</p>
+        <p className="text-sm text-neutral-700">{title}</p>
       </motion.div>
     </>
   );
@@ -199,7 +202,7 @@ const DropIndicator = ({ beforeId, column }) => {
     <div
       data-before={beforeId || "-1"}
       data-column={column}
-      className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
+      className="my-0.5 h-0.5 w-full bg-grape-400 opacity-0"
     />
   );
 };
@@ -224,15 +227,16 @@ const BurnBarrel = ({ setCards }) => {
     setActive(false);
   };
 
+  // element to trash tasks
   return (
     <div
       onDrop={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
+      className={`grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
         active
           ? "border-red-800 bg-red-800/20 text-red-500"
-          : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+          : "border-gray-400/80 bg-gray-400/20 text-gray-500"
       }`}
     >
       {active ? <FaFire className="animate-bounce" /> : <FiTrash />}
@@ -268,18 +272,18 @@ const AddCard = ({ column, setCards }) => {
             onChange={(e) => setText(e.target.value)}
             autoFocus
             placeholder="Add new task..."
-            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
+            className="w-full rounded border border-gray-300 bg-gray-400/20 p-3 text-sm text-neutral-50 placeholder-gray-700 focus:outline-0"
           />
           <div className="mt-1.5 flex items-center justify-end gap-1.5">
             <button
               onClick={() => setAdding(false)}
-              className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+              className="px-3 py-1.5 text-xs text-red-400 bg-red-50 transition-colors hover:shadow-inner hover:text-red-500 rounded-md border border-red-200"
             >
               Close
             </button>
             <button
               type="submit"
-              className="flex items-center gap-1.5 rounded bg-neutral-50 px-3 py-1.5 text-xs text-neutral-950 transition-colors hover:bg-neutral-300"
+              className="flex items-center gap-1.5 bg-green-100 px-3 py-1.5 text-xs text-green-500 hover:shadow-inner hover:text-green-600 rounded-md border border-green-300"
             >
               <span>Add</span>
               <FiPlus />
@@ -290,7 +294,7 @@ const AddCard = ({ column, setCards }) => {
         <motion.button
           layout
           onClick={() => setAdding(true)}
-          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
+          className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs rounded-md text-gray-500 bg-gray-200 transition-colors hover:shadow-inner hover:text-gray-400"
         >
           <span>Add card</span>
           <FiPlus />
@@ -306,14 +310,14 @@ const DEFAULT_CARDS = [
   { title: "SOX compliance checklist", id: "2", column: "backlog" },
   { title: "[SPIKE] Migrate to Azure", id: "3", column: "backlog" },
   { title: "Document Notifications service", id: "4", column: "backlog" },
-  // TODO
+  // To Do
   {
     title: "Research DB options for new microservice",
     id: "5",
-    column: "todo",
+    column: "To Do",
   },
-  { title: "Postmortem for outage", id: "6", column: "todo" },
-  { title: "Sync with product on Q3 roadmap", id: "7", column: "todo" },
+  { title: "Postmortem for outage", id: "6", column: "To Do" },
+  { title: "Sync with product on Q3 roadmap", id: "7", column: "To Do" },
 
   // DOING
   {
@@ -329,3 +333,4 @@ const DEFAULT_CARDS = [
     column: "done",
   },
 ];
+export default CustomKanban;
