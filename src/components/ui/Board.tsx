@@ -22,28 +22,28 @@ const Board = () => {
       <Column
         title="Backlog"
         column="backlog"
-        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
+        headingColor="text-grape-800 font-semibold bg-grape-200 p-2 w-full"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="To Do"
         column="To Do"
-        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
+        headingColor="text-grape-800 font-semibold bg-grape-200 p-2 w-full"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="Doing"
         column="doing"
-        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
+        headingColor="text-grape-800 font-semibold bg-grape-200 p-2 w-full"
         cards={cards}
         setCards={setCards}
       />
       <Column
         title="Done"
         column="done"
-        headingColor="text-neutral-500 font-semibold bg-neutral-200 p-2 rounded-md w-full border border-gray-300"
+        headingColor="text-grape-800 font-semibold bg-grape-200 p-2 w-full"
         cards={cards}
         setCards={setCards}
       />
@@ -156,9 +156,9 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
 
   return (
     <div className="w-56 shrink-0">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="gap- flex items-center justify-">
         <h3 className={`font-medium ${headingColor}`}>{title}</h3>
-        <span className="relative right-5 text-sm text-grape-900 font-semibold bg-neutral-200 h-fit rounded-md">
+        <span className="px-4 text-sm w-2 h-10 flex items-center justify-center text-grape-800 font-semibold bg-grape-200">
           {filteredCards.length}
         </span>
       </div>
@@ -166,8 +166,8 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
         onDrop={handleDragEnd}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`h-full w-full transition-colors ${
-          active ? "bg-gray-200/50" : "bg-gray-300/0"
+        className={`h-full min-h-full w-full transition-colors ${
+          active ? "bg-grape-200/50" : "bg-grape-300/0"
         }`}
       >
         {filteredCards.map((c) => {
@@ -189,7 +189,7 @@ const Card = ({ title, id, column, handleDragStart }) => {
         layoutId={id}
         draggable="true"
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="break-words cursor-grab rounded border border-gray-300 shadow-inner bg-gray-100 p-3 active:cursor-grabbing"
+        className="w-full break-words cursor-grab rounded border border-gray-300 bg-gray-100 p-3 active:cursor-grabbing"
       >
         <p className="text-sm text-neutral-700">{title}</p>
       </motion.div>
@@ -233,7 +233,7 @@ const BurnBarrel = ({ setCards }) => {
       onDrop={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-        className={`w-20 h-20 fixed xl:static top-96 right-2 sm:size-32 sm:right-12  grid size-32 shrink-0 place-content-center self-center lg:self-start rounded border text-3xl ${
+        className={`w-20 h-20 fixed xl:static top-96 right-2 sm:size-32 sm:right-12 grid size-32 shrink-0 place-content-center self-center lg:self-start rounded border text-3xl ${
 
         active
           ? "border-red-800 bg-red-800/20 text-red-500"

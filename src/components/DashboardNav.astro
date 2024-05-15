@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 import Menu from "./Menu.astro";
 import Modal from "./Modal.astro";
-import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
+// import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
 ---
 
 <div
@@ -22,7 +22,7 @@ import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
       </div>
     </div>
     <nav class="text-grape-950 flex flex-row items-center justify-center">
-      <ul class="flex flex-row items-center justify-evenly gap-1">
+      <ul class="flex flex-row items-center justify-center gap-1">
         <li
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
         >
@@ -223,13 +223,13 @@ import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
             <!-- custom button content -->
             <div
               slot="button"
-              class="profile flex justify-center flex-col items-center relative"
+              class="profile w-full flex flex-col justify-center items-center relative"
             >
               <div
-                class="pfp rounded-full border border-grape-900 overflow-hidden size-12 text-sm mt-2 shadow-lg cursor-pointer hover:opacity-90"
+                class="pfp rounded-full border border-grape-900 overflow-hidden size-12 text-sm shadow-lg cursor-pointer hover:opacity-90"
               >
                 <Image
-                  src={defaultAvatar}
+                  src="https://i.imgur.com/GQ4cquU.png"
                   alt="Foto de perfil personal"
                   width="50"
                   height="50"
@@ -238,7 +238,7 @@ import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
                 />
               </div>
               <div
-                class="status status-online rounded-full size-3 shadow-inner bg-green-600 absolute top-11 left-8 border-t border-t-green-700"
+                class="status status-online rounded-full size-3 shadow-inner bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
               >
               </div>
             </div>
