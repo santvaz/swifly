@@ -1,8 +1,10 @@
 ---
-import Image from "astro/components/Image.astro";
+// import Image from "astro/components/Image.astro";
+import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 import Menu from "./Menu.astro";
 import Modal from "./Modal.astro";
+import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
 ---
 
 <div
@@ -11,7 +13,7 @@ import Modal from "./Modal.astro";
   <header class="flex justify-between items-center w-full max-w-7xl bg-white">
     <div class="section flex justify-start items-start flex-col w-full">
       <div
-        class="logo flex flex-row cursor-pointer p-2 bg-grape-950 text-grape-300 hover:bg-opacity-95"
+        class="logo flex flex-row cursor-pointer p-3 bg-grape-950 text-grape-300 hover:bg-opacity-95"
       >
         <a href="/dashboard" aria-label="swifly">
           <Icon icon="swifly" size="2.6em" />
@@ -25,7 +27,7 @@ import Modal from "./Modal.astro";
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
         >
           <a href="/projects">
-            <Icon icon="bookmark" size="2em" aria-label="Mis proyectos" />
+            <Icon icon="bookmark" size="1.5em" aria-label="Mis proyectos" />
             <h5 class="sr-only">Mis proyectos</h5>
           </a>
         </li>
@@ -33,7 +35,7 @@ import Modal from "./Modal.astro";
           <Modal
             extra="rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
             btn="plus"
-            size="2em"
+            size="1.5em"
             title="Crear un proyecto nuevo"
             class="create"
           >
@@ -93,9 +95,6 @@ import Modal from "./Modal.astro";
               </div>
             </div>
           </Modal>
-        </li>
-        <li>
-          <colorToggle></colorToggle>
         </li>
         <li>
           <Menu
@@ -201,7 +200,7 @@ import Modal from "./Modal.astro";
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
         >
           <a href="/settings">
-            <Icon icon="config" size="2em" aria-label="Ajustes" />
+            <Icon icon="config" size="1.5em" aria-label="Ajustes" />
             <h5 class="sr-only">Ajustes</h5>
           </a>
         </li>
@@ -209,12 +208,12 @@ import Modal from "./Modal.astro";
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
         >
           <a href="/">
-            <Icon icon="signout" size="2em" aria-label="Cerrar sesión" />
+            <Icon icon="signout" size="1.5em" aria-label="Cerrar sesión" />
             <h5 class="sr-only">Cerrar sesión</h5>
           </a>
         </li>
 
-        <li class="ml-8 mr-4">
+        <li class="avatar ml-2">
           <Menu
             clase="notification-menu dropdown"
             sr-title="Configuración de perfil"
@@ -227,13 +226,13 @@ import Modal from "./Modal.astro";
               class="profile flex justify-center flex-col items-center relative"
             >
               <div
-                class="pfp rounded-full border border-grape-900 overflow-hidden size-12 mt-2 shadow-lg cursor-pointer hover:opacity-90"
+                class="pfp rounded-full border border-grape-900 overflow-hidden size-12 text-sm mt-2 shadow-lg cursor-pointer hover:opacity-90"
               >
                 <Image
-                  src="https://img.freepik.com/foto-gratis/mujer-bastante-joven-feliz-que-presenta-camara-parque-ciudad_1262-19158.jpg?t=st=1715065018~exp=1715068618~hmac=a7a350bdf7852d0a6319c053874ec91f979da5bbec25e65d8caefcecd84b7c38&w=1380"
+                  src={defaultAvatar}
                   alt="Foto de perfil personal"
-                  width="100"
-                  height="100"
+                  width="50"
+                  height="50"
                   loading="eager"
                   class="object-cover size-full"
                 />

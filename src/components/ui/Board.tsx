@@ -7,7 +7,7 @@ import './ui-styles/styles.css';
 export const CustomKanban = () => {
   return (
     <div className="flex items-center justify-center">
-      <div className="custom-kanban flex overflow-auto h-screen bg-neutral-100 border border-gray-300 rounded-lg">
+      <div className="custom-kanban relative flex overflow-auto w-full bg-neutral-100 border border-gray-300 rounded-lg">
       <Board />
     </div>
     </div>
@@ -18,7 +18,7 @@ const Board = () => {
   const [cards, setCards] = useState(DEFAULT_CARDS);
 
   return (
-    <div className="flex flex-col gap-24 xl:gap-3 xl:flex-row h-full w-full p-12">
+    <div className="flex flex-col justify-center items-center xl:justify-start xl:items-start xl:mt-0 gap-24 xl:gap-3 xl:flex-row h-full w-full p-12">
       <Column
         title="Backlog"
         column="backlog"
@@ -189,7 +189,7 @@ const Card = ({ title, id, column, handleDragStart }) => {
         layoutId={id}
         draggable="true"
         onDragStart={(e) => handleDragStart(e, { title, id, column })}
-        className="cursor-grab rounded border border-gray-300 shadow-inner bg-gray-100 p-3 active:cursor-grabbing"
+        className="break-words cursor-grab rounded border border-gray-300 shadow-inner bg-gray-100 p-3 active:cursor-grabbing"
       >
         <p className="text-sm text-neutral-700">{title}</p>
       </motion.div>
@@ -233,7 +233,8 @@ const BurnBarrel = ({ setCards }) => {
       onDrop={handleDragEnd}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className={`grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
+        className={`w-20 h-20 fixed xl:static top-96 right-2 sm:size-32 sm:right-12  grid size-32 shrink-0 place-content-center self-center lg:self-start rounded border text-3xl ${
+
         active
           ? "border-red-800 bg-red-800/20 text-red-500"
           : "border-gray-400/80 bg-gray-400/20 text-gray-500"
@@ -271,21 +272,21 @@ const AddCard = ({ column, setCards }) => {
           <textarea
             onChange={(e) => setText(e.target.value)}
             autoFocus
-            placeholder="Add new task..."
-            className="w-full rounded border border-gray-300 bg-gray-400/20 p-3 text-sm text-neutral-50 placeholder-gray-700 focus:outline-0"
+            placeholder="Añadir nueva tarea..."
+            className="w-full rounded border border-gray-300 bg-gray-400/20 p-3 text-sm placeholder-gray-700 text-gray-600 focus:outline-0"
           />
           <div className="mt-1.5 flex items-center justify-end gap-1.5">
             <button
               onClick={() => setAdding(false)}
               className="px-3 py-1.5 text-xs text-red-400 bg-red-50 transition-colors hover:shadow-inner hover:text-red-500 rounded-md border border-red-200"
             >
-              Close
+              Cerrar
             </button>
             <button
               type="submit"
               className="flex items-center gap-1.5 bg-green-100 px-3 py-1.5 text-xs text-green-500 hover:shadow-inner hover:text-green-600 rounded-md border border-green-300"
             >
-              <span>Add</span>
+              <span>Añadir</span>
               <FiPlus />
             </button>
           </div>
@@ -296,7 +297,7 @@ const AddCard = ({ column, setCards }) => {
           onClick={() => setAdding(true)}
           className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs rounded-md text-gray-500 bg-gray-200 transition-colors hover:shadow-inner hover:text-gray-400"
         >
-          <span>Add card</span>
+          <span>Añadir tarea</span>
           <FiPlus />
         </motion.button>
       )}
