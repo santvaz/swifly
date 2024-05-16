@@ -1,30 +1,34 @@
+---
+// SignIn auth-astro
+import { SignIn } from "auth-astro/components";
+---
+
 <section class="box input flex justify-center items-center h-[600px]">
   <form
     action="POST"
     id="loginForm"
     class="flex flex-col justify-center gap-8 items-center"
   >
-    <label for="username" class="text-xl"> Usuario </label>
-    <input
-      type="text"
-      name="username"
-      id="username"
-      class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
-    />
-    <label for="password" class="text-xl">Clave</label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
-    />
-    <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
-    <div class="utils text-sm flex flex-col items-center justify-center">
-      <a href="/forgot" class="hover:opacity-80 m-2"
-        >He olvidado mi contraseña</a
-      >
-    </div>
+    <SignIn provider="google">Iniciar sesión con Google</SignIn>
   </form>
+  <label for="username" class="text-xl">Usuario</label>
+  <input
+    type="text"
+    name="username"
+    id="username"
+    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+  />
+  <label for="password" class="text-xl">Clave</label>
+  <input
+    type="password"
+    name="password"
+    id="password"
+    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+  />
+  <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
+  <div class="utils text-sm flex flex-col items-center justify-center">
+    <a href="/forgot" class="hover:opacity-80 m-2">He olvidado mi contraseña</a>
+  </div>
 </section>
 
 <!-- <script>
