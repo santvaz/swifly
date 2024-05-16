@@ -5,6 +5,7 @@ import Icon from "./Icon.astro";
 import Menu from "./Menu.astro";
 import Modal from "./Modal.astro";
 // import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
+import { SignOut } from "auth-astro/components";
 ---
 
 <div
@@ -205,12 +206,17 @@ import Modal from "./Modal.astro";
           </a>
         </li>
         <li
+          id="logout"
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
         >
-          <a href="/">
-            <Icon icon="signout" size="1.5em" aria-label="Cerrar sesión" />
-            <h5 class="sr-only">Cerrar sesión</h5>
-          </a>
+          <SignOut
+            ><Icon
+              icon="signout"
+              size="1.5em"
+              aria-label="Cerrar sesión"
+            /></SignOut
+          >
+          <h5 class="sr-only">Cerrar sesión</h5>
         </li>
 
         <li class="avatar ml-2">

@@ -1,37 +1,51 @@
 ---
+import Icon from "./Icon.astro";
+
 // SignIn auth-astro
 import { SignIn } from "auth-astro/components";
+import { getSession } from "auth-astro/server";
+const session = await getSession(Astro.request);
 ---
 
-<section class="box input flex justify-center items-center h-[600px]">
-  <form
-    action="POST"
-    id="loginForm"
-    class="flex flex-col justify-center gap-8 items-center"
+<section
+  class="box input flex justify-center items-center h-fit divide-y divide-slate-500 divide-opacity-50"
+>
+  <div
+    class="google-sign-in flex flex-row justify-center items-center gap-3 px-6 py-1 rounded-xl w-full"
   >
+    <div class="google-icon bg-white shadow-md rounded-full p-1">
+      <Icon icon="google" size="1em" />
+    </div>
     <SignIn provider="google">Iniciar sesión con Google</SignIn>
-  </form>
-  <label for="username" class="text-xl">Usuario</label>
-  <input
-    type="text"
-    name="username"
-    id="username"
-    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
-  />
-  <label for="password" class="text-xl">Clave</label>
-  <input
-    type="password"
-    name="password"
-    id="password"
-    class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
-  />
-  <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
-  <div class="utils text-sm flex flex-col items-center justify-center">
-    <a href="/forgot" class="hover:opacity-80 m-2">He olvidado mi contraseña</a>
   </div>
-</section>
+  <form
+    action=""
+    id="loginForm"
+    class="flex flex-col justify-center gap-8 py-12 items-center"
+  >
+    <label for="username" class="text-xl">Usuario</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+    />
+    <label for="password" class="text-xl">Clave</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+    />
+    <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
+    <div class="utils text-sm flex flex-col items-center justify-center">
+      <a href="/forgot" class="hover:opacity-80 m-2"
+        >He olvidado mi contraseña</a
+      >
+    </div>
+  </form>
 
-<!-- <script>
+  <!-- <script>
   import { db } from "astro:db";
   import { usuarios } from "astro:db";
 
@@ -43,66 +57,67 @@ import { SignIn } from "auth-astro/components";
   }
 </script> -->
 
-<style>
-  .box {
-    border: 1px solid var(--gray-800);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    background-color: var(--gray-999_40);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .input {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  #login {
-    color: white;
-    cursor: pointer;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-top: 2rem;
-    border-radius: 9999px;
-    border-width: 1px;
-    --tw-border-opacity: 1;
-    background-color: rgb(89 28 135 / var(--tw-border-opacity));
-    border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
-    border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
-    border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
-    border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
-  }
-
-  #login:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(107 33 168 / var(--tw-bg-opacity));
-  }
-
-  .skills h2 {
-    font-size: var(--text-lg);
-  }
-
-  .skills p {
-    color: var(--gray-400);
-  }
-
-  @media (min-width: 50em) {
+  <style>
     .box {
-      border-radius: 1.5rem;
-      padding: 2.5rem;
+      border: 1px solid var(--gray-800);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      background-color: var(--gray-999_40);
+      box-shadow: var(--shadow-sm);
     }
 
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5rem;
+    .input {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    #login {
+      color: white;
+      cursor: pointer;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 2rem;
+      border-radius: 9999px;
+      border-width: 1px;
+      --tw-border-opacity: 1;
+      background-color: rgb(89 28 135 / var(--tw-border-opacity));
+      border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+      border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+      border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+      border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+    }
+
+    #login:hover {
+      --tw-bg-opacity: 1;
+      background-color: rgb(107 33 168 / var(--tw-bg-opacity));
     }
 
     .skills h2 {
-      font-size: var(--text-2xl);
+      font-size: var(--text-lg);
     }
-  }
-</style>
+
+    .skills p {
+      color: var(--gray-400);
+    }
+
+    @media (min-width: 50em) {
+      .box {
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5rem;
+      }
+
+      .skills h2 {
+        font-size: var(--text-2xl);
+      }
+    }
+  </style>
+</section>
