@@ -1,10 +1,52 @@
-<section class="box input flex justify-center items-center h-[600px]">
-  <form
-    action="POST"
-    id="loginForm"
-    class="flex flex-col justify-center gap-8 items-center"
+---
+import Icon from "./Icon.astro";
+
+// SignIn auth-astro
+import { SignIn } from "auth-astro/components";
+import { getSession } from "auth-astro/server";
+const session = await getSession(Astro.request);
+---
+
+<section
+  class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
+>
+  <div
+    class="login-logo flex items-center justify-center p-2 bg-neutral-50 mb-4 border border-purple-500 border-opacity-50 rounded-full"
   >
-    <label for="username" class="text-xl"> Usuario </label>
+    <Icon icon="swifly" color="var(--accent-regular)" size="2.5em" gradient />
+  </div>
+  <div
+    class="providers-sign-in flex flex-col divide-y divide-slate-500 divide-opacity-50"
+  >
+    <div
+      class="google-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full border-t border-slate-500 border-opacity-50"
+    >
+      <div class="google-icon bg-white shadow-md rounded-full p-1">
+        <Icon icon="google" size="1em" />
+      </div>
+      <SignIn provider="google" class="hover:text-slate-600"
+        >Iniciar sesión con Google</SignIn
+      >
+    </div>
+    <div
+      class="github-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full"
+    >
+      <div
+        class="github-icon bg-white text-slate-900 shadow-md rounded-full p-1"
+      >
+        <Icon icon="github-logo" size="1.1em" />
+      </div>
+      <SignIn provider="github" class="hover:text-slate-600"
+        >Iniciar sesión con GitHub</SignIn
+      >
+    </div>
+  </div>
+  <form
+    action=""
+    id="loginForm"
+    class="flex flex-col justify-center gap-8 py-12 items-center w-full"
+  >
+    <label for="username" class="text-xl">Usuario</label>
     <input
       type="text"
       name="username"
@@ -25,9 +67,8 @@
       >
     </div>
   </form>
-</section>
 
-<!-- <script>
+  <!-- <script>
   import { db } from "astro:db";
   import { usuarios } from "astro:db";
 
@@ -39,66 +80,71 @@
   }
 </script> -->
 
-<style>
-  .box {
-    border: 1px solid var(--gray-800);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    background-color: var(--gray-999_40);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .input {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  #login {
-    color: white;
-    cursor: pointer;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-top: 2rem;
-    border-radius: 9999px;
-    border-width: 1px;
-    --tw-border-opacity: 1;
-    background-color: rgb(89 28 135 / var(--tw-border-opacity));
-    border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
-    border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
-    border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
-    border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
-  }
-
-  #login:hover {
-    --tw-bg-opacity: 1;
-    background-color: rgb(107 33 168 / var(--tw-bg-opacity));
-  }
-
-  .skills h2 {
-    font-size: var(--text-lg);
-  }
-
-  .skills p {
-    color: var(--gray-400);
-  }
-
-  @media (min-width: 50em) {
-    .box {
-      border-radius: 1.5rem;
-      padding: 2.5rem;
+  <style>
+    .login-logo {
+      box-shadow: var(--shadow-md);
+      background: radial-gradient(var(--gray-900), var(--gray-900) 150%);
     }
 
-    .skills {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5rem;
+    .box {
+      border: 1px solid var(--gray-800);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      background-color: var(--gray-999_40);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .input {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #login {
+      color: white;
+      cursor: pointer;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 2rem;
+      border-radius: 9999px;
+      border-width: 1px;
+      --tw-border-opacity: 1;
+      background-color: rgb(89 28 135 / var(--tw-border-opacity));
+      border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+      border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+      border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+      border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+    }
+
+    #login:hover {
+      --tw-bg-opacity: 1;
+      background-color: rgb(107 33 168 / var(--tw-bg-opacity));
     }
 
     .skills h2 {
-      font-size: var(--text-2xl);
+      font-size: var(--text-lg);
     }
-  }
-</style>
+
+    .skills p {
+      color: var(--gray-400);
+    }
+
+    @media (min-width: 50em) {
+      .box {
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+      }
+
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5rem;
+      }
+
+      .skills h2 {
+        font-size: var(--text-2xl);
+      }
+    }
+  </style>
+</section>
