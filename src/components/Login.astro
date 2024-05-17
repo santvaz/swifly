@@ -8,20 +8,43 @@ const session = await getSession(Astro.request);
 ---
 
 <section
-  class="box input flex justify-center items-center h-fit divide-y divide-slate-500 divide-opacity-50"
+  class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
 >
   <div
-    class="google-sign-in flex flex-row justify-center items-center gap-3 px-6 py-1 rounded-xl w-full"
+    class="login-logo flex items-center justify-center p-2 bg-neutral-50 mb-4 border border-purple-500 border-opacity-50 rounded-full"
   >
-    <div class="google-icon bg-white shadow-md rounded-full p-1">
-      <Icon icon="google" size="1em" />
+    <Icon icon="swifly" color="var(--accent-regular)" size="2.5em" gradient />
+  </div>
+  <div
+    class="providers-sign-in flex flex-col divide-y divide-slate-500 divide-opacity-50"
+  >
+    <div
+      class="google-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full border-t border-slate-500 border-opacity-50"
+    >
+      <div class="google-icon bg-white shadow-md rounded-full p-1">
+        <Icon icon="google" size="1em" />
+      </div>
+      <SignIn provider="google" class="hover:text-slate-600"
+        >Iniciar sesión con Google</SignIn
+      >
     </div>
-    <SignIn provider="google">Iniciar sesión con Google</SignIn>
+    <div
+      class="github-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full"
+    >
+      <div
+        class="github-icon bg-white text-slate-900 shadow-md rounded-full p-1"
+      >
+        <Icon icon="github-logo" size="1.1em" />
+      </div>
+      <SignIn provider="github" class="hover:text-slate-600"
+        >Iniciar sesión con GitHub</SignIn
+      >
+    </div>
   </div>
   <form
     action=""
     id="loginForm"
-    class="flex flex-col justify-center gap-8 py-12 items-center"
+    class="flex flex-col justify-center gap-8 py-12 items-center w-full"
   >
     <label for="username" class="text-xl">Usuario</label>
     <input
@@ -58,6 +81,11 @@ const session = await getSession(Astro.request);
 </script> -->
 
   <style>
+    .login-logo {
+      box-shadow: var(--shadow-md);
+      background: radial-gradient(var(--gray-900), var(--gray-900) 150%);
+    }
+
     .box {
       border: 1px solid var(--gray-800);
       border-radius: 0.75rem;
@@ -69,7 +97,6 @@ const session = await getSession(Astro.request);
     .input {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
     }
 
     #login {
