@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SignUpBox from "../components/SignUp.astro";
+import { getSession } from "auth-astro/server";
+const session = await getSession(Astro.request);
+
+import { db } from "astro:db";
+
+// signup
+if (Astro.request.method === "POST") {
+  // parse form data
+  const formData = await Astro.request.formData();
+  const email = formData.get("email");
+  const username = formData.get("username");
+  const password = formData.get("password");
+  if (
+    typeof email === "string" &&
+    typeof username === "string" &&
+    typeof password === "string"
+  ) {
+    // insert form data
+    await db.insert(Users).values({ email, username, password });
+  }
+}
+---
+
+<BaseLayout
+  title="Registro | Swifly"
+  description="Crea una nueva cuenta de usuario en Swifly"
+>
+  <div class="stack gap-20">
+    <main class="wrapper stack gap-8">
+      <Hero
+        title="Regístrate"
+        tagline="O inicia sesión ahora si ya tienes una cuenta"
+        align="start"
+      />
+      <div class="flex justify-center">
+        <SignUpBox />
+      </div>
+    </main>
+  </div>
+</BaseLayout>

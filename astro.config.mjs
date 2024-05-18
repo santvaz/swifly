@@ -7,7 +7,16 @@ import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), db(), react(), auth()],
+  integrations: [tailwind(), db(), react(),
+  auth({
+    providers: [
+    ],
+    db: {
+      // db connection
+      client: 'astrodb',
+      connection: process.env.DATABASE_URL
+    }
+  })],
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
 });
