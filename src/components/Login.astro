@@ -28,22 +28,27 @@ const session = await getSession(Astro.request);
         >Iniciar sesión con Google</SignIn
       >
     </div>
-    <div
-      class="github-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full"
-    >
-      <div
-        class="github-icon bg-white text-slate-900 shadow-md rounded-full p-1"
+    <div class="github-sign-in">
+      <a
+        href="/api/github"
+        class="flex flex-row justify-center items-center gap-3 p-6 w-full hover:opacity-80"
       >
-        <Icon icon="github-logo" size="1.1em" />
-      </div>
-      <SignIn provider="github" class="hover:text-slate-600"
+        <div
+          class="github-icon bg-white text-slate-900 shadow-md rounded-full p-1"
+        >
+          <Icon icon="github-logo" size="1.1em" />
+        </div>
+        Iniciar sesión con GitHub</a
+      >
+      <!-- <SignIn provider="github" class="hover:text-slate-600"
         >Iniciar sesión con GitHub</SignIn
-      >
+      > -->
     </div>
   </div>
   <form
     method="POST"
     id="loginForm"
+    action="/api/signin"
     class="flex flex-col justify-center gap-8 py-12 items-center w-full"
   >
     <label for="username" class="text-xl">Usuario</label>

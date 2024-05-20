@@ -11,10 +11,9 @@ async function insertPermission(type: 'observer' | 'moderator' | 'admin', userId
     await sql `
       INSERT INTO Permissions (type, user_id, project_id) VALUES (${type}, ${userId}, ${projectId});
     `
-  }
+}
 
-
-  async function insertCategory(type: 'to do' | 'doing' | 'done', userId: string, projectId: string) {
+async function insertCategory(type: 'to do' | 'doing' | 'done', userId: string, projectId: string) {
     // verify permission type
     if (type !== 'to do' && type !== 'doing' && type !== 'done') {
       throw new Error('Categoría de tarea inválida.');
@@ -23,6 +22,6 @@ async function insertPermission(type: 'observer' | 'moderator' | 'admin', userId
   
     // insert new permission
     await sql `
-      INSERT INTO Category (type, user_id, project_id) VALUES (${type}, ${userId}, ${projectId});
+      INSERT INTO Categories (type, user_id, project_id) VALUES (${type}, ${userId}, ${projectId});
     `
-  }
+}
