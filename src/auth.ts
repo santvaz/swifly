@@ -12,6 +12,13 @@ export const lucia = new Lucia(adapter, {
 			// set to `true` when using HTTPS
 			secure: import.meta.env.PROD
 		}
+	},
+	getUserAttributes: (attributes) => {
+		return {
+			// attributes has the type of DatabaseUserAttributes
+			github_id: attributes.github_id,
+			username: attributes.username
+		};
 	}
 });
 
@@ -23,5 +30,11 @@ export const github = new GitHub(
 declare module "lucia" {
 	interface Register {
 		Lucia: typeof lucia;
+		DatabaseUserAttributes: DatabaseUserAttributes;
 	}
+}
+
+interface DatabaseUserAttributes {
+	github_id: number;
+	username: string;
 }

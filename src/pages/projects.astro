@@ -4,6 +4,12 @@ import HeadDashboard from "../components/HeadDashboard.astro";
 import Icon from "../components/Icon.astro";
 import WrappedPopover from "../components/ui/WrappedPopover.tsx";
 import Board from "../components/ui/Board.tsx";
+
+const user = Astro.locals.user;
+
+if (!user) {
+  return Astro.redirect("/");
+}
 ---
 
 <html lang="es">
