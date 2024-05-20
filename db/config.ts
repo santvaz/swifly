@@ -1,10 +1,11 @@
-import { defineDb, defineTable, column, NOW} from 'astro:db';
+import { defineDb, defineTable, column, NOW, sql } from 'astro:db';
+import { isNull } from 'drizzle-orm';
 // https://astro.build/db/config
 
 // Usuarios
 const Users = defineTable({
   columns: {
-    id: column.number({ primaryKey: true, autoIncrement: true }),
+    id: column.text({ primaryKey: true, default: sql`uuid()` }),
     username: column.text({unique: true}),
     password: column.text(),
     email: column.text({unique: true}),
@@ -15,32 +16,43 @@ const Users = defineTable({
 
 const Projects = defineTable({
   columns: {
-    id: column.number({ primaryKey: true, autoIncrement: true }),
-    user_creator: column.text({references: () => Users.columns.username}),
-    title: column.text({default: "Mi nuevo proyecto"}),
-    description: column.text(),
-  }
-});
-
-const Category = defineTable({
-  columns: {
-    id: column.number({ primaryKey: true, autoIncrement: true }),
-    label: column.text({ unique: true }),
+    id: column.text({ primaryKey: true, default: sql`uuid()` }),
+    user_creator: column.text({references: () => Users.columns.id}),
+    title: column.text(), // NOT NULL by default
+    description: column.text({optional: true}),
   }
 });
 
 const Tasks = defineTable({
   columns: {
-    id: column.number({ primaryKey: true, autoIncrement: true }),
-    user_creator: column.text({references: () => Users.columns.username}),
-    project_id: column.number({references: () => Projects.columns.id}),
-    project_owner_username: column.text({references: () => Projects.columns.user_creator}),
-    category_id: column.number({references: () => Category.columns.id}),
+    id: column.text({ primaryKey: true, default: sql`uuid()` }),
+    user_creator: column.text({references: () => Users.columns.id}),
+    project_id: column.text({references: () => Projects.columns.id}),
+    category_id: column.text({references: () => Categories.columns.id}),
     title: column.text(),
-    description: column.text(),
+    description: column.text({optional: true}),
   }
-})
+});
+
+const Categories = defineTable({
+  columns: {
+    id: column.text({ primaryKey: true, default: sql`uuid()` }),
+    label: column.text({
+      unique: true,
+      check: sql`label IN ('to do', 'doing', 'done)` // restriction to only allow these three values
+    }), // 'to do', 'doing' or 'done'
+  }
+});
+
+const Permissions = defineTable({
+  columns: {
+    id: column.text({ primaryKey: true, default: sql`uuid()` }),
+    type: column.text(),
+    user_id: column.text({references: () => Users.columns.id}),
+    project_id: column.text({references: () => Projects.columns.id}),
+  }
+});
 
 export default defineDb({
-  tables: { Users, Projects, Category, Tasks }
+  tables: { Users, Projects, Tasks, Categories, Permissions }
 });
