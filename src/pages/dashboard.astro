@@ -6,6 +6,12 @@ import Modal from "../components/Modal.astro";
 import DashboardNav from "../components/DashboardNav.astro";
 const currentYear = new Date().getFullYear();
 import HeadDashboard from "../components/HeadDashboard.astro";
+
+const user = Astro.locals.user;
+
+if (!user) {
+  return Astro.redirect("/");
+}
 ---
 
 <html lang="es">
