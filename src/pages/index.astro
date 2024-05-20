@@ -12,8 +12,8 @@ import Icon from "../components/Icon.astro";
 import ContactCTA from "../components/ContactCTA.astro";
 import Skills from "../components/Skills.astro";
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+const user = Astro.locals.user;
+console.log(user); // see session username
 ---
 
 <BaseLayout>

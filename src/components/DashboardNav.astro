@@ -5,7 +5,7 @@ import Icon from "./Icon.astro";
 import Menu from "./Menu.astro";
 import Modal from "./Modal.astro";
 // import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
-import { SignOut } from "auth-astro/components";
+const user = Astro.locals.user;
 ---
 
 <div
@@ -205,19 +205,30 @@ import { SignOut } from "auth-astro/components";
             <h5 class="sr-only">Ajustes</h5>
           </a>
         </li>
-        <li
-          id="logout"
-          class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
-        >
-          <SignOut
-            ><Icon
-              icon="signout"
-              size="1.5em"
-              aria-label="Cerrar sesión"
-            /></SignOut
-          >
-          <h5 class="sr-only">Cerrar sesión</h5>
-        </li>
+
+        {
+          user && (
+            <li
+              id="logout"
+              class="inline-flex cursor-pointer w-full  items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
+            >
+              <form
+                action="/api/signout"
+                method="POST"
+                class="flex justify-center items-center"
+              >
+                <button>
+                  <Icon
+                    icon="signout"
+                    size="1.5em"
+                    aria-label="Cerrar sesión"
+                  />
+                </button>
+                <h5 class="sr-only">Cerrar sesión</h5>
+              </form>
+            </li>
+          )
+        }
 
         <li class="avatar ml-2">
           <Menu

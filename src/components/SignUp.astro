@@ -1,10 +1,5 @@
 ---
 import Icon from "./Icon.astro";
-
-// SignIn auth-astro
-import { SignIn } from "auth-astro/components";
-import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
 ---
 
 <section
@@ -17,6 +12,7 @@ const session = await getSession(Astro.request);
   </div>
   <form
     method="POST"
+    action="/api/signup"
     id="signupForm"
     class="flex flex-col justify-center gap-8 py-12 items-center w-full"
   >
