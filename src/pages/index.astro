@@ -13,7 +13,10 @@ import ContactCTA from "../components/ContactCTA.astro";
 import Skills from "../components/Skills.astro";
 
 const user = Astro.locals.user;
-console.log(user); // see session username
+
+if (user) {
+  return Astro.redirect("/dashboard");
+}
 ---
 
 <BaseLayout>
@@ -26,7 +29,7 @@ console.log(user); // see session username
           align="start"
         />
         <div class="cta">
-          <CallToAction href="/login/">Comienza ahora</CallToAction>
+          <CallToAction href="/signup">Comienza ahora</CallToAction>
         </div>
       </header>
 

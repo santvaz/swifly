@@ -10,6 +10,7 @@ import HeadDashboard from "../components/HeadDashboard.astro";
 const user = Astro.locals.user;
 
 if (!user) {
+  // throw new Error("User not authenticated");
   return Astro.redirect("/");
 }
 ---
