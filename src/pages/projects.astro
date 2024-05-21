@@ -10,6 +10,8 @@ const user = Astro.locals.user;
 if (!user) {
   return Astro.redirect("/");
 }
+
+export const prerender = false;
 ---
 
 <html lang="es">
