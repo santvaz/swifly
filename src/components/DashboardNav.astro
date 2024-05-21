@@ -6,6 +6,7 @@ import Menu from "./Menu.astro";
 import Modal from "./Modal.astro";
 // import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
 const user = Astro.locals.user;
+const username = JSON.stringify(user, null, 2);
 ---
 
 <div
@@ -233,8 +234,8 @@ const user = Astro.locals.user;
         <li class="avatar ml-2">
           <Menu
             clase="notification-menu dropdown"
-            sr-title="Configuración de perfil"
-            title="Configuración de perfil"
+            sr-title={"Perfil de " + `${user.username}`}
+            title={"Perfil de " + `${user.username}`}
             useCustomButton={true}
           >
             <!-- custom button content -->

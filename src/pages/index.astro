@@ -13,7 +13,10 @@ import ContactCTA from "../components/ContactCTA.astro";
 import Skills from "../components/Skills.astro";
 
 const user = Astro.locals.user;
-console.log(user); // see session username
+
+if (user) {
+  return Astro.redirect("/dashboard");
+}
 ---
 
 <BaseLayout>

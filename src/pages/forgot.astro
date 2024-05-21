@@ -1,0 +1,141 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "@/components/Icon.astro";
+---
+
+<BaseLayout
+  title="He olvidado mi contraseña | Swifly"
+  description="Pasos para recuperar mi cuenta"
+>
+  <div class="stack gap-20">
+    <main class="wrapper stack gap-8">
+      <Hero
+        title="¿Has olvidado tu contraseña?"
+        tagline="Sigue estos pasos para recuperarla"
+        align="start"
+      />
+      <div class="flex justify-center">
+        <section
+          class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
+        >
+          <div
+            class="login-logo flex items-center justify-center p-2 bg-neutral-50 mb-4 border border-purple-500 border-opacity-50 rounded-full"
+          >
+            <Icon
+              icon="swifly"
+              color="var(--accent-regular)"
+              size="2.5em"
+              gradient
+            />
+          </div>
+          <form
+            method="POST"
+            id="loginForm"
+            action="/api/signin"
+            class="flex flex-col justify-center gap-8 py-12 items-center w-full"
+          >
+            <label for="username" class="text-xl">Usuario</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+            />
+            <label for="password" class="text-xl">Clave</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+            />
+            <input
+              type="submit"
+              class="shadow-xl"
+              value="Iniciar sesión"
+              id="login"
+            />
+            <div
+              class="utils text-sm flex flex-col items-center justify-center"
+            >
+              <a href="/login" class="hover:opacity-80 m-2"
+                >Quiero iniciar sesión</a
+              >
+              <a href="/signup" class="hover:opacity-80 m-2"
+                >Quiero registrarme</a
+              >
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .login-logo {
+    box-shadow: var(--shadow-md);
+    background: radial-gradient(var(--gray-900), var(--gray-900) 150%);
+  }
+
+  .box {
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    background-color: var(--gray-999_40);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #login {
+    color: white;
+    cursor: pointer;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+    border-radius: 9999px;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    background-color: rgb(89 28 135 / var(--tw-border-opacity));
+    border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+    border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+  }
+
+  #login:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+  }
+
+  .skills h2 {
+    font-size: var(--text-lg);
+  }
+
+  .skills p {
+    color: var(--gray-400);
+  }
+
+  @media (min-width: 50em) {
+    .box {
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5rem;
+    }
+
+    .skills h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>

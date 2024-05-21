@@ -3,8 +3,6 @@ import Icon from "./Icon.astro";
 
 // SignIn auth-astro
 import { SignIn } from "auth-astro/components";
-import { getSession } from "auth-astro/server";
-const session = await getSession(Astro.request);
 ---
 
 <section
@@ -70,6 +68,7 @@ const session = await getSession(Astro.request);
       <a href="/forgot" class="hover:opacity-80 m-2"
         >He olvidado mi contraseña</a
       >
+      <a href="/signup" class="hover:opacity-80 m-2">Quiero registrarme</a>
     </div>
   </form>
 
