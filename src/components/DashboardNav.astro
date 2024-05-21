@@ -8,7 +8,7 @@ import Modal from "./Modal.astro";
 const user = Astro.locals.user;
 const username = JSON.stringify(user, null, 2);
 
-export const prerender = false;
+export const prerender = true;
 ---
 
 <div
