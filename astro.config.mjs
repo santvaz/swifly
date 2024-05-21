@@ -17,9 +17,6 @@ export default defineConfig({
       connection: process.env.DATABASE_URL
     }
   })],
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
-  // server: {
-  //   middleware: [onRequest],
-  // }
 });

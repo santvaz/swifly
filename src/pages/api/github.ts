@@ -1,7 +1,8 @@
 import { generateState } from "arctic";
 import { github } from "@/auth";
-
 import type { APIContext } from "astro";
+
+export const prerender = false
 
 export async function GET(context: APIContext): Promise<Response> {
 	const state = generateState();
