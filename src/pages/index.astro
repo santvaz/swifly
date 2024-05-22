@@ -17,6 +17,8 @@ const user = Astro.locals.user;
 if (user) {
   return Astro.redirect("/dashboard");
 }
+
+export const prerender = false;
 ---
 
 <BaseLayout>

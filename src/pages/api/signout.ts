@@ -2,7 +2,7 @@ import { lucia } from "@/auth";
 import type { APIContext } from "astro";
 
 export async function POST(context: APIContext): Promise<Response> {
-    // checks for existing session
+	// checks for existing session
 	if (!context.locals.session) {
 		return new Response(null, {
 			status: 401

@@ -1,5 +1,5 @@
 import { defineDb, defineTable, column, NOW, sql } from "astro:db";
-// https://astro.build/db/config
+// https://astro.build/db/configA
 
 // Usuarios
 const Users = defineTable({

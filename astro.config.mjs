@@ -19,7 +19,4 @@ export default defineConfig({
   })],
   output: "server",
   adapter: vercel(),
-  // server: {
-  //   middleware: [onRequest],
-  // }
 });
