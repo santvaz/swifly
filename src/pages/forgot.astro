@@ -7,7 +7,7 @@ export const prerender = false;
 ---
 
 <BaseLayout
-  title="He olvidado mi contraseña | Swifly"
+  title="Restablecer cuenta | Swifly"
   description="Pasos para recuperar mi cuenta"
 >
   <div class="stack gap-20">
@@ -33,29 +33,22 @@ export const prerender = false;
           </div>
           <form
             method="POST"
-            id="loginForm"
-            action="/api/signin"
+            id="passwordReset"
+            action="/api/password-reset"
             class="flex flex-col justify-center gap-8 py-12 items-center w-full"
           >
-            <label for="username" class="text-xl">Usuario</label>
+            <label for="email" class="text-xl">E-mail</label>
             <input
-              type="text"
-              name="username"
-              id="username"
-              class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
-            />
-            <label for="password" class="text-xl">Clave</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
+              type="email"
+              name="email"
+              id="email"
               class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
             />
             <input
               type="submit"
               class="shadow-xl"
-              value="Iniciar sesión"
-              id="login"
+              value="Restablecer cuenta"
+              id="reset"
             />
             <div
               class="utils text-sm flex flex-col items-center justify-center"
@@ -93,7 +86,7 @@ export const prerender = false;
     flex-direction: column;
   }
 
-  #login {
+  #reset {
     color: white;
     cursor: pointer;
     padding-left: 2rem;
