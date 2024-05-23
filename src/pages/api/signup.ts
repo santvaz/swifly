@@ -15,16 +15,16 @@ export async function POST(context: APIContext): Promise<Response> {
         return new Response('Email, username and password are required', { status: 400 });
     }
 
-    if (typeof email !== 'string' || email.length < 3) {
-        return new Response('Email must not be an empty field', { status: 400 })
+    if (typeof email !== 'string' || email.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        return new Response('Email must be a valid data entry.', { status: 400 })
     }
 
     if (typeof username !== 'string' || username.length < 3 || username.length > 31 || !/^[a-z0-9_-]+$/.test(username)) {
-        return new Response('Username must be at least 3 characters long', { status: 400 })
+        return new Response('Username must be a valid data entry', { status: 400 })
     }
 
-    if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
-        return new Response('Username must be at least 6 characters long', { status: 400 })
+    if (typeof password !== 'string' || password.length < 6 || password.length > 255 || !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password)) {
+        return new Response('Password must be a valid data entry: The password must be at least 8 characters long, with at least one digit, one uppercase letter, and one lowercase letter.', { status: 400 })
     }
 
     // insert data into db

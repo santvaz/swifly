@@ -19,24 +19,24 @@ export async function POST(context: APIContext): Promise<Response> {
     }
 
     // search registered user
-    const foundUsers = (await db
+    const foundUser = (await db
         .select()
         .from(Users)
-        .where(eq(Users.username, username))).at(0); // in this case, we will get one result since `username` column is unique
+        .where(eq(Users.username, username))).at(0); // in this case, we will always get one result since `username` column is unique
 
     // user not found
-    if (!foundUsers) {
+    if (!foundUser) {
         return new Response('Incorrect username or password', { status: 400 }) // ambiguous answer to avoid hackers from finding which entry value is valid and which one is not
     }
 
     // verify if user has password
-    if (!foundUsers.password) {
+    if (!foundUser.password) {
         return new Response('Invalid password', { status: 400 })
     }
 
     // verify hash
     const validPassword = await new Argon2id().verify(
-        foundUsers.password,
+        foundUser.password,
         password
     );
 
@@ -46,7 +46,7 @@ export async function POST(context: APIContext): Promise<Response> {
     }
 
     // password is valid, user can log in
-    const session = await lucia.createSession(foundUsers.id, {});
+    const session = await lucia.createSession(foundUser.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
     context.cookies.set(
         sessionCookie.name,

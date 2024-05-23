@@ -23,6 +23,7 @@ import Icon from "./Icon.astro";
       id="email"
       class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
     />
+    <span id="emailError" class="error"></span>
     <label for="username" class="text-xl">Usuario</label>
     <input
       type="text"
@@ -30,6 +31,7 @@ import Icon from "./Icon.astro";
       id="username"
       class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
     />
+    <span id="usernameError" class="error"></span>
     <label for="password" class="text-xl">Clave</label>
     <input
       type="password"
@@ -37,6 +39,7 @@ import Icon from "./Icon.astro";
       id="password"
       class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
     />
+    <span id="passwordError" class="error"></span>
     <div class="utils text-sm flex flex-col items-center justify-center">
       <a href="/login" class="hover:opacity-80 m-2">Quiero iniciar sesión</a>
       <a href="/forgot" class="hover:opacity-80 m-2"
@@ -46,7 +49,73 @@ import Icon from "./Icon.astro";
     <input type="submit" class="shadow-xl" value="Registrarse" id="signup" />
   </form>
 
+  <script>
+    const validations = {
+      email: (value) => {
+        if (!value) return "Email is required";
+        if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
+          return "Email must be a valid data entry";
+        return "";
+      },
+      username: (value) => {
+        if (!value) return "Username is required";
+        if (
+          value.length < 3 ||
+          value.length > 31 ||
+          !/^[a-z0-9_-]+$/.test(value)
+        )
+          return "Username must be a valid data entry";
+        return "";
+      },
+      password: (value) => {
+        if (!value) return "Password is required";
+        if (
+          value.length < 8 ||
+          value.length > 255 ||
+          !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value)
+        )
+          return "Password must be at least 8 characters long, with at least one digit, one uppercase letter, and one lowercase letter";
+        return "";
+      },
+    };
+
+    const showError = (input, message) => {
+      const errorSpan = document.getElementById(input.id + "Error");
+      errorSpan.textContent = message;
+      input.classList.add("bg-red-400");
+    };
+
+    const clearError = (input) => {
+      const errorSpan = document.getElementById(input.id + "Error");
+      errorSpan.textContent = "";
+      input.classList.remove("bg-red-400");
+    };
+
+    const addBlurEvent = (input, validation) => {
+      input.addEventListener("blur", (event) => {
+        const message = validation(event.target.value);
+        if (message) {
+          showError(event.target, message);
+        } else {
+          clearError(event.target);
+        }
+      });
+    };
+
+    const emailInput = document.getElementById("email");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+
+    addBlurEvent(emailInput, validations.email);
+    addBlurEvent(usernameInput, validations.username);
+    addBlurEvent(passwordInput, validations.password);
+  </script>
+
   <style>
+    form span {
+      @apply text-center text-red-500 my-2 text-balance w-full max-w-72;
+    }
+
     .signup-logo {
       box-shadow: var(--shadow-md);
       background: radial-gradient(var(--gray-900), var(--gray-900) 150%);

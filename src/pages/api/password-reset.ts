@@ -36,7 +36,7 @@ export async function POST(context: APIContext): Promise<Response> {
   }
 
   const verificationToken = await createPasswordResetToken(user[0].id);
-  const verificationLink = `https://www.swifly.app/forgot/${verificationToken}`;
+  const verificationLink = `http://localhost:4321/forgot/${verificationToken}`;
 
   const emailSent = await sendPasswordResetEmail(email, verificationLink);
 
@@ -44,6 +44,8 @@ export async function POST(context: APIContext): Promise<Response> {
     return new Response("Failed to send email", { status: 500 });
   }
 
+  return context.redirect("/");
+  // OK
   return new Response(null, { status: 200 });
 }
 
@@ -82,10 +84,10 @@ export async function rateLimit(
 
   if (rateLimitData.length > 0) {
     const { lastRequestTime, requestCount } = rateLimitData[0];
-    if (currentTime - lastRequestTime < 60000) {
+    if (currentTime - lastRequestTime < 6000000) {
       // 1 minute window
       if (requestCount >= 5) {
-        return new Response("Too many requests, please try again later.", {
+        return new Response("Too many requests, please try again in 1 hour.", {
           status: 429,
         });
       }

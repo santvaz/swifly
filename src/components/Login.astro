@@ -16,7 +16,7 @@ import { SignIn } from "auth-astro/components";
   <div
     class="providers-sign-in flex flex-col divide-y divide-slate-500 divide-opacity-50"
   >
-    <div
+    <!-- <div
       class="google-sign-in flex flex-row justify-center items-center gap-3 p-6 w-full border-t border-slate-500 border-opacity-50"
     >
       <div class="google-icon bg-white shadow-md rounded-full p-1">
@@ -25,8 +25,8 @@ import { SignIn } from "auth-astro/components";
       <SignIn provider="google" class="hover:text-slate-600"
         >Iniciar sesión con Google</SignIn
       >
-    </div>
-    <div class="github-sign-in">
+    </div> -->
+    <div class="github-sign-in border-y border-y-slate-500 border-opacity-50">
       <a
         href="/api/github"
         class="flex flex-row justify-center items-center gap-3 p-6 w-full hover:opacity-80"
@@ -56,6 +56,7 @@ import { SignIn } from "auth-astro/components";
       id="username"
       class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
     />
+    <span id="usernameError" class="error"></span>
     <label for="password" class="text-xl">Clave</label>
     <input
       type="password"
@@ -63,6 +64,7 @@ import { SignIn } from "auth-astro/components";
       id="password"
       class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
     />
+    <span id="passwordError" class="error"></span>
     <input type="submit" class="shadow-xl" value="Iniciar sesión" id="login" />
     <div class="utils text-sm flex flex-col items-center justify-center">
       <a href="/forgot" class="hover:opacity-80 m-2"
@@ -72,7 +74,65 @@ import { SignIn } from "auth-astro/components";
     </div>
   </form>
 
+  <script>
+    const validations = {
+      username: (value) => {
+        if (!value) return "Username is required";
+        if (
+          value.length < 3 ||
+          value.length > 31 ||
+          !/^[a-z0-9_-]+$/.test(value)
+        )
+          return "Username must be a valid data entry";
+        return "";
+      },
+      password: (value) => {
+        if (!value) return "Password is required";
+        if (
+          value.length < 8 ||
+          value.length > 255 ||
+          !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value)
+        )
+          return "Password must be at least 8 characters long, with at least one digit, one uppercase letter, and one lowercase letter";
+        return "";
+      },
+    };
+
+    const showError = (input, message) => {
+      const errorSpan = document.getElementById(input.id + "Error");
+      errorSpan.textContent = message;
+      input.classList.add("bg-red-400");
+    };
+
+    const clearError = (input) => {
+      const errorSpan = document.getElementById(input.id + "Error");
+      errorSpan.textContent = "";
+      input.classList.remove("bg-red-400");
+    };
+
+    const addBlurEvent = (input, validation) => {
+      input.addEventListener("blur", (event) => {
+        const message = validation(event.target.value);
+        if (message) {
+          showError(event.target, message);
+        } else {
+          clearError(event.target);
+        }
+      });
+    };
+
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+
+    addBlurEvent(usernameInput, validations.username);
+    addBlurEvent(passwordInput, validations.password);
+  </script>
+
   <style>
+    form span {
+      @apply text-center text-red-500 my-2 text-balance w-full max-w-72;
+    }
+
     .login-logo {
       box-shadow: var(--shadow-md);
       background: radial-gradient(var(--gray-900), var(--gray-900) 150%);
