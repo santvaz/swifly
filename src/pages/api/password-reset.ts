@@ -44,7 +44,7 @@ export async function POST(context: APIContext): Promise<Response> {
     return new Response("Failed to send email", { status: 500 });
   }
 
-  return context.redirect("/");
+  return context.redirect("/password-reset-sent");
   // OK
   return new Response(null, { status: 200 });
 }

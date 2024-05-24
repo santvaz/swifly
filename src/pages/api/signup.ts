@@ -48,5 +48,5 @@ export async function POST(context: APIContext): Promise<Response> {
         sessionCookie.value,
         sessionCookie.attributes
     );
-    return context.redirect("/login")
+    return context.redirect("/signup-success")
 }

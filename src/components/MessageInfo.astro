@@ -1,0 +1,91 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+export const prerender = false;
+---
+
+<BaseLayout
+  title="Info | Swifly"
+  description="Mensaje informativo de Swifly para el usuario"
+>
+  <div class="stack gap-20">
+    <main class="wrapper stack gap-8">
+      <Hero title="" tagline="" />
+      <div class="flex justify-center">
+        <section
+          class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
+        >
+          <div
+            class="flex flex-col gap-6 justify-center items-start rounded-lg w-full"
+          >
+            <slot class="children" />
+            <a href="/">Volver a inicio</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <style>
+      .box {
+        border: 1px solid var(--gray-800);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        background-color: var(--gray-999_40);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .input {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #reset {
+        color: white;
+        cursor: pointer;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin-top: 2rem;
+        border-radius: 9999px;
+        border-width: 1px;
+        --tw-border-opacity: 1;
+        background-color: rgb(89 28 135 / var(--tw-border-opacity));
+        border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+        border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+        border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+        border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+      }
+
+      #login:hover {
+        --tw-bg-opacity: 1;
+        background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+      }
+
+      .skills h2 {
+        font-size: var(--text-lg);
+      }
+
+      .skills p {
+        color: var(--gray-400);
+      }
+
+      @media (min-width: 50em) {
+        .box {
+          border-radius: 1.5rem;
+          padding: 2.5rem;
+        }
+
+        .skills {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 5rem;
+        }
+
+        .skills h2 {
+          font-size: var(--text-2xl);
+        }
+      }
+    </style>
+  </div></BaseLayout
+>

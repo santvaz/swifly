@@ -1,0 +1,27 @@
+---
+import ContactCTA from "@/components/ContactCTA.astro";
+import MessageInfo from "@/components/MessageInfo.astro";
+---
+
+<MessageInfo>
+  <div>
+    <strong>🙌 ¡Te has registrado correctamente! </strong>
+    <p>
+      Te damos una cálida bienvenida a Swifly. ¡Sé libre de mandarnos un mensaje
+      para todo aquello que necesites y estaremos dispuesto a ayudarte!
+    </p>
+    <p>
+      Recuerda que puedes contactar con nosotros siempre que lo necesites a
+      través del siguiente <a href="/contact">enlace</a>.
+    </p>
+  </div>
+</MessageInfo>
+<style>
+  div {
+    @apply flex flex-col justify-center items-start gap-4;
+  }
+
+  div strong {
+    @apply text-green-500;
+  }
+</style>
