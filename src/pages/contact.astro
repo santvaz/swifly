@@ -1,0 +1,210 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "@/components/Icon.astro";
+
+export const prerender = false;
+---
+
+<BaseLayout
+  title="Contactános | Swifly"
+  description="Contacta tus dudas con nosotros a través de nuestro formulario de contacto"
+>
+  <div class="stack gap-20">
+    <main class="wrapper stack gap-8">
+      <Hero
+        title="Contacta con nosotros"
+        tagline="Rellena el formulario de contacto"
+        align="start"
+      />
+      <div class="flex justify-center">
+        <section
+          class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
+        >
+          <div
+            class="login-logo flex items-center justify-center p-2 bg-neutral-50 mb-4 border border-purple-500 border-opacity-50 rounded-full"
+          >
+            <Icon
+              icon="swifly"
+              color="var(--accent-regular)"
+              size="2.5em"
+              gradient
+            />
+          </div>
+          <form
+            method="POST"
+            id="contactForm"
+            action="/api/sendContactEmail"
+            class="flex flex-col justify-center gap-8 py-12 items-center w-full"
+          >
+            <label for="email" class="text-xl"
+              >Tu e-mail<span class="limit">*</span></label
+            >
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+            />
+            <span id="emailError" class="error"></span>
+            <label for="subject" class="text-xl"
+              >Asunto<span class="limit">Máximo 40 caracteres</span></label
+            >
+            <input
+              type="text"
+              name="subject"
+              id="subject"
+              class="bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)]"
+              maxlength="40"
+            />
+            <span id="subjectError" class="error"></span>
+            <label for="message" class="text-xl"
+              >Mensaje<span class="limit">Máximo 400 caracteres</span></label
+            >
+            <textarea name="message" id="message" maxlength="400"></textarea>
+            <span id="messageError" class="error"></span>
+            <input type="submit" class="shadow-xl" value="Enviar" id="send" />
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<script>
+  const validations = {
+    email: (value) => {
+      if (!value) return "Email is required";
+      if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
+        return "Email must be a valid data entry";
+      return "";
+    },
+    subject: (value) => {
+      if (!value) return "Subject is required";
+      if (value.length > 40)
+        return "Subject must be a maximum of 40 characters";
+      return "";
+    },
+    message: (value) => {
+      if (!value) return "Message is required";
+      if (value.length > 400)
+        return "Message must be a maximum of 400 characters";
+      return "";
+    },
+  };
+
+  const showError = (input, message) => {
+    const errorSpan = document.getElementById(input.id + "Error");
+    errorSpan.textContent = message;
+    input.classList.add("bg-red-400");
+  };
+
+  const clearError = (input) => {
+    const errorSpan = document.getElementById(input.id + "Error");
+    errorSpan.textContent = "";
+    input.classList.remove("bg-red-400");
+  };
+
+  const addBlurEvent = (input, validation) => {
+    input.addEventListener("blur", (event) => {
+      const message = validation(event.target.value);
+      if (message) {
+        showError(event.target, message);
+      } else {
+        clearError(event.target);
+      }
+    });
+  };
+
+  const emailInput = document.getElementById("email");
+  const subjectInput = document.getElementById("subject");
+  const messageInput = document.getElementById("message");
+
+  addBlurEvent(emailInput, validations.email);
+  addBlurEvent(subjectInput, validations.subject);
+  addBlurEvent(messageInput, validations.message);
+</script>
+
+<style>
+  textarea {
+    @apply flex overflow-auto h-72 w-full bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)];
+  }
+
+  input {
+    @apply w-full;
+  }
+
+  .limit {
+    @apply text-red-500 mx-2 text-sm;
+  }
+
+  form span {
+    @apply text-center text-red-500 my-2 text-balance w-full max-w-72;
+  }
+
+  .login-logo {
+    box-shadow: var(--shadow-md);
+    background: radial-gradient(var(--gray-900), var(--gray-900) 150%);
+  }
+
+  .box {
+    border: 1px solid var(--gray-800);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    background-color: var(--gray-999_40);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #reset {
+    color: white;
+    cursor: pointer;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 2rem;
+    border-radius: 9999px;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    background-color: rgb(89 28 135 / var(--tw-border-opacity));
+    border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+    border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+    border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+  }
+
+  #login:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+  }
+
+  .skills h2 {
+    font-size: var(--text-lg);
+  }
+
+  .skills p {
+    color: var(--gray-400);
+  }
+
+  @media (min-width: 50em) {
+    .box {
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5rem;
+    }
+
+    .skills h2 {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>

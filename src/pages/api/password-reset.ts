@@ -36,7 +36,7 @@ export async function POST(context: APIContext): Promise<Response> {
   }
 
   const verificationToken = await createPasswordResetToken(user[0].id);
-  const verificationLink = `http://localhost:4321/forgot/${verificationToken}`;
+  const verificationLink = `http://localhost:4321/forgot?=${verificationToken}`;
 
   const emailSent = await sendPasswordResetEmail(email, verificationLink);
 
