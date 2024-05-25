@@ -1,0 +1,184 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import Icon from "@/components/Icon.astro";
+export const prerender = false;
+---
+
+<BaseLayout
+  title="Info | Swifly"
+  description="Mensaje informativo de Swifly para el usuario"
+>
+  <div class="stack gap-20">
+    <main class="wrapper stack gap-8">
+      <Hero title="" tagline="" />
+      <div class="flex justify-center">
+        <section
+          class="box input flex flex-col justify-center items-start gap-12 h-fit rounded-none w-full max-w-6xl"
+        >
+          <div>
+            <div class="section-title">POLÍTICA DE COOKIES</div>
+            <div class="mb-8 text-sm">
+              <strong>Last updated May 25, 2024 </strong>
+            </div>
+            <div>
+              Esta Política de Cookies explica cómo Swifly App ("Compañía",
+              "nosotros", "nos" y "nuestro") utiliza cookies y tecnologías
+              similares para reconocerte cuando visitas nuestro sitio web en
+              <a href="https://www.swifly.app">https://www.swifly.app</a> ("Sitio
+              web"). Explica qué son estas tecnologías y por qué las utilizamos,
+              así como tus derechos para controlar nuestro uso de ellas.
+              <br />
+              En algunos casos, podemos utilizar cookies para recopilar información
+              personal, o que se convierte en información personal si la combinamos
+              con otra información.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-title">¿Por qué utilizamos cookies?</div>
+            <div>
+              Utilizamos cookies de primera y tercera parte por varias razones.
+              Algunas cookies son necesarias por razones técnicas para que
+              nuestro Sitio web funcione, y nos referimos a estas como cookies
+              "esenciales" o "estrictamente necesarias". Otras cookies también
+              nos permiten rastrear y dirigir los intereses de nuestros usuarios
+              para mejorar la experiencia en nuestras Propiedades en línea.
+              Terceros sirven cookies a través de nuestro Sitio web para
+              publicidad, análisis y otros fines. Esto se describe con más
+              detalle a continuación.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-title">¿Cómo puedo controlar las cookies?</div>
+            <div>
+              Tienes derecho a decidir si aceptar o rechazar las cookies. Puedes
+              ejercer tus derechos de cookies configurando tus preferencias en
+              el Administrador de consentimiento de cookies. El Administrador de
+              consentimiento de cookies te permite seleccionar qué categorías de
+              cookies aceptas o rechazas. Las cookies esenciales no pueden ser
+              rechazadas ya que son estrictamente necesarias para proporcionarte
+              servicios.
+            </div>
+            <div>
+              El Administrador de consentimiento de cookies se encuentra en el
+              banner de notificación y en nuestro sitio web. Si optas por
+              rechazar las cookies, aún puedes usar nuestro sitio web, aunque tu
+              acceso a algunas funcionalidades y áreas de nuestro sitio web
+              puede estar restringido. También puedes configurar o modificar los
+              controles de tu navegador web para aceptar o rechazar cookies.
+            </div>
+            <div>
+              Los tipos específicos de cookies de primera y tercera parte
+              servidas a través de nuestro Sitio web y los fines que realizan se
+              describen en la siguiente tabla (ten en cuenta que las cookies
+              específicas servidas pueden variar según las Propiedades en línea
+              específicas que visites):
+            </div>
+            <div></div>
+          </div>
+
+          <div>
+            <div class="section-title"></div>
+          </div>
+
+          <div>
+            <div class="section-title"></div>
+          </div>
+
+          <div>
+            <div class="section-title"></div>
+          </div>
+        </section>
+
+        <style>
+          details {
+            @apply p-4;
+          }
+
+          details > div {
+            @apply p-8;
+          }
+
+          summary {
+            @apply cursor-pointer list-none flex flex-row justify-between items-center;
+          }
+
+          .section-title {
+            @apply font-semibold my-4 text-lg;
+          }
+
+          .contents {
+            @apply flex flex-col justify-center items-center gap-12;
+          }
+
+          .policy {
+            @apply flex flex-col gap-8 justify-center items-start;
+          }
+
+          .box {
+            border: 1px solid var(--gray-800);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            background-color: var(--gray-999_40);
+            box-shadow: var(--shadow-sm);
+          }
+
+          .input {
+            display: flex;
+            flex-direction: column;
+          }
+
+          #reset {
+            color: white;
+            cursor: pointer;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            margin-top: 2rem;
+            border-radius: 9999px;
+            border-width: 1px;
+            --tw-border-opacity: 1;
+            background-color: rgb(89 28 135 / var(--tw-border-opacity));
+            border-left-color: rgb(192 132 252 / var(--tw-border-opacity));
+            border-right-color: rgb(192 132 252 / var(--tw-border-opacity));
+            border-top-color: rgb(168 85 247 / var(--tw-border-opacity));
+            border-bottom-color: rgb(168 85 247 / var(--tw-border-opacity));
+          }
+
+          #login:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+          }
+
+          .skills h2 {
+            font-size: var(--text-lg);
+          }
+
+          .skills p {
+            color: var(--gray-400);
+          }
+
+          @media (min-width: 50em) {
+            .box {
+              border-radius: 1.5rem;
+              padding: 2.5rem;
+            }
+
+            .skills {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 5rem;
+            }
+
+            .skills h2 {
+              font-size: var(--text-2xl);
+            }
+          }
+        </style>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
