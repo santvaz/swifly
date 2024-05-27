@@ -1,0 +1,13 @@
+---
+const {
+  project: { title, user_creator },
+} = Astro.props;
+---
+
+<div
+  class="project rounded-xl h-32 w-64 border shadow-inner bg-gray-200 hover:bg-opacity-85 flex flex-col items-center justify-start cursor-pointer"
+>
+  <h5 class="font-semibold text-gray-600 p-2">{title}</h5>
+  <span>de: {user_creator}</span>
+  <div class="p-4 w-full"></div>
+</div>

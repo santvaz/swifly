@@ -1,26 +1,62 @@
 ---
-import HeadDashboard from "@/components/HeadDashboard.astro";
-import DashboardNav from "@/components/DashboardNav.astro";
-import Icon from "@/components/Icon.astro";
-import WrappedPopover from "@/components/ui/WrappedPopover";
-import Board from "@/components/ui/Board.tsx";
+import HeadDashboard from "../../components/HeadDashboard.astro";
+import DashboardNav from "../../components/DashboardNav.astro";
+import Icon from "../../components/Icon.astro";
+import WrappedPopover from "../../components/ui/WrappedPopover";
+import Board from "../../components/ui/Board";
+import { Projects, db } from "astro:db";
+
+export const prerender = true;
 
 export async function getStaticPaths() {
-  const response = await fetch("http://localhost:4321/projects/");
-  const projects = await response.json();
-  return projects.map((project) => {
-    return {
+  try {
+    // Consulta para obtener todos los proyectos
+    const projects = await db.select().from(Projects);
+
+    // Genera las rutas dinámicas basadas en los IDs de los proyectos
+    return projects.map((project) => ({
       params: { id: project.id },
-    };
-  });
+    }));
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
 }
 
-const { id } = Astro.params;
-const projectResponse = await fetch(`http://localhost:4321/projects/${id}`);
-const project = await projectResponse.json();
+export async function getStaticProps(context) {
+  const { id } = context.params;
+
+  try {
+    // Consulta para obtener los detalles del proyecto por ID
+    const projectResult = await db.select().from(Projects);
+
+    const project = projectResult[0] || null;
+
+    // Consulta para obtener todos los proyectos del usuario
+    const allProjects = await db.select().from(Projects);
+
+    return {
+      props: {
+        project,
+        allProjects,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching project:", error);
+    return {
+      props: {
+        project: null,
+        allProjects: [],
+      },
+    };
+  }
+}
+const { project } = Astro.props;
 ---
 
-<html lang="es">
+<div>{project}</div>
+
+<!-- <html lang="es">
   <HeadDashboard subtitle="Mis proyectos" />
   <body class="bg-gray-100 flex flex-col justify-center items-center">
     <DashboardNav />
@@ -73,4 +109,4 @@ const project = await projectResponse.json();
       <Board client:only="react" />
     </div></body
   >
-</html>
+</html> -->
