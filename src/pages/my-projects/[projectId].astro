@@ -4,57 +4,47 @@ import DashboardNav from "../../components/DashboardNav.astro";
 import Icon from "../../components/Icon.astro";
 import WrappedPopover from "../../components/ui/WrappedPopover";
 import Board from "../../components/ui/Board";
-import { Projects, db } from "astro:db";
+import { Projects, db, eq } from "astro:db";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  try {
-    // Consulta para obtener todos los proyectos
-    const projects = await db.select().from(Projects);
+  const projects = await db.select().from(Projects);
+  const paths = projects.map((project) => ({
+    params: { projectId: project.id },
+  }));
 
-    // Genera las rutas dinámicas basadas en los IDs de los proyectos
-    return projects.map((project) => ({
-      params: { id: project.id },
-    }));
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return [];
-  }
+  return paths;
 }
 
-export async function getStaticProps(context) {
-  const { id } = context.params;
+const { projectId } = Astro.params;
+const project = (
+  await db.select().from(Projects).where(eq(Projects.id, projectId))
+).at(0);
 
-  try {
-    // Consulta para obtener los detalles del proyecto por ID
-    const projectResult = await db.select().from(Projects);
-
-    const project = projectResult[0] || null;
-
-    // Consulta para obtener todos los proyectos del usuario
-    const allProjects = await db.select().from(Projects);
-
-    return {
-      props: {
-        project,
-        allProjects,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching project:", error);
-    return {
-      props: {
-        project: null,
-        allProjects: [],
-      },
-    };
-  }
+if (!project) {
+  throw new Error(`Project with id ${projectId} not found`);
 }
-const { project } = Astro.props;
+
+const user = Astro.locals.user;
 ---
 
-<div>{project}</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      {user ? `Usuario: ${user.username}` : "No hay usuario en sesión"}
+      Estoy en el proyecto con id {project.id} del creador {
+        project.user_creator
+      }
+    </div>
+  </body>
+</html>
 
 <!-- <html lang="es">
   <HeadDashboard subtitle="Mis proyectos" />

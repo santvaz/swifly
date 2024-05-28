@@ -52,7 +52,7 @@ const Projects = defineTable({
       optional: false,
       unique: true,
     }),
-    user_creator: column.text({ references: () => Users.columns.username }),
+    user_creator: column.text({ references: () => Users.columns.id }),
     title: column.text(), // NOT NULL by default
     description: column.text({ optional: true }),
   },
