@@ -4,7 +4,7 @@ import DashboardNav from "../../components/DashboardNav.astro";
 import Icon from "../../components/Icon.astro";
 import WrappedPopover from "../../components/ui/WrappedPopover";
 import Board from "../../components/ui/Board";
-import { Projects, db, eq } from "astro:db";
+import { Projects, Users, db, eq } from "astro:db";
 
 export const prerender = true;
 
@@ -26,30 +26,24 @@ if (!project) {
   throw new Error(`Project with id ${projectId} not found`);
 }
 
-const user = Astro.locals.user;
+// return new Response(null, {
+//   status: 200,
+//   statusText: JSON.stringify(project),
+// });
+
+// const user = (
+//   await db.select().from(Users).where(eq(Users.id, project.user_creator))
+// ).at(0);
+
+// if (!user) {
+//   throw new Error(`User with id ${projectId} not found`);
+// }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div>
-      {user ? `Usuario: ${user.username}` : "No hay usuario en sesión"}
-      Estoy en el proyecto con id {project.id} del creador {
-        project.user_creator
-      }
-    </div>
-  </body>
-</html>
-
-<!-- <html lang="es">
+<html lang="es">
   <HeadDashboard subtitle="Mis proyectos" />
   <body class="bg-gray-100 flex flex-col justify-center items-center">
-    <DashboardNav />
+    <!-- <DashboardNav /> -->
     <div
       class="project-container flex flex-col justify-center items-center mt-24 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
     >
@@ -97,6 +91,21 @@ const user = Astro.locals.user;
     </div>
     <div class="my-8 w-full max-w-7xl">
       <Board client:only="react" />
-    </div></body
-  >
-</html> -->
+    </div>
+  </body><!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      {user ? `Usuario: ${user.username}` : "There's no user in session"}
+      Estoy en el proyecto con id {project.id} del creador {
+        project.user_creator
+      }
+    </div>
+  </body>
+</html>-->
+</html>
