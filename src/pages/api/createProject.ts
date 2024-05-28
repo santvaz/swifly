@@ -62,7 +62,7 @@ export async function POST(context: APIContext): Promise<Response> {
     return new Response("Error creating project", { status: 500 });
   }
 
-  const redirectUrl = `/my-projects/${projectId}`;
+  const redirectUrl = `/my-projects/${sessionUserId}/${projectId}`;
   console.log("Redirecting to URL:", redirectUrl);
 
   return new Response(null, {

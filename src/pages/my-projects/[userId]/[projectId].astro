@@ -1,32 +1,18 @@
 ---
-import HeadDashboard from "../../components/HeadDashboard.astro";
-import DashboardNav from "../../components/DashboardNav.astro";
-import Icon from "../../components/Icon.astro";
-import WrappedPopover from "../../components/ui/WrappedPopover";
-import Board from "../../components/ui/Board";
+import HeadDashboard from "../../../components/HeadDashboard.astro";
+import DashboardNav from "../../../components/DashboardNav.astro";
+import Icon from "../../../components/Icon.astro";
+import WrappedPopover from "../../../components/ui/WrappedPopover";
+import Board from "../../../components/ui/Board";
 import { Projects, db, eq } from "astro:db";
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  const projects = await db.select().from(Projects);
-  const paths = projects.map((project) => ({
-    params: { projectId: project.id },
-  }));
-
-  return paths;
-}
-
-const { projectId } = Astro.params;
-const project = (
-  await db.select().from(Projects).where(eq(Projects.id, projectId))
-).at(0);
-
-if (!project) {
-  throw new Error(`Project with id ${projectId} not found`);
-}
-
-const user = Astro.locals.user;
+const { projectId, userId } = Astro.params;
+//mirar https://docs.astro.build/en/guides/routing/#server-ssr-mode
+console.log(projectId + " &&&&& " + userId);
+//Ahora tambien puedes acceder a los datos locales de astro como querias antes: Puedes utilizar esto para relacionar:
+// usuario con sesion iniciada <-> usuario/invitado del proyecto
+const user = Astro.locals.user; //a veces lo detecta como error de sintaxis pero funciona y no enseña ningun warning?
+console.log(user);
 ---
 
 <!doctype html>
@@ -38,10 +24,7 @@ const user = Astro.locals.user;
   </head>
   <body>
     <div>
-      {user ? `Usuario: ${user.username}` : "No hay usuario en sesión"}
-      Estoy en el proyecto con id {project.id} del creador {
-        project.user_creator
-      }
+      {user ? `Usuario: ${user.username}` : "No hay usuario en sesión"} }
     </div>
   </body>
 </html>
