@@ -40,6 +40,9 @@ const { title, user_creator } = Astro.props;
 const user = await (
   await db.select().from(Users).where(eq(Users.id, user_creator))
 ).at(0);
+
+const userId = user.id;
+console.log("User ID: " + userId);
 ---
 
 <html lang="es">
@@ -66,7 +69,7 @@ const user = await (
             <li
               class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
             >
-              <a href="/projects">
+              <a href=`/api/projects/${userId}`>
                 <Icon icon="bookmark" size="1.5em" aria-label="Mis proyectos" />
                 <h5 class="sr-only">Mis proyectos</h5>
               </a>

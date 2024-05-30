@@ -27,11 +27,12 @@ export async function GET({ request }: APIContext) {
 }
 
 const userId = Astro.request.headers.get("userId");
-fetch(`/list/userProjects`, { headers: {"userId":"Tuputamadre"}}).then(response => response.text()).then(result => console.log(result))
-
+fetch(`/list/userProjects`, { headers: { userId: "Tuputamadre" } })
+  .then((response) => response.text())
+  .then((result) => console.log(result));
 ---
 
-<p> 
+<p>
   holasdslasll
   {userId}
 </p>

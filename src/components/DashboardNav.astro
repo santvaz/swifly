@@ -7,9 +7,10 @@ import Modal from "./Modal.astro";
 // import defaultAvatar from "./../../public/assets/images/default-avatar.jpg";
 const user = Astro.locals.user;
 const username = JSON.stringify(user, null, 2);
+const userId = user.id;
 ---
 
-<div  
+<div
   class="nav-wrapper fixed top-0 z-40 w-full bg-white-500 flex flex-row justify-center items-center bg-white border-b border-b-gray-300 shadow-xs"
 >
   <header class="flex justify-between items-center w-full max-w-7xl bg-white">
@@ -28,7 +29,7 @@ const username = JSON.stringify(user, null, 2);
         <li
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
         >
-          <a href="/projects">
+          <a href=`/api/projects/${userId}`>
             <Icon icon="bookmark" size="1.5em" aria-label="Mis proyectos" />
             <h5 class="sr-only">Mis proyectos</h5>
           </a>
