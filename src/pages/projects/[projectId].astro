@@ -18,6 +18,7 @@ export async function getStaticPaths() {
       title: project.title,
       description: project.description,
       user_creator: project.user_creator,
+      projectId: project.id,
     },
   }));
 
@@ -36,7 +37,7 @@ export async function GET({ params }: APIContext) {
   return new Response(JSON.stringify(project));
 }
 
-const { title, user_creator } = Astro.props;
+const { title, user_creator, projectId } = Astro.props;
 const user = await (
   await db.select().from(Users).where(eq(Users.id, user_creator))
 ).at(0);
@@ -345,33 +346,7 @@ console.log("User ID: " + userId);
             class="project-edit-popover flex flex-row gap-1 items-end justify-center"
           >
             <Icon icon="edit" size="0.9em" />
-            <div class="popover text-sm text-gray-400 font-semibold">
-              <WrappedPopover title="Editar" client:only="react">
-                <div class="flex flex-col items-center justify-start">
-                  <form
-                    action="post"
-                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
-                  >
-                    <label for="project-edit-title">Nombre de proyecto</label>
-                    <span class="text-gray-400 font-normal p-1 text-sm"
-                      >Modifica el nombre de tu proyecto</span
-                    >
-                    <hr class="h-px w-full text-gray-400 my-3" />
-                    <input
-                      type="text"
-                      name="project-edit-title"
-                      id="project-edit-title"
-                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-grape-900 my-2"
-                    />
-                    <input
-                      type="submit"
-                      value="Cambiar"
-                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
-                    />
-                  </form>
-                </div>
-              </WrappedPopover>
-            </div>
+            <div class="popover text-sm text-gray-400 font-semibold"></div>
           </div>
         </div>
       </div>
@@ -425,5 +400,63 @@ console.log("User ID: " + userId);
         @apply bg-gray-200 rounded-full p-1 hover:bg-gray-300;
       }
     </style>
-  </body>
+  </body><div class="flex flex-col items-center justify-start">
+    <form
+      class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+    >
+      <label for="project-edit-title">Nombre de proyecto</label>
+      <span class="text-gray-400 font-normal p-1 text-sm"
+        >Modifica el nombre de tu proyecto</span
+      >
+      <hr class="h-px w-full text-gray-400 my-3" />
+      <input
+        type="text"
+        name="project-edit-title"
+        id="project-edit-title"
+        class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+      />
+      <input type="hidden" id="project-id" value=`${projectId}` />
+      <input
+        id="project-edit-submit"
+        type="submit"
+        value="Cambiar"
+        class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+      />
+    </form>
+  </div>
+
+  <script>
+    const updateProjectById = async (
+      projectId: string,
+      title: string,
+      description: string,
+    ) => {
+      const response = await fetch(
+        `http://localhost:4321/api/projects/${projectId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        },
+      );
+      const data = await response.json();
+      return data;
+    };
+
+    const updateProject = async (e) => {
+      e.preventDefault();
+      const projectEditTitle = document.querySelector(
+        "#project-edit-title",
+      ) as HTMLInputElement;
+      const projectId = document.querySelector("#project-id") as HTMLInputElement;
+      console.log(projectEditTitle.value);
+      await updateProjectById(projectId.value, projectEditTitle.value, null);
+    }
+
+    document
+      .getElementById("project-edit-submit")
+      .addEventListener("click", updateProject);
+  </script>
 </html>

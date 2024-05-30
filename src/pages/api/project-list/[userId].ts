@@ -5,26 +5,20 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const users = await db.select().from(Users);
-
-  console.log("users", users);
-
   const paths = users.map((user) => ({
     params: { userId: user.id },
   }));
-  console.log("paths", paths);
   return paths;
 }
 
 export async function GET({ params }: APIContext) {
   const { userId } = params;
-  console.log("userId", userId);
-
   const user = await (
     await db.select().from(Users).where(eq(Users.id, userId))
   ).at(0);
 
-  if (!userId) {
-    throw new Error("User id is required");
+  if (!user) {
+    throw new Error("User not found");
   }
 
   const projects = await db

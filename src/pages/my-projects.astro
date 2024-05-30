@@ -1,31 +1,25 @@
 ---
+import { getProjectListByUserId } from "@/lib/services/ProjectListService";
+import { getProjectById } from "@/lib/services/ProjectService";
+
 export const prerender = false;
 
 const user = Astro.locals.user;
-
 if (!user) {
   return Astro.redirect("/");
 }
 
-import { GET } from './api/projects/[userId].ts'
-
-// let response = await GET(Astro)
-// const data = await response.json()
-const response = await fetch(`http://localhost:4321/api/projects/${user.id}`);
-const data = await response.json();
-
-console.log("userId", user.id);
-
-
+const projects = await getProjectListByUserId(user.id);
 ---
 
 <div>
 <!-- projects: {JSON.stringify(data)} -->
   <h1>Projects</h1>
   <ul>
-    {data.map((project) => (
+    {projects.map((project) => (
       <li>
         <a>{project.title}</a>
+        <p>{(async () => JSON.stringify(await getProjectById(project.id)))()}</p>
       </li>
     ))}
   </ul>
