@@ -29,7 +29,7 @@ const userId = user.id;
         <li
           class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
         >
-          <a href=`/api/projects/${userId}`>
+          <a href=`/my-projects`>
             <Icon icon="bookmark" size="1.5em" aria-label="Mis proyectos" />
             <h5 class="sr-only">Mis proyectos</h5>
           </a>
@@ -68,7 +68,7 @@ const userId = user.id;
                       placeholder="Título"
                       required
                     />
-                    <!-- <label
+                    <label
                       for="project-description"
                       class="font-semibold text-leading">Descripción</label
                     >
@@ -78,7 +78,8 @@ const userId = user.id;
                       name="project-description"
                       id="project-description"
                       class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200 h-32"
-                      placeholder="Descripción del proyecto"></textarea> -->
+                      placeholder="Descripción del proyecto"
+                      required></textarea>
                     <input
                       type="submit"
                       value="Crear"
