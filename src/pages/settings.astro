@@ -1,7 +1,11 @@
 ---
+import FooterDashboard from "../components/FooterDashboard.astro";
 import DashboardNav from "../components/DashboardNav.astro";
 import HeadDashboard from "../components/HeadDashboard.astro";
 import Icon from "../components/Icon.astro";
+import WrappedBreadcrumb from "@/components/ui/WrappedBreadcrumb";
+import { BreadcrumbItem } from "@/components/ui/breadcrumb";
+import { BreadcrumbLink } from "@/components/ui/breadcrumb";
 
 const user = Astro.locals.user;
 
@@ -17,7 +21,28 @@ export const prerender = false;
   <body class="bg-gray-100 flex flex-col justify-center items-center">
     <DashboardNav />
     <div
-      class="settings-container my-24 rounded-xl bg-white w-full max-w-7xl border border-gray-300 p-12"
+      class="breadcrumbs p-8 md:p-0 w-full flex flex-col gap-4 justify-center items-center max-w-7xl"
+    >
+      <WrappedBreadcrumb href="/" name="Dashboard">
+        <BreadcrumbItem>
+          <div class="active">
+            <BreadcrumbLink href="/settings" aria-current="page"
+              >Configuración de perfil</BreadcrumbLink
+            >
+          </div>
+        </BreadcrumbItem>
+      </WrappedBreadcrumb>
+    </div>
+    <div
+      class="settings-container
+              mt-8
+              rounded-xl
+              bg-white
+              w-full
+              max-w-7xl
+              border
+              border-gray-300
+              p-12"
     >
       <h2>Perfil</h2>
       <span>Gestiona tu configuración de perfil</span>
@@ -46,10 +71,12 @@ export const prerender = false;
           <h3>Modificar</h3>
           <span>Cambia tus credenciales de usuario</span>
         </div>
-        <div class="username-change my-4">
+        <div class="username-change">
           <label for="settings-username">Usuario</label>
-          <form action="post">
-            <div class="input-icon relative top-9 left-2 text-gray-400">
+          <form method="post">
+            <div
+              class="input-icon relative top-9 md:top-12 left-2 text-gray-400"
+            >
               <Icon icon="at" size="1.4em" />
             </div>
             <input
@@ -61,7 +88,7 @@ export const prerender = false;
             <input
               type="submit"
               value="Cambiar usuario"
-              class="bg-blue-600 p-3 rounded-lg text-white font-semibold cursor-pointer hover:bg-blue-700"
+              class="bg-blue-600 p-3 my-4 rounded-lg text-white font-semibold cursor-pointer hover:bg-blue-700"
             />
           </form>
         </div>
@@ -128,7 +155,7 @@ export const prerender = false;
         </div>
       </div>
     </div>
-
+    <FooterDashboard />
     <style>
       h2 {
         @apply text-3xl font-semibold py-1 text-slate-700;

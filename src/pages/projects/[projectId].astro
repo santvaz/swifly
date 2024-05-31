@@ -6,9 +6,18 @@ import Board from "../../components/ui/Board";
 import Menu from "@/components/Menu.astro";
 import Image from "astro/components/Image.astro";
 import Modal from "@/components/Modal.astro";
+import FooterDashboard from "@/components/FooterDashboard.astro";
+import WrappedBreadcrumb from "@/components/ui/WrappedBreadcrumb";
+import {
+  BreadcrumbItem,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { BreadcrumbLink } from "@/components/ui/breadcrumb";
+
+// database
 import { Projects, Users, db, eq } from "astro:db";
 import type { APIContext } from "astro";
-import Footer from "@/components/Footer.astro";
+// ssr: true
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -326,9 +335,19 @@ console.log("User ID: " + userId);
         </nav>
       </header>
     </div>
-
     <div
-      class="project-container flex flex-col justify-start items-start p-6 mt-24 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
+      class="breadcrumbs p-8 md:p-0 w-full flex flex-col gap-4 justify-center items-center max-w-7xl"
+    >
+      <WrappedBreadcrumb href="/" name="Dashboard">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/my-projects">Mis proyectos</BreadcrumbLink>
+          <BreadcrumbSeparator />
+          <BreadcrumbLink href="/{projectId}">fskj</BreadcrumbLink>
+        </BreadcrumbItem>
+      </WrappedBreadcrumb>
+    </div>
+    <div
+      class="project-container flex flex-col justify-start items-start p-6 mt-8 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
     >
       <div class="w-full flex flex-col gap-3">
         <div
@@ -446,11 +465,7 @@ console.log("User ID: " + userId);
     <div class="my-8 w-full max-w-7xl">
       <Board client:only="react" />
     </div>
-    <footer
-      class="text-sm flex items-center justify-center w-full border-t border-gray-300 mt-20 text-gray-600"
-    >
-      <Footer />
-    </footer>
+    <FooterDashboard />
     <script>
       const updateProjectById = async (
         projectId: string,
@@ -488,10 +503,6 @@ console.log("User ID: " + userId);
         .addEventListener("click", updateProject);
     </script>
     <style>
-      .project-wrapper {
-        @apply text-2xl font-semibold text-grape-900;
-      }
-
       .card-container {
         scrollbar-width: auto;
         overflow-x: auto;
