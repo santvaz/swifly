@@ -7,27 +7,25 @@ if (!user) {
   return Astro.redirect("/");
 }
 
-import { GET } from './api/projects/[userId].ts'
-
 // let response = await GET(Astro)
 // const data = await response.json()
 const response = await fetch(`http://localhost:4321/api/projects/${user.id}`);
 const data = await response.json();
 
 console.log("userId", user.id);
-
-
 ---
 
 <div>
-<!-- projects: {JSON.stringify(data)} -->
+  <!-- projects: {JSON.stringify(data)} -->
   <h1>Projects</h1>
   <ul>
-    {data.map((project) => (
-      <li>
-        <a>{project.title}</a>
-      </li>
-    ))}
+    {
+      data.map((project) => (
+        <li>
+          <a>{project.title}</a>
+        </li>
+      ))
+    }
   </ul>
   <a href="/new-project">New Project</a>
 </div>

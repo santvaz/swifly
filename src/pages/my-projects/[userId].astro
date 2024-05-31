@@ -1,0 +1,33 @@
+---
+// src/pages/my-projects/[userId].astro
+import ProjectCard from "@/components/ProjectCard.astro";
+
+export async function load({ params }) {
+  const { userId } = params;
+  console.log("Page userId:", userId);
+
+  try {
+    const response = await fetch(`/api/projects/${userId}`, {
+      method: "GET",
+    });
+    console.log("API response status:", response.status);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch projects");
+    }
+
+    const projects = await response.json();
+    console.log("Fetched projects:", projects);
+
+    return { props: { projects } };
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return { props: { projects: [] } };
+  }
+}
+
+const { projects } = Astro.props;
+console.log("Projects passed to component:", projects);
+---
+
+<ProjectCard projects={projects} />

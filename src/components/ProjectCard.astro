@@ -1,0 +1,46 @@
+---
+import HeadDashboard from "./HeadDashboard.astro";
+
+// src/components/ProjectCard.astro
+const { projects } = Astro.props;
+
+console.log("Projects in ProjectCard component:", projects);
+---
+
+<html lang="es">
+  <HeadDashboard subtitle="Mis proyectos" />
+  <body class="bg-gray-100 flex flex-col justify-center items-center gap-12">
+    <div
+      class="h-24 w-full bg-white flex flex-row justify-between items-center border-b border-gray-300 px-8"
+    >
+      Nav
+    </div>
+    <main
+      class="flex flex-col gap-2 justify-start items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm w-full h-screen max-w-4xl"
+    >
+      <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
+        Mis proyectos
+      </h2>
+      <hr class="h-px w-full text-gray-400 my-4" />
+      <section
+        class="my-projects flex flex-row justify-center items-start sm:justify-start flex-wrap basis-1/3 gap-2"
+      >
+        {
+          projects && projects.length > 0 ? (
+            projects.map((project) => (
+              <div class="project rounded-xl h-32 w-64 border shadow-inner bg-gray-200 hover:bg-opacity-85 flex flex-col items-center justify-start cursor-pointer">
+                <h5 class="font-semibold text-gray-600 p-2">{project.title}</h5>
+                <div class="p-4 w-full">
+                  {project.description || "No description available"}
+                </div>
+                <p class="text-gray-500 text-sm">Author: {project.author}</p>
+              </div>
+            ))
+          ) : (
+            <p>No projects available</p>
+          )
+        }
+      </section>
+    </main>
+  </body>
+</html>

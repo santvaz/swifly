@@ -1,30 +1,14 @@
+// src/pages/api/projects/[userId].ts
 import type { APIContext } from "astro";
-import { db, Projects, Users, eq } from "astro:db";
-
-export const prerender = true;
-
-export async function getStaticPaths() {
-  const users = await db.select().from(Users);
-
-  console.log("users", users);
-
-  const paths = users.map((user) => ({
-    params: { userId: user.id },
-  }));
-  console.log("paths", paths);
-  return paths;
-}
+import { db, Projects, eq } from "astro:db";
 
 export async function GET({ params }: APIContext) {
   const { userId } = params;
-  console.log("userId", userId);
-
-  const user = await (
-    await db.select().from(Users).where(eq(Users.id, userId))
-  ).at(0);
+  console.log("API userId:", userId);
 
   if (!userId) {
-    throw new Error("User id is required");
+    console.log("User id is required");
+    return new Response("User id is required", { status: 400 });
   }
 
   const projects = await db
@@ -32,11 +16,23 @@ export async function GET({ params }: APIContext) {
     .from(Projects)
     .where(eq(Projects.user_creator, userId));
 
+  console.log("Fetched projects from DB:", projects);
+
   if (projects.length === 0) {
-    throw new Error(
-      `Projects from user id ${userId} not found: could be because we couldn't fetch results correctly or because the user doesn't have any projects created.`
+    console.log(`Projects from user id ${userId} not found`);
+    return new Response(
+      `Projects from user id ${userId} not found`,
+      { status: 404 }
     );
   }
 
-  return new Response(JSON.stringify(projects));
+  const projectDetails = projects.map((project) => ({
+    title: project.title,
+    description: project.description,
+    author: project.user_creator,
+  }));
+
+  console.log("Project details:", projectDetails);
+
+  return new Response(JSON.stringify(projectDetails), { status: 200 });
 }
