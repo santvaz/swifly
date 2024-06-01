@@ -1,4 +1,4 @@
----
+<!-- ---
 import type { GetStaticPaths } from "astro";
 import type { APIContext } from "astro";
 import { isWithinExpirationDate } from "oslo";
@@ -7,7 +7,7 @@ import { sha256 } from "oslo/crypto";
 import { encodeHex } from "oslo/encoding";
 import { db, eq, Users, PasswordReset } from "astro:db";
 import { lucia } from "src/auth";
-export const prerender = false;
+export const prerender = true;
 
 export async function getStaticPaths() {
   const response = await fetch("http://localhost:4321/forgot/");
@@ -145,4 +145,4 @@ export async function GET(context: APIContext) {
   return new Response(`Token: ${token}`);
 }
 
- -->
+  -->
