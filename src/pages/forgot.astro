@@ -71,23 +71,25 @@ export const prerender = false;
 <script>
   const validations = {
     email: (value) => {
-      if (!value) return "Email is required";
+      // if (!value) return "Email is required";
+      if (!value) return "Introduce un correo electrónico";
       if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
-        return "Email must be a valid data entry";
+        // return "Email must be a valid data entry";
+        return "Introduce un formato de correo electrónico válido";
       return "";
     },
   };
-
+  const error = ["bg-red-400", "border-y-red-400", "border-x-red-300"];
   const showError = (input, message) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = message;
-    input.classList.add("bg-red-400");
+    input.classList.add(...error);
   };
 
   const clearError = (input) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = "";
-    input.classList.remove("bg-red-400");
+    input.classList.remove(...error);
   };
 
   const addBlurEvent = (input, validation) => {

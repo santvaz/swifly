@@ -42,7 +42,9 @@ export async function GET({ params }: APIContext) {
   ).at(0);
 
   if (!project) {
-    throw new Error(`Project with id ${projectId} not found`);
+    throw new Error(
+      `Project with id ${projectId} not found // Proyecto con id ${projectId} no encontrado`
+    );
   }
   return new Response(JSON.stringify(project));
 }
