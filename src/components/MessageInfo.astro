@@ -16,10 +16,26 @@ export const prerender = false;
           class="box input flex justify-center items-center h-fit rounded-none w-full max-w-lg"
         >
           <div
-            class="flex flex-col gap-6 justify-center items-start rounded-lg w-full"
+            class="flex flex-col gap-12 justify-center items-start rounded-lg w-full"
           >
             <slot class="children" />
-            <a href="/">Volver a inicio</a>
+            <div class="w-full flex flex-row justify-center items-center gap-8">
+              <a
+                href="/"
+                class="bg-gray-900 bg-opacity-70 border-y border-y-gray-700 border-x border-x-gray-500 text-neutral-100 p-2 rounded-lg hover:bg-opacity-80"
+                >Volver atrás</a
+              >
+              <a
+                href="/"
+                class="bg-teal-900 bg-opacity-70 border-y border-y-teal-700 border-x border-x-teal-500 text-neutral-100 p-2 rounded-lg hover:bg-opacity-80"
+                >Volver a inicio</a
+              >
+              <a
+                href="/signin"
+                class="bg-violet-900 bg-opacity-70 border-y border-y-violet-700 border-x border-x-violet-500 text-neutral-100 p-2 rounded-lg hover:bg-opacity-80"
+                >Iniciar sesión</a
+              >
+            </div>
           </div>
         </section>
       </div>

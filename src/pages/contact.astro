@@ -74,7 +74,8 @@ export const prerender = false;
 <script>
   const validations = {
     email: (value) => {
-      if (!value) return "Email is required";
+      // if (!value) return "Email is required";
+      if (!value) return "Introduce un correo electrónico válido";
       if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
         // return "Email must be a valid data entry";
         return "Introduce un formato de correo electrónico válido";
@@ -131,6 +132,19 @@ export const prerender = false;
 </script>
 
 <style>
+  input[type="submit"] {
+    padding: 0.56em 2em;
+    gap: 0.8em;
+    color: var(--accent-text-over);
+    text-decoration: none;
+    line-height: 1.1;
+    border-radius: 999rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    white-space: nowrap;
+    @apply mx-auto flex items-center justify-center my-12 w-32 bg-gradient-to-tr from-pink-700 from-0% to-purple-500 to-60% px-20 py-4 cursor-pointer hover:opacity-90 border-y border-y-fuchsia-500 border-x border-x-fuchsia-400;
+  }
+
   textarea {
     @apply flex overflow-auto h-72 w-full bg-opacity-50 px-8 py-4 rounded-xl border border-x-[var(--gray-800)] border-y-[var(--gray-600)] focus:outline-none focus:border-purple-600 bg-[var(--gray-900)];
   }
