@@ -1,16 +1,27 @@
 ---
 import Hero from "../components/Hero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+const { searchParams } = Astro.url;
+
+const message = searchParams.get("message");
 ---
 
 <BaseLayout
-  title="Página no encontrada"
-  description="Error 404 — no se ha encontrado esta página"
+  title="400 Bad Request"
+  description="No se ha podido resolver la solicitud. Esto se debe a que estás enviando una solicitud incorrecta al servidor."
 >
   <Hero
-    title="Página no encontrada"
-    tagline="Parece que te has equivocado. Vuelve a la página de inicio para intentarlo de nuevo."
+    title="No se ha podido resolver la solicitud."
+    tagline="Aquí hay un mensaje para ti:"
   />
+  <p
+    class="text-center mx-auto mt-10 bg-purple-800 w-fit px-8 py-4 rounded-full border border-violet-500 bg-opacity-50"
+  >
+    {
+      message ||
+        "No se ha podido resolver la solicitud. Esto se debe a que estás enviando una solicitud incorrecta al servidor."
+    }
+  </p>
   <a href="/">Volver a inicio</a>
 </BaseLayout>
 

@@ -18,7 +18,7 @@ export async function GET({ params }: APIContext) {
   ).at(0);
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Response("No se encontraron datos.");
   }
 
   const projects = await db
@@ -26,9 +26,9 @@ export async function GET({ params }: APIContext) {
     .from(Projects)
     .where(eq(Projects.user_creator, userId));
 
-  if (projects.length === 0) {
+  if (!projects && projects.length === 0) {
     throw new Error(
-      `Projects from user id ${userId} not found: could be because we couldn't fetch results correctly or because the user doesn't have any projects created.`
+      `No se encontraron proyectos: podría ser porque no pudimos obtener los resultados correctamente o porque no hay proyectos creados hasta el momento.`
     );
   }
 

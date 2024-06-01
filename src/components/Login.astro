@@ -81,9 +81,10 @@ import { SignIn } from "auth-astro/components";
         if (
           value.length < 3 ||
           value.length > 31 ||
-          !/^[a-z0-9_-]+$/.test(value)
+          !/^[a-zA-Z0-9._-]+$/.test(value)
         )
-          return "Username must be a valid data entry";
+          // return "Username must be a valid data entry: lowercase letters, numbers, and the characters . _ -";
+          return "El nombre de usuario debe ser válido: de al menos 3 caracteres alfanuméricos, y signos como [ . _ - ]";
         return "";
       },
       password: (value) => {
