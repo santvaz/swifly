@@ -67,35 +67,39 @@ export const prerender = false;
 <script>
   const validations = {
     newPassword: (value) => {
-      if (!value) return "New password is required";
+      // if (!value) return "New password is required";
+      if (!value) return "Introduce una nueva contraseña";
       if (
         value.length < 8 ||
         !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(value)
       )
-        return "Password must be a valid data entry";
+        // return "Password must be a valid data entry";
+        return "Introduce una contraseña válida de al menos 8 caracteres y que contenga al menos una letra mayúscula, una letra minúscula y un número";
       return "";
     },
     confirmNewPassword: (value) => {
-      if (!value) return "Confirm new password is required";
+      // if (!value) return "Confirm new password is required";
+      if (!value) return "Introduce una contraseña de confirmación";
       if (
         value.length < 8 ||
         !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(value)
       )
-        return "Password must be a valid data entry";
+        // return "Password must be a valid data entry";
+        return "Introduce una contraseña válida de al menos 8 caracteres y que contenga al menos una letra mayúscula, una letra minúscula y un número";
       return "";
     },
   };
-
+  const error = ["bg-red-400", "border-y-red-400", "border-x-red-300"];
   const showError = (input, message) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = message;
-    input.classList.add("bg-red-400");
+    input.classList.add(...error);
   };
 
   const clearError = (input) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = "";
-    input.classList.remove("bg-red-400");
+    input.classList.remove(...error);
   };
 
   const addBlurEvent = (input, validation) => {

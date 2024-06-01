@@ -1,0 +1,116 @@
+---
+import DashboardNav from "../components/DashboardNav.astro";
+import HeadDashboard from "../components/HeadDashboard.astro";
+import Icon from "../components/Icon.astro";
+import WrappedPopover from "../components/ui/WrappedPopover.tsx";
+import Board from "../components/ui/Board.tsx";
+
+const user = Astro.locals.user;
+
+if (!user) {
+  return Astro.redirect("/");
+}
+
+export const prerender = false;
+---
+
+<html lang="es">
+  <HeadDashboard subtitle="Mis proyectos" />
+  <body class="bg-gray-100 flex flex-col justify-center items-center">
+    <DashboardNav />
+    <div
+      class="project-container flex flex-col justify-center items-center mt-24 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
+    >
+      <div
+        class="project-wrapper flex flex-row justify-start m-12 items-end gap-2 w-full"
+      >
+        <h2 class="ml-10">Título de proyecto</h2>
+        <div
+          class="project-edit cursor-pointer text-grape-900 text-opacity-75 hover:text-opacity-100"
+        >
+          <div
+            class="project-edit-popover flex flex-row gap-1 items-end justify-center"
+          >
+            <Icon icon="edit" size="0.9em" />
+            <div class="popover text-sm text-gray-400 font-semibold">
+              <WrappedPopover title="Editar" client:only="react">
+                <div class="flex flex-col items-center justify-start">
+                  <form
+                    action="post"
+                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                  >
+                    <label for="project-edit-title">Nombre de proyecto</label>
+                    <span class="text-gray-400 font-normal p-1 text-sm"
+                      >Modifica el nombre de tu proyecto</span
+                    >
+                    <hr class="h-px w-full text-gray-400 my-3" />
+                    <input
+                      type="text"
+                      name="project-edit-title"
+                      id="project-edit-title"
+                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                    />
+                    <input
+                      type="submit"
+                      value="Cambiar"
+                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+                    />
+                  </form>
+                </div>
+              </WrappedPopover>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="my-8 w-full max-w-7xl">
+      <Board client:only="react" />
+    </div>
+    <style>
+      .project-wrapper {
+        @apply text-2xl font-semibold text-grape-900 py-4 px-2 mb-12;
+      }
+
+      .card-container {
+        scrollbar-width: auto;
+        overflow-x: auto;
+      }
+
+      .task-card {
+        @apply w-full min-h-96 min-w-72 bg-gray-100 border border-gray-300 shadow-sm rounded-xl p-4 text-base divide-y divide-gray-200 flex flex-col justify-start items-start gap-4;
+      }
+
+      .task-card span {
+        @apply text-xl font-semibold w-full;
+      }
+
+      .task-title {
+        @apply flex flex-row justify-between items-center w-full bg-white rounded-xl border border-gray-200 p-2;
+      }
+
+      .task-title-icons > div {
+        @apply cursor-pointer hover:bg-gray-200 rounded-full;
+      }
+
+      .task {
+        @apply flex w-full min-h-32 bg-white rounded-xl cursor-pointer shadow-sm p-6;
+      }
+
+      .task h5 {
+        @apply my-2 font-semibold text-xl;
+      }
+
+      .task p {
+        @apply text-gray-500;
+      }
+
+      .title-del {
+        @apply flex flex-row items-center justify-between w-full;
+      }
+
+      .del-icon {
+        @apply bg-gray-200 rounded-full p-1 hover:bg-gray-300;
+      }
+    </style>
+  </body>
+</html>

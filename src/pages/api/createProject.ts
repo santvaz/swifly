@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 import { generateId } from "lucia";
-import { Users, Projects, db, eq } from "astro:db";
+import { Users, Projects, Permissions, db, eq } from "astro:db";
 
 export const prerender = false;
 
@@ -16,14 +16,15 @@ export async function POST(context: APIContext): Promise<Response> {
 
   const formData = await request.formData();
   const title = formData.get("project-title")?.toString();
+  const description = formData.get("project-description")?.toString();
 
-  if (!title) {
-    console.error("Title is required");
-    return new Response("Title is required", { status: 400 });
+  if (!title || !description) {
+    // console.error("Title and description are required");
+    return new Response("Title and description are required", { status: 400 });
   }
 
   const sessionUserId = session.userId;
-  console.log("Session User ID:", sessionUserId);
+  // console.log("Session User ID:", sessionUserId);
 
   const foundUser = (
     await db.select().from(Users).where(eq(Users.id, sessionUserId))
@@ -35,26 +36,36 @@ export async function POST(context: APIContext): Promise<Response> {
   }
 
   const sessionUsername = foundUser.username;
-  console.log("Found User:", foundUser);
-  console.log("Session Username:", sessionUsername);
+  // console.log("Found User:", foundUser);
+  // console.log("Session Username:", sessionUsername);
 
   const projectId = generateId(15);
-  console.log("Generated Project ID:", projectId);
+  const permissionId = generateId(15);
+  // console.log("Generated Project ID:", projectId);
 
   try {
-    console.log("Inserting project with values:", {
-      id: projectId,
-      user_creator: sessionUserId, // user_creator should be the ID, not username
-      title: title,
-      description: null, // assuming description is optional
-    });
+    // console.log("Inserting project with values:", {
+    //   id: projectId,
+    //   user_creator: sessionUserId, // user_creator should be the ID, not username
+    //   title: title,
+    //   description: null, // assuming description is optional
+    // });
 
     await db.insert(Projects).values([
       {
         id: projectId,
         user_creator: sessionUserId, // user_creator should be the ID, not username
         title: title,
-        description: null, // assuming description is optional
+        description: description,
+      },
+    ]);
+
+    await db.insert(Permissions).values([
+      {
+        id: permissionId,
+        type: "owner",
+        user_id: sessionUserId,
+        project_id: projectId,
       },
     ]);
   } catch (error) {
@@ -62,8 +73,8 @@ export async function POST(context: APIContext): Promise<Response> {
     return new Response("Error creating project", { status: 500 });
   }
 
-  const redirectUrl = `/my-projects/${projectId}`;
-  console.log("Redirecting to URL:", redirectUrl);
+  const redirectUrl = `/projects/${projectId}`;
+  // console.log("Redirecting to URL:", redirectUrl);
 
   return new Response(null, {
     status: 302,

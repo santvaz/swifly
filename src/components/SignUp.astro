@@ -52,43 +52,50 @@ import Icon from "./Icon.astro";
   <script>
     const validations = {
       email: (value) => {
-        if (!value) return "Email is required";
+        // if (!value) return "Email is required";
+        if (!value) return "Introduce una dirección de correo electrónico";
         if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
-          return "Email must be a valid data entry";
+          // return "Email must be a valid data entry";
+          return "Debes introducir un correo electrónico válido";
         return "";
       },
       username: (value) => {
-        if (!value) return "Username is required";
+        // if (!value) return "Username is required";
+        if (!value) return "Introduce un nombre de usuario";
         if (
           value.length < 3 ||
           value.length > 31 ||
-          !/^[a-z0-9_-]+$/.test(value)
+          !/^[a-zA-Z0-9_.-]+$/.test(value)
         )
-          return "Username must be a valid data entry";
+          // return "Username must be a valid data entry: letters [A-Z], numbers, and the characters . _ -";
+          return "El nombre de usuario debe ser válido: de al menos 3 caracteres alfanuméricos, y signos como [ . _ - ]";
         return "";
       },
       password: (value) => {
-        if (!value) return "Password is required";
+        // if (!value) return "Password is required";
+        if (!value) return "Introduce una contraseña";
         if (
           value.length < 8 ||
           value.length > 255 ||
           !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(value)
         )
-          return "Password must be at least 8 characters long, with at least one digit, one uppercase letter, and one lowercase letter";
+          // return "Password must be at least 8 characters long, with at least one digit, one uppercase letter, and one lowercase letter";
+          return "La contraseña debe tener al menos 8 caracteres, contener al menos una letra minúscula, una mayúscula y un número";
         return "";
       },
     };
 
+    const error = ["bg-red-400", "border-y-red-400", "border-x-red-300"];
     const showError = (input, message) => {
       const errorSpan = document.getElementById(input.id + "Error");
       errorSpan.textContent = message;
-      input.classList.add("bg-red-400");
+      input.classList.add(...error);
     };
 
     const clearError = (input) => {
       const errorSpan = document.getElementById(input.id + "Error");
       errorSpan.textContent = "";
-      input.classList.remove("bg-red-400");
+      input.classList.remove(...error);
     };
 
     const addBlurEvent = (input, validation) => {

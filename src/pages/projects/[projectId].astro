@@ -1,68 +1,383 @@
 ---
 import HeadDashboard from "../../components/HeadDashboard.astro";
-import DashboardNav from "../../components/DashboardNav.astro";
 import Icon from "../../components/Icon.astro";
 import WrappedPopover from "../../components/ui/WrappedPopover";
 import Board from "../../components/ui/Board";
-import { Projects, Users, db, eq } from "astro:db";
+import Menu from "@/components/Menu.astro";
+import Image from "astro/components/Image.astro";
+import Modal from "@/components/Modal.astro";
+import FooterDashboard from "@/components/FooterDashboard.astro";
+import WrappedBreadcrumb from "@/components/ui/WrappedBreadcrumb";
+import {
+  BreadcrumbItem,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { BreadcrumbLink } from "@/components/ui/breadcrumb";
 
+// database
+import { Projects, Users, db, eq } from "astro:db";
+import type { APIContext } from "astro";
+// ssr: true
 export const prerender = true;
 
 export async function getStaticPaths() {
   const projects = await db.select().from(Projects);
   const paths = projects.map((project) => ({
     params: { projectId: project.id },
+    props: {
+      title: project.title,
+      description: project.description,
+      user_creator: project.user_creator,
+      projectId: project.id,
+    },
   }));
 
   return paths;
 }
 
-const { projectId } = Astro.params;
-const project = (
-  await db.select().from(Projects).where(eq(Projects.id, projectId))
-).at(0);
+export async function GET({ params }: APIContext) {
+  const { projectId } = params;
+  const project = await (
+    await db.select().from(Projects).where(eq(Projects.id, projectId))
+  ).at(0);
 
-if (!project) {
-  throw new Error(`Project with id ${projectId} not found`);
+  if (!project) {
+    throw new Error(
+      `Project with id ${projectId} not found // Proyecto con id ${projectId} no encontrado`
+    );
+  }
+  return new Response(JSON.stringify(project));
 }
 
-// return new Response(null, {
-//   status: 200,
-//   statusText: JSON.stringify(project),
-// });
+const { title, description, user_creator, projectId } = Astro.props;
+const user = await (
+  await db.select().from(Users).where(eq(Users.id, user_creator))
+).at(0);
 
-// const user = (
-//   await db.select().from(Users).where(eq(Users.id, project.user_creator))
-// ).at(0);
-
-// if (!user) {
-//   throw new Error(`User with id ${projectId} not found`);
-// }
+const userId = user.id;
+// console.log("User ID: " + userId);
 ---
 
 <html lang="es">
   <HeadDashboard subtitle="Mis proyectos" />
   <body class="bg-gray-100 flex flex-col justify-center items-center">
-    <!-- <DashboardNav /> -->
     <div
-      class="project-container flex flex-col justify-center items-center mt-24 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
+      class="nav-wrapper fixed top-0 z-40 w-full bg-white-500 flex flex-row justify-center items-center bg-white border-b border-b-gray-300 shadow-xs"
     >
-      <div
-        class="project-wrapper flex flex-row justify-start m-12 items-end gap-2 w-full"
+      <header
+        class="flex justify-between items-center w-full max-w-7xl bg-white"
       >
-        <h2 class="ml-10">Título de proyecto</h2>
-        <div
-          class="project-edit cursor-pointer text-grape-900 text-opacity-75 hover:text-opacity-100"
-        >
+        <div class="section flex justify-start items-start flex-col w-full">
           <div
-            class="project-edit-popover flex flex-row gap-1 items-end justify-center"
+            class="logo flex flex-row justify-center items-center cursor-pointer h-12 w-12 my-3 bg-grape-950 shadow-inner border border-grape-300 text-grape-300 hover:bg-opacity-95 rounded-lg"
           >
-            <Icon icon="edit" size="0.9em" />
-            <div class="popover text-sm text-gray-400 font-semibold">
+            <a href="/dashboard" aria-label="swifly">
+              <Icon icon="swifly" size="2.3em" />
+            </a>
+            <h1 class="mx-2 sr-only">Swifly</h1>
+          </div>
+        </div>
+        <nav class="text-grape-950 flex flex-row items-center justify-center">
+          <ul class="flex flex-row items-center justify-center gap-1">
+            <li
+              class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100 hover:ring-grape-900"
+            >
+              <a href=`/my-projects`>
+                <Icon icon="bookmark" size="1.5em" aria-label="Mis proyectos" />
+                <h5 class="sr-only">Mis proyectos</h5>
+              </a>
+            </li>
+            <li>
+              <Modal
+                extra="rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+                btn="plus"
+                size="1.5em"
+                title="Crear un proyecto nuevo"
+                class="create"
+              >
+                <div slot="children" class="w-full">
+                  <div
+                    class="create-wrapper w-full flex flex-row items-center justify-start"
+                  >
+                    <form
+                      action="/api/createProject"
+                      method="post"
+                      class="flex flex-col justify-center items-start
+                      w-full gap-2"
+                    >
+                      <div
+                        class="inputs flex flex-col w-full gap-4 py-8 text-grape-950"
+                      >
+                        <label
+                          for="project-title"
+                          class="font-semibold text-leading"
+                          >Título del proyecto</label
+                        >
+                        <input
+                          type="text"
+                          name="project-title"
+                          id="project-title"
+                          class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200"
+                          placeholder="Título"
+                          required
+                        />
+                        <label
+                          for="project-description"
+                          class="font-semibold text-leading">Descripción</label
+                        >
+                        <textarea
+                          rows="4"
+                          cols="50"
+                          name="project-description"
+                          id="project-description"
+                          class="px-8 py-2 rounded-lg bg-grape-100 border border-grape-200 h-32"
+                          placeholder="Descripción del proyecto"
+                          required></textarea>
+                        <input
+                          type="submit"
+                          value="Crear"
+                          class="w-1/2 self-center mt-2 p-2 cursor-pointer hover:bg-grape-400 hover:text-grape-900 bg-grape-300 text-lg border border-grape-800 text-grape-800 rounded-xl"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </Modal>
+            </li>
+            <li>
+              <Menu
+                clase="search-menu dropdown"
+                icon="search"
+                sr-title="Buscador"
+                title="Buscar"
+              >
+                <div
+                  slot="children"
+                  class="flex flex-row h-24 justify-center items-center"
+                >
+                  <div class="search-wrapper w-full">
+                    <form
+                      action="/search"
+                      method="get"
+                      class="flex flex-row w-full items-center justify-center gap-2"
+                    >
+                      <div class="relative left-9 top-0.5 text-gray-400">
+                        <Icon icon="search" size="0.8em" />
+                      </div>
+                      <input
+                        class="text-left rounded-lg placeholder:text-sm placeholder:text-slate-400 h-10 w-[70%] px-9 bg-gray-100 shadow-inner focus:outline-none focus:border-gray-400 focus:ring-gray-400 focus:ring-1"
+                        type="text"
+                        name="q"
+                        placeholder="¿Qué estás buscando?"
+                      />
+                      <button class="hover:bg-grape-100 rounded-full">
+                        <Icon icon="send" size="1.3em" />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </Menu>
+            </li>
+            <li>
+              <Menu
+                clase="notification-menu dropdown"
+                icon="bell"
+                sr-title="Notificaciones"
+                title="Notificaciones"
+              >
+                <div slot="children">
+                  <div
+                    class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+                  >
+                    <div
+                      class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                    >
+                      <img
+                        class="image object-cover"
+                        src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      />
+                    </div>
+                    <div
+                      class="text text-xs flex flex-row gap-1 justify-center items-center"
+                    >
+                      <strong>Usuario</strong><p>
+                        te ha invitado a su proyecto. Pulsa para ver más.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="py-1 divide-y divide-gray-100" role="none">
+                    <div
+                      class="user-notification m-4 text-gray-500 flex flex-row justify-center items-center gap-2"
+                    >
+                      <div
+                        class="notification-pfp border border-gray-300 bg-gray-300 rounded-full size-8 overflow-hidden"
+                      >
+                        <img
+                          class="image object-cover"
+                          src="https://images.unsplash.com/photo-1523824921871-d6f1a15151f1?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        />
+                      </div>
+                      <div
+                        class="text text-xs flex flex-row gap-1 justify-center items-center"
+                      >
+                        <strong>Usuario</strong><p>
+                          te ha invitado a su proyecto. Pulsa para ver más.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="notification-utils py-1 divide-y divide-gray-100"
+                    role="none"
+                  >
+                    <div
+                      class="utils m-4 text-grape-800 flex flex-row justify-center items-center gap-2"
+                    >
+                      <div
+                        class="flex flex-row w-full justify-between items-start text-sm"
+                      >
+                        <strong>Limpiar notificaciones</strong>
+                        <strong>Ver todo</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Menu>
+            </li>
+            <li
+              class="inline-flex cursor-pointer w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-grape-100"
+            >
+              <a href="/settings">
+                <Icon icon="config" size="1.5em" aria-label="Ajustes" />
+                <h5 class="sr-only">Ajustes</h5>
+              </a>
+            </li>
+
+            {
+              user && (
+                <li
+                  id="logout"
+                  class="inline-flex cursor-pointer w-full  items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-grape-950 shadow-sm ring-1 ring-inset ring-grape-900 hover:bg-red-100 hover:ring-red-900 hover:text-red-900"
+                >
+                  <form
+                    action="/api/signout"
+                    method="POST"
+                    class="flex justify-center items-center"
+                  >
+                    <button>
+                      <Icon
+                        icon="signout"
+                        size="1.5em"
+                        aria-label="Cerrar sesión"
+                      />
+                    </button>
+                    <h5 class="sr-only">Cerrar sesión</h5>
+                  </form>
+                </li>
+              )
+            }
+
+            <li class="avatar ml-2">
+              <Menu
+                clase="notification-menu dropdown"
+                sr-title={`Perfil de ${user.username}`}
+                title={`Perfil de ${user.username}`}
+                useCustomButton={true}
+              >
+                <!-- custom button content -->
+                <div
+                  slot="button"
+                  class="profile w-full flex flex-col justify-center items-center relative"
+                >
+                  <div
+                    class="pfp rounded-full border border-grape-900 overflow-hidden size-12 text-sm shadow-lg cursor-pointer hover:opacity-90"
+                  >
+                    <Image
+                      src="https://i.imgur.com/GQ4cquU.png"
+                      alt="Foto de perfil personal"
+                      width="50"
+                      height="50"
+                      loading="eager"
+                      class="object-cover size-full"
+                    />
+                  </div>
+                  <div
+                    class="status status-online rounded-full size-3 shadow-inner bg-green-600 absolute top-9 left-8 border-t border-t-green-700"
+                  >
+                  </div>
+                </div>
+                <div slot="children">
+                  <div
+                    class="user-menu text-gray-500 flex flex-row justify-center items-center gap-2"
+                  >
+                    <div
+                      class="sec flex w-full flex-col items-start justify-center text-gray-600 divide-y divide-y-gray-900"
+                    >
+                      <div
+                        class="w-full p-4 hover:bg-gray-50 text-sm cursor-pointer"
+                      >
+                        Cambiar contraseña
+                      </div>
+                      <div
+                        class="w-full p-4 hover:bg-gray-50 text-sm cursor-pointer"
+                      >
+                        Editar foto de perfil
+                      </div>
+                      <div
+                        class="w-full p-4 text-red-600 hover:bg-red-50 text-sm cursor-pointer"
+                      >
+                        Borrar cuenta
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Menu>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <div
+      class="breadcrumbs p-8 md:p-0 w-full flex flex-col gap-4 justify-center items-center max-w-7xl"
+    >
+      <WrappedBreadcrumb href="/" name="Dashboard">
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/my-projects">Mis proyectos</BreadcrumbLink>
+          <BreadcrumbSeparator />
+          <BreadcrumbLink href="/{projectId}"
+            >Proyecto de {user.username}:<span class="mx-1">{title}</span
+            ></BreadcrumbLink
+          >
+        </BreadcrumbItem>
+      </WrappedBreadcrumb>
+    </div>
+    <div
+      class="project-container flex flex-col justify-start items-start p-6 mt-8 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
+    >
+      <div class="w-full flex flex-col gap-3">
+        <div
+          class="owner flex flex-row text-sm font-semibold text-grape-900 justify-start items-center w-full bg-grape-100 max-w-fit py-1 px-4 rounded-xl shadow-sm border border-grape-200"
+        >
+          Autor: {user.username}
+        </div>
+        <div class="title"></div>
+        <div
+          class="description w-full flex flex-col justify-start items-start gap-2 bg-gray-100 py-4 px-4 rounded-xl text-gray-600 overflow-auto"
+        >
+          <div class="edit flex flex-row justify-center items-center gap-2">
+            <h1 class="text-lg font-semibold text-grape-900">
+              {title}
+            </h1>
+            <div
+              class="edit mt-1 text-grape-900 hover:text-grape-800 text-sm flex flex-row gap-2"
+            >
+              <Icon icon="edit" size="1.2em" />
+
               <WrappedPopover title="Editar" client:only="react">
                 <div class="flex flex-col items-center justify-start">
                   <form
-                    action="post"
+                    method="post"
+                    action="/api/update-title"
                     class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
                   >
                     <label for="project-edit-title">Nombre de proyecto</label>
@@ -74,7 +389,19 @@ if (!project) {
                       type="text"
                       name="project-edit-title"
                       id="project-edit-title"
-                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 focus:bg-plum-200 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                    />
+                    <input
+                      type="hidden"
+                      id="project-id-title"
+                      name="project-id-title"
+                      value={projectId}
+                    />
+                    <input
+                      type="hidden"
+                      name="current-url"
+                      id="current-url"
+                      value=`/projects/${projectId}`
                     />
                     <input
                       type="submit"
@@ -86,26 +413,141 @@ if (!project) {
               </WrappedPopover>
             </div>
           </div>
+          <div class="edit flex flex-row justify-center items-center gap-2">
+            <h2 class="text-md font-semibold text-gray-600">Descripción</h2>
+            <div
+              class="edit mt-1 text-grape-900 hover:text-grape-800 text-sm flex flex-row gap-2"
+            >
+              <Icon icon="edit" size="1.2em" />
+              <WrappedPopover title="Editar descripción" client:only="react">
+                <div class="flex flex-col items-center justify-start">
+                  <form
+                    method="post"
+                    action="/api/update-description"
+                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                  >
+                    <label for="project-edit-title"
+                      >Descripción de proyecto</label
+                    >
+                    <span class="text-gray-400 font-normal p-1 text-sm"
+                      >Modifica la descripción de tu proyecto</span
+                    >
+                    <hr class="h-px w-full text-gray-400 my-3" />
+                    <input
+                      type="text"
+                      name="project-edit-description"
+                      id="project-edit-description"
+                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                    />
+                    <input
+                      type="hidden"
+                      id="project-id-description"
+                      name="project-id-description"
+                      value={projectId}
+                    />
+                    <input
+                      type="hidden"
+                      name="current-url"
+                      id="current-url"
+                      value=`/projects/${projectId}`
+                    />
+                    <input
+                      type="submit"
+                      value="Cambiar"
+                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+                    />
+                  </form>
+                </div>
+              </WrappedPopover>
+            </div>
+          </div>
+          <p class="text-gray-600 w-full break-words">
+            {description}
+          </p>
         </div>
       </div>
     </div>
     <div class="my-8 w-full max-w-7xl">
       <Board client:only="react" />
     </div>
-  </body><!-- <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div>
-      {user ? `Usuario: ${user.username}` : "There's no user in session"}
-      Estoy en el proyecto con id {project.id} del creador {
-        project.user_creator
+    <FooterDashboard />
+    <script>
+      const updateProjectById = async (
+        projectId: string,
+        title: string,
+        description: string
+      ) => {
+        const response = await fetch(
+          `http://localhost:4321/api/projects/${projectId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title, description }),
+          }
+        );
+        const data = await response.json();
+        return data;
+      };
+
+      const updateProject = async (e) => {
+        e.preventDefault();
+        const projectEditTitle = document.querySelector(
+          "#project-edit-title"
+        ) as HTMLInputElement;
+        const projectId = document.querySelector(
+          "#project-id"
+        ) as HTMLInputElement;
+        console.log(projectEditTitle.value);
+        await updateProjectById(projectId.value, projectEditTitle.value, null);
+      };
+
+      document
+        .getElementById("project-edit-submit")
+        .addEventListener("click", updateProject);
+    </script>
+    <style>
+      .card-container {
+        scrollbar-width: auto;
+        overflow-x: auto;
       }
-    </div>
+
+      .task-card {
+        @apply w-full min-h-96 min-w-72 bg-gray-100 border border-gray-300 shadow-sm rounded-xl p-4 text-base divide-y divide-gray-200 flex flex-col justify-start items-start gap-4;
+      }
+
+      .task-card span {
+        @apply text-xl font-semibold w-full;
+      }
+
+      .task-title {
+        @apply flex flex-row justify-between items-center w-full bg-white rounded-xl border border-gray-200 p-2;
+      }
+
+      .task-title-icons > div {
+        @apply cursor-pointer hover:bg-gray-200 rounded-full;
+      }
+
+      .task {
+        @apply flex w-full min-h-32 bg-white rounded-xl cursor-pointer shadow-sm p-6;
+      }
+
+      .task h5 {
+        @apply my-2 font-semibold text-xl;
+      }
+
+      .task p {
+        @apply text-gray-500;
+      }
+
+      .title-del {
+        @apply flex flex-row items-center justify-between w-full;
+      }
+
+      .del-icon {
+        @apply bg-gray-200 rounded-full p-1 hover:bg-gray-300;
+      }
+    </style>
   </body>
-</html>-->
 </html>

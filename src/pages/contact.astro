@@ -76,33 +76,38 @@ export const prerender = false;
     email: (value) => {
       if (!value) return "Email is required";
       if (value.length < 6 || !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value))
-        return "Email must be a valid data entry";
+        // return "Email must be a valid data entry";
+        return "Introduce un formato de correo electrónico válido";
       return "";
     },
     subject: (value) => {
-      if (!value) return "Subject is required";
+      // if (!value) return "Subject is required";
+      if (!value) return "Introduce un asunto";
       if (value.length > 40)
-        return "Subject must be a maximum of 40 characters";
+        // return "Subject must be a maximum of 40 characters";
+        return "El asunto debe tener un máximo de 40 caracteres";
       return "";
     },
     message: (value) => {
-      if (!value) return "Message is required";
+      // if (!value) return "Message is required";
+      if (!value) return "Introduce un mensaje";
       if (value.length > 400)
-        return "Message must be a maximum of 400 characters";
+        // return "Message must be a maximum of 400 characters";
+        return "El mensaje debe tener un máximo de 400 caracteres";
       return "";
     },
   };
-
+  const error = ["bg-red-400", "border-y-red-400", "border-x-red-300"];
   const showError = (input, message) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = message;
-    input.classList.add("bg-red-400");
+    input.classList.add(...error);
   };
 
   const clearError = (input) => {
     const errorSpan = document.getElementById(input.id + "Error");
     errorSpan.textContent = "";
-    input.classList.remove("bg-red-400");
+    input.classList.remove(...error);
   };
 
   const addBlurEvent = (input, validation) => {

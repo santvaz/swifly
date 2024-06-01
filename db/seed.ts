@@ -5,6 +5,7 @@ export default async function seed() {
   // TODO
   await db.insert(Users).values([
     {
+      id: "nwiery6h3w13o07",
       email: "pepe@gmail.com",
       username: 'pepe',
       password: '1234',

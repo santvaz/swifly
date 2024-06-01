@@ -107,7 +107,15 @@
     // and testing for sunday because it became the 7th day
     blankDates(firstDay === 0 ? 6 : firstDay - 1);
     // adding the dates to the calendar
-    const active = ["active", "bg-grape-300", "rounded-full"];
+    const active = [
+      "active",
+      "text-grape-900",
+      "bg-plum-400",
+      "bg-opacity-50",
+      "rounded-full",
+      "p-1",
+      "animate-pulse",
+    ];
     for (let day = 1; day <= totalDays; day++) {
       // create li node with text content & apend to body
       let cell = document.createElement("li");
@@ -127,7 +135,8 @@
       cell.setAttribute("data-year", year);
 
       //appending li to body of calendar
-      cell.classList.add("singleDay");
+      const styles = ["singleDay", "rounded-full", "p-1", "text-grape-900"];
+      cell.classList.add(...styles);
       cell.appendChild(cellText);
       cell.onclick = function (e) {
         showDate(e.target);
