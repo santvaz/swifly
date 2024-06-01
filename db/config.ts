@@ -91,12 +91,7 @@ const Categories = defineTable({
 
 const Permissions = defineTable({
   columns: {
-    id: column.text({
-      primaryKey: true,
-      autoIncrement: true,
-      optional: false,
-      unique: true,
-    }),
+    id: column.text({ primaryKey: true, optional: false, unique: true }),
     type: column.text(),
     user_id: column.text({ references: () => Users.columns.id }),
     project_id: column.text({ references: () => Projects.columns.id }),

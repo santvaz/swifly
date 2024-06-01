@@ -135,7 +135,8 @@
       cell.setAttribute("data-year", year);
 
       //appending li to body of calendar
-      cell.classList.add("singleDay");
+      const styles = ["singleDay", "rounded-full", "p-1", "text-grape-900"];
+      cell.classList.add(...styles);
       cell.appendChild(cellText);
       cell.onclick = function (e) {
         showDate(e.target);

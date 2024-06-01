@@ -1,6 +1,6 @@
 import type { APIContext } from "astro";
 import { generateId } from "lucia";
-import { Users, Projects, db, eq } from "astro:db";
+import { Users, Projects, Permissions, db, eq } from "astro:db";
 
 export const prerender = false;
 
@@ -40,6 +40,7 @@ export async function POST(context: APIContext): Promise<Response> {
   // console.log("Session Username:", sessionUsername);
 
   const projectId = generateId(15);
+  const permissionId = generateId(15);
   // console.log("Generated Project ID:", projectId);
 
   try {
@@ -55,11 +56,20 @@ export async function POST(context: APIContext): Promise<Response> {
         id: projectId,
         user_creator: sessionUserId, // user_creator should be the ID, not username
         title: title,
-        description: description, // assuming description is optional
+        description: description,
+      },
+    ]);
+
+    await db.insert(Permissions).values([
+      {
+        id: permissionId,
+        type: "owner",
+        user_id: sessionUserId,
+        project_id: projectId,
       },
     ]);
   } catch (error) {
-    // console.error("Error inserting project:", error);
+    console.error("Error inserting project:", error);
     return new Response("Error creating project", { status: 500 });
   }
 

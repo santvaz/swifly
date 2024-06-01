@@ -9,7 +9,9 @@ import FooterDashboard from "@/components/FooterDashboard.astro";
 import WrappedBreadcrumb from "@/components/ui/WrappedBreadcrumb";
 import { BreadcrumbItem } from "@/components/ui/breadcrumb";
 import { BreadcrumbLink } from "@/components/ui/breadcrumb";
+import Events from "@/components/ui/Events";
 import { Projects, eq, count, db } from "astro:db";
+import TaskProgress from "@/components/ui/TaskProgress";
 
 // sessions
 const user = Astro.locals.user;
@@ -50,34 +52,96 @@ const projectCount = await db
       </WrappedBreadcrumb>
     </div>
     <div
-      class="content p-8 md:p-0 w-full flex flex-col xl:flex-row gap-4 justify-center items-start"
+      class="content p-8 md:p-0 w-full flex flex-col xl:flex-row gap-4 justify-between items-start max-w-7xl"
     >
       <!-- main -->
       <main
         class="w-full max-w-4xl flex flex-col gap-2 justify-start items-start bg-white-200 p-10 rounded-lg bg-white border border-gray-300 shadow-sm"
       >
         <h2
-          class="text-grape-800 font-semibold text-2xl not-sr-only flex flex-row justify-center items-center gap-2"
+          class="font-light text-4xl not-sr-only flex flex-row justify-center items-center gap-2 p-4 rounded-xl"
         >
-          ¡Hola, {user.username}! <span class="text-sm mt-1">👋🏼</span>
+          ¡Hola,<span class="font-medium text-plum-800">{user.username}</span>! <span
+            class="text-2xl mt-1">👋🏼</span
+          >
         </h2>
         <hr class="h-px w-full text-gray-400 my-1" />
-        <section class="w-full flex flex-col justify-start items-start text-lg">
-          {
-            projectCount.map((count) => (
-              <p class="w-full">Tienes {count.count} proyectos</p>
-            ))
-          }
+        <h4 class="text-base font-thin">Resumen de tu cuenta:</h4>
+        <section
+          class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <div
+            class="w-full flex items-center justify-center bg-indigo-100 border border-indigo-300 rounded-xl px-4 py-2 text-indigo-700"
+          >
+            {
+              projectCount.map((count) => (
+                <p class="w-full">
+                  Estás trabajando en {count.count} proyectos
+                </p>
+              ))
+            }
+          </div>
+          <div
+            class="w-full flex items-center justify-center bg-emerald-100 border border-emerald-300 rounded-xl px-4 py-2 text-emerald-700"
+          >
+            <p class="w-full">
+              ¡Genial! 😊 Estás colaborando con otros usuarios en {
+                Math.floor(Math.random() * 10)
+              } proyectos
+            </p>
+          </div>
+          <div
+            class="w-full flex items-center justify-center bg-cyan-100 border border-cyan-300 rounded-xl px-4 py-2 text-cyan-700"
+          >
+            <p class="w-full">
+              Tienes {Math.floor(Math.random() * 5)} invitaciones a proyectos pendientes
+            </p>
+          </div>
+          <div
+            class="w-full flex items-center justify-center bg-yellow-100 border border-yellow-300 rounded-xl px-4 py-2 text-yellow-700"
+          >
+            <p class="w-full">
+              Tienes {Math.floor(Math.random() * 15)} mensajes privados sin leer
+            </p>
+          </div>
+          <div
+            class="w-full flex items-center justify-center bg-rose-100 border border-rose-300 rounded-xl px-4 py-2 text-rose-700"
+          >
+            <p class="w-full">
+              Tienes {Math.floor(Math.random() * 8)} solicitudes de amistad pendientes
+            </p>
+          </div>
+          <div
+            class="w-full flex items-center justify-center bg-orange-100 border border-orange-300 rounded-xl px-4 py-2 text-orange-700"
+          >
+            <p class="w-full">
+              Tienes {Math.floor(Math.random() * 20)} amigos conectados ahora mismo
+            </p>
+          </div>
         </section>
-
+        <section
+          class="calendar-wrapper w-full flex flex-col gap-4 justify-center items-start"
+        >
+          <h2 class="text-grape-800 not-sr-only font-semibold text-2xl">
+            Calendario
+          </h2>
+          <hr class="h-px w-full text-gray-400 my-4 mb-4" />
+          <div class="w-full max-w-sm mx-auto">
+            <!-- calendar component -->
+            <Calendar />
+          </div>
+        </section>
+        <section
+          class="bg-white flex flex-col justify-center items-start w-full"
+        >
+          <Events />
+        </section>
         <!-- end main tag -->
       </main>
       <!-- aside -->
-      <aside
-        class="flex justify-center items-center flex-nowrap gap-4 xl:flex-wrap xl:flex-col w-full xl:w-fit"
-      >
+      <aside class="flex flex-nowrap gap-4 xl:flex-wrap xl:flex-col w-full">
         <section
-          class="bg-white flex flex-col justify-center items-start p-12 w-full max-w-lg rounded-xl border border-gray-300"
+          class="bg-white flex flex-col justify-center items-start p-12 w-full rounded-xl border border-gray-300"
         >
           <div
             class="chat-title w-full flex flex-row justify-between items-center text-grape-800"
@@ -85,7 +149,7 @@ const projectCount = await db
             <h2 class="text-grape-800 font-semibold text-2xl not-sr-only">
               Mensajes
             </h2>
-            <div class="add-chat cursor-pointer p-1">
+            <div class="add-chat cursor-pointer">
               <Modal
                 extra="px-4 py-2 bg-grape-50 text-grape-800 border border-grape-700 rounded-lg"
                 btn="plus"
@@ -294,16 +358,11 @@ const projectCount = await db
           </div>
         </section>
         <section
-          class="calendar-wrapper border border-gray-300 rounded-xl bg-white py-[68px] px-8 w-full"
+          class="bg-white flex flex-col justify-center items-start p-12 w-full rounded-xl border border-gray-300 gap-4"
         >
-          <h2 class="text-grape-800 not-sr-only font-semibold text-2xl">
-            Calendario
-          </h2>
-          <hr class="h-px w-full text-gray-400 my-4 mb-4" />
-          <div class="calendar">
-            <!-- calendar component -->
-            <Calendar />
-          </div>
+          <h4 class="font-thin text-2xl">Tu progreso</h4>
+          <hr class="h-px w-full text-gray-400 my-1" />
+          <TaskProgress />
         </section>
       </aside>
       <!-- end aside tag -->

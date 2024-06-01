@@ -55,7 +55,7 @@ const user = await (
 ).at(0);
 
 const userId = user.id;
-console.log("User ID: " + userId);
+// console.log("User ID: " + userId);
 ---
 
 <html lang="es">
@@ -344,7 +344,10 @@ console.log("User ID: " + userId);
         <BreadcrumbItem>
           <BreadcrumbLink href="/my-projects">Mis proyectos</BreadcrumbLink>
           <BreadcrumbSeparator />
-          <BreadcrumbLink href="/{projectId}">fskj</BreadcrumbLink>
+          <BreadcrumbLink href="/{projectId}"
+            >Proyecto de {user.username}:<span class="mx-1">{title}</span
+            ></BreadcrumbLink
+          >
         </BreadcrumbItem>
       </WrappedBreadcrumb>
     </div>
@@ -362,7 +365,7 @@ console.log("User ID: " + userId);
           class="description w-full flex flex-col justify-start items-start gap-2 bg-gray-100 py-4 px-4 rounded-xl text-gray-600 overflow-auto"
         >
           <div class="edit flex flex-row justify-center items-center gap-2">
-            <h1 class="text-lg font-semibold text-grape-900 uppercase">
+            <h1 class="text-lg font-semibold text-grape-900">
               {title}
             </h1>
             <div
