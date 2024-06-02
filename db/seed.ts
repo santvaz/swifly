@@ -1,4 +1,4 @@
-import { db, Users, Projects } from 'astro:db';
+import { db, Users, Projects, Tasks } from "astro:db";
 
 // https://astro.build/db/seed
 export default async function seed() {
@@ -7,16 +7,16 @@ export default async function seed() {
     {
       id: "nwiery6h3w13o07",
       email: "pepe@gmail.com",
-      username: 'pepe',
-      password: '1234',
-    }
-  ])
+      username: "pepe",
+      password: "1234",
+    },
+  ]);
 
   await db.insert(Projects).values([
     {
-      id: "wq2ed201ads4a8da5df",
+      id: "wq2ed201ada8da5df",
       title: "Trabajo de Fin de Grado",
       user_creator: "nwiery6h3w13o07",
     },
   ]);
-} 
+}

@@ -1,7 +1,7 @@
 import type { APIContext } from "astro";
 import { generateId } from "lucia";
 import { Argon2id } from "oslo/password";
-import { db, Users } from "astro:db";
+import { db, Users, eq } from "astro:db";
 import { lucia } from "@/auth";
 
 export async function POST(context: APIContext): Promise<Response> {
@@ -17,6 +17,30 @@ export async function POST(context: APIContext): Promise<Response> {
     // });
     return context.redirect(
       "/400?message=Correo%20electr%C3%B3nico,%20nombre%20de%20usuario%20y%20contrase%C3%B1a%20son%20obligatorios%20para%20registrarse"
+    );
+  }
+
+  // retrieve email from db and check if it already exists
+  const emailExists = await db
+    .select()
+    .from(Users)
+    .where(eq(Users.email, email.toString()));
+  if (emailExists.length) {
+    // return new Response("Email already exists", { status: 400 });
+    return context.redirect(
+      "/400?message=El%20correo%20electr%C3%B3nico%20ya%20existe.%20Introduce%20un%20correo%20electr%C3%B3nico%20diferente%20para%20continuar"
+    );
+  }
+
+  // retrieve username from db and check if it already exists
+  const usernameExists = await db
+    .select()
+    .from(Users)
+    .where(eq(Users.username, username.toString()));
+  if (usernameExists.length) {
+    // return new Response("Username already exists", { status: 400 });
+    return context.redirect(
+      "/400?message=El%20nombre%20de%20usuario%20ya%20existe.%20Introduce%20uno%20distinto%20para%20continuar"
     );
   }
 

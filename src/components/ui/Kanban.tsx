@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
 import './ui-styles/styles.css';
-import axios from "axios";
 
 export const CustomKanban = () => {
   return (
@@ -16,21 +15,7 @@ export const CustomKanban = () => {
 };
 
 const Board = () => {
-  // const [cards, setCards] = useState(DEFAULT_CARDS);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    const fetchCards = async () => {
-      try {
-        const response = await axios.get("../../pages/api/addtask");
-        setCards(response.data);
-      } catch (error) {
-        console.error("Error fetching cards:", error);
-      }
-    };
-
-    fetchCards();
-  }, []);
+  const [cards, setCards] = useState(DEFAULT_CARDS);
 
   return (
     <div className="flex flex-col justify-center items-center xl:justify-start xl:items-start xl:mt-0 gap-24 xl:gap-3 xl:flex-row h-full w-full p-12">
@@ -43,7 +28,7 @@ const Board = () => {
       />
       <Column
         title="To Do"
-        column="to do"
+        column="To Do"
         headingColor="text-grape-800 font-semibold bg-grape-200 p-2 w-full"
         cards={cards}
         setCards={setCards}
@@ -94,7 +79,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
 
       copy = copy.filter((c) => c.id !== cardId);
 
-      const moveToBack = before === "-1"; // if true, move to back of array
+      const moveToBack = before === "-1";
 
       if (moveToBack) {
         copy.push(cardToTransfer);
@@ -277,18 +262,10 @@ const AddCard = ({ column, setCards }) => {
     setAdding(false);
   };
 
-
   return (
     <>
       {adding ? (
         <motion.form layout onSubmit={handleSubmit}>
-
-          {/* <form action="../../../pages/api/tasks/addTask" className="flex flex-row justify-start items-center gap-1 text-xs w-full">
-            <input type="text" name="task-title" placeholder="Añadir nueva tarea..." className="bg-gray-200 border border-gray-300 p-2 rounded-sm shadow-inner text-sm placeholder:text-gray-500 w-full" />
-            <input type="submit" value="Añadir" className="bg-green-200 rounded-md border text-green-700 border-green-400 w-fit py-2.5 px-2 cursor-pointer hover:opacity-80" />
-            <input type="hidden" name="category" id="category" value={'to do'} />
-            <input type="hidden" name="category" id="category" value={'to do'} />
-          </form> */}
           <textarea
             onChange={(e) => setText(e.target.value)}
             autoFocus
@@ -298,14 +275,12 @@ const AddCard = ({ column, setCards }) => {
           <div className="mt-1.5 flex items-center justify-end gap-1.5">
             <button
               onClick={() => setAdding(false)}
-              className="px-2.5 py-2 text-xs text-red-400 bg-red-50 transition-colors hover:shadow-inner hover:text-red-500 rounded-md border border-red-200"
+              className="px-3 py-1.5 text-xs text-red-400 bg-red-50 transition-colors hover:shadow-inner hover:text-red-500 rounded-md border border-red-200"
             >
               Cerrar
             </button>
             <button
               type="submit"
-              formMethod="post"
-              formAction="../../pages/api/addtask"
               className="flex items-center gap-1.5 bg-green-100 px-3 py-1.5 text-xs text-green-500 hover:shadow-inner hover:text-green-600 rounded-md border border-green-300"
             >
               <span>Añadir</span>
@@ -317,8 +292,6 @@ const AddCard = ({ column, setCards }) => {
         <motion.button
           layout
           onClick={() => setAdding(true)}
-          formMethod="post"
-          formAction="../../pages/api/addtask"
           className="flex w-full items-center gap-1.5 px-3 py-1.5 text-xs rounded-md text-gray-500 bg-gray-200 transition-colors hover:shadow-inner hover:text-gray-400"
         >
           <span>Añadir tarea</span>

@@ -2,7 +2,7 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="h-fit py-8 px-4">
+<footer class="mt-12">
   <div class="group">
     <p>&copy; {currentYear} Swifly</p>
   </div>
@@ -17,7 +17,7 @@ const currentYear = new Date().getFullYear();
 </footer>
 <style>
   footer {
-    @apply text-xs flex flex-row justify-between items-center gap-8 w-full text-gray-600 border-t border-gray-300 mt-12 bg-white;
+    @apply text-xs flex flex-row justify-between items-center gap-8 w-full text-gray-600 border-t border-gray-300 relative bottom-0 font-semibold py-12 px-4 xl:py-2 xl:px-3;
   }
 
   footer a {
