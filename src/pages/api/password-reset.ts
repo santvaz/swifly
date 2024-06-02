@@ -36,7 +36,7 @@ export async function POST(context: APIContext): Promise<Response> {
   }
 
   const verificationToken = await createPasswordResetToken(user[0].id);
-  const verificationLink = `https://www.swifly.app/forgot?=${verificationToken}`;
+  const verificationLink = `www.swifly.app/forgot?=${verificationToken}`;
 
   const emailSent = await sendPasswordResetEmail(email, verificationLink);
 

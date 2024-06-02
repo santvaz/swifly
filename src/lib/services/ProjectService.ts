@@ -1,7 +1,5 @@
 export const getProjectById = async (projectId: string) => {
-  const response = await fetch(
-    `https://www.swifly.app/api/projects/${projectId}`
-  );
+  const response = await fetch(`www.swifly.app/api/projects/${projectId}`);
   const data = await response.json();
   return data;
 };
@@ -11,16 +9,13 @@ export const updateProjectById = async (
   title: string,
   description: string
 ) => {
-  const response = await fetch(
-    `https://www.swifly.app/api/projects/${projectId}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, description }),
-    }
-  );
+  const response = await fetch(`www.swifly.app/api/projects/${projectId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, description }),
+  });
   const data = await response.json();
   return data;
 };
