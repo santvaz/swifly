@@ -1,5 +1,5 @@
 ---
-// import Image from "astro/components/Image.astro";
+import Image from "astro/components/Image.astro";
 // import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 import Menu from "./Menu.astro";
@@ -239,14 +239,14 @@ const userId = user.id;
               <div
                 class="pfp rounded-full border border-gray-200 overflow-hidden size-12 text-sm shadow-lg cursor-pointer hover:opacity-90"
               >
-                <!-- <Image
+                <Image
                   src="https://i.imgur.com/GQ4cquU.png"
                   alt="Foto de perfil personal"
                   width="50"
                   height="50"
                   loading="eager"
                   class="object-cover size-full"
-                /> -->
+                />
               </div>
               <div
                 class="status status-online rounded-full size-3 shadow-inner bg-green-600 absolute top-9 left-8 border border-green-200 me-5"
