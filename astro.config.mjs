@@ -5,7 +5,6 @@ import db from "@astrojs/db";
 import auth from "auth-astro";
 import vercel from "@astrojs/vercel/serverless";
 import sitemap from "@astrojs/sitemap";
-import webVitals from "@astrojs/web-vitals";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -19,7 +18,7 @@ export default defineConfig({
       client: 'astrodb',
       connection: process.env.ASTRO_STUDIO_APP_TOKEN
     }
-  }), sitemap(), webVitals()],
+  }), sitemap()],
   output: "server",
   adapter: vercel()
 });

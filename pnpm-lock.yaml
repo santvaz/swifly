@@ -23,9 +23,6 @@ dependencies:
   '@astrojs/vercel':
     specifier: ^7.6.0
     version: 7.6.0(astro@4.10.1)(next@14.2.3)(react@18.3.1)
-  '@astrojs/web-vitals':
-    specifier: ^0.2.1
-    version: 0.2.1(@astrojs/db@0.10.7)
   '@auth/core':
     specifier: ^0.18.6
     version: 0.18.6
@@ -303,15 +300,6 @@ packages:
       - next
       - react
       - supports-color
-    dev: false
-
-  /@astrojs/web-vitals@0.2.1(@astrojs/db@0.10.7):
-    resolution: {integrity: sha512-IbLRiN4s+6P1xEhopDSO9FAWS6Yg5kFDFOMiYmC6G1Ht0wFEERDQSh+Az1e1BiTMV4WGMfcvaArmTfZtjN7OjQ==}
-    peerDependencies:
-      '@astrojs/db': ^0.11.0
-    dependencies:
-      '@astrojs/db': 0.10.7(@types/react@18.3.3)(react@18.3.1)
-      web-vitals: 4.0.1
     dev: false
 
   /@auth/core@0.18.6:
@@ -6673,10 +6661,6 @@ packages:
 
   /web-vitals@3.5.2:
     resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
-    dev: false
-
-  /web-vitals@4.0.1:
-    resolution: {integrity: sha512-AW6qT/vXK3pbf+WgVcEBXY//AWCpXjVKgdb6rt0cARSUdtT+NUtZCOeo+CSLUX7PjSQ275DmxfkAs7QlPbtR6w==}
     dev: false
 
   /webidl-conversions@3.0.1:
