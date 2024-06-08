@@ -5,17 +5,19 @@ import db from "@astrojs/db";
 import auth from "auth-astro";
 import vercel from "@astrojs/vercel/serverless";
 import sitemap from "@astrojs/sitemap";
-
 import webVitals from "@astrojs/web-vitals";
+import dotenv from 'dotenv';
+dotenv.config();
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://www.swifly.app',
   integrations: [tailwind(), db(), react(), auth({
     providers: [],
     db: {
       // db connection
       client: 'astrodb',
-      connection: process.env.DATABASE_URL
+      connection: process.env.ASTRO_STUDIO_APP_TOKEN
     }
   }), sitemap(), webVitals()],
   output: "server",

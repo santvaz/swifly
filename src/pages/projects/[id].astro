@@ -23,12 +23,12 @@ export const prerender = true;
 export async function getStaticPaths() {
   const projects = await db.select().from(Projects);
   const paths = projects.map((project) => ({
-    params: { projectId: project.id },
+    params: { id: project.id },
     props: {
       title: project.title,
       description: project.description,
       user_creator: project.user_creator,
-      projectId: project.id,
+      id: project.id,
     },
   }));
 
@@ -36,20 +36,20 @@ export async function getStaticPaths() {
 }
 
 export async function GET({ params }: APIContext) {
-  const { projectId } = params;
+  const { id } = params;
   const project = await (
-    await db.select().from(Projects).where(eq(Projects.id, projectId))
+    await db.select().from(Projects).where(eq(Projects.id, id))
   ).at(0);
 
   if (!project) {
     throw new Error(
-      `Project with id ${projectId} not found // Proyecto con id ${projectId} no encontrado`
+      `Project with id ${id} not found // Proyecto con id ${id} no encontrado`
     );
   }
   return new Response(JSON.stringify(project));
 }
 
-const { title, description, user_creator, projectId } = Astro.props;
+const { title, description, user_creator, id } = Astro.props;
 const user = await (
   await db.select().from(Users).where(eq(Users.id, user_creator))
 ).at(0);
@@ -349,7 +349,7 @@ const userId = user.id;
         <BreadcrumbItem>
           <BreadcrumbLink href="/my-projects">Mis proyectos</BreadcrumbLink>
           <BreadcrumbSeparator />
-          <BreadcrumbLink href="/{projectId}"
+          <BreadcrumbLink href="/{id}"
             >Proyecto de {user.username}:<span class="mx-1">{title}</span
             ></BreadcrumbLink
           >
@@ -357,133 +357,128 @@ const userId = user.id;
       </WrappedBreadcrumb>
     </div>
     <div
-      class="project-container flex flex-col justify-start items-start p-6 mt-8 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
+      class="project-container flex flex-col justify-start items-start p-6 mt-8 gap-1 rounded-xl bg-neutral-50 border border-gray-300 w-full max-w-7xl"
     >
       <div class="w-full flex flex-col gap-3">
-        <div
-          class="owner flex flex-row text-sm font-semibold text-grape-900 justify-start items-center w-full bg-grape-100 max-w-fit py-1 px-4 rounded-xl shadow-sm border border-grape-200"
-        >
+        <div class="flex flex-row justify-between items-center">
+          <div class="title font-bold text-gray-900 text-2xl">{title}</div>
+          <div
+            class="text-sm rounded-md border border-gray-200 p-2 hover:bg-gray-100 cursor-pointer"
+          >
+            <WrappedPopover title="Editar título" client:only="react">
+              <div class="flex flex-col items-center justify-start">
+                <form
+                  method="post"
+                  action="/api/update-title"
+                  class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                >
+                  <label for="project-edit-title">Nombre de proyecto</label>
+                  <span class="text-gray-400 font-normal p-1 text-sm"
+                    >Modifica el nombre de tu proyecto</span
+                  >
+                  <hr class="h-px w-full text-gray-400 my-3" />
+                  <input
+                    type="text"
+                    name="project-edit-title"
+                    id="project-edit-title"
+                    class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                  />
+                  <input
+                    type="hidden"
+                    id="project-id-title"
+                    name="project-id-title"
+                    value={id}
+                  />
+                  <input
+                    type="hidden"
+                    name="current-url"
+                    id="current-url"
+                    value=`/projects/${id}`
+                  />
+                  <input
+                    type="submit"
+                    value="Cambiar"
+                    class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+                  />
+                </form>
+              </div>
+            </WrappedPopover>
+          </div>
+        </div>
+        <div class="text-xs bg-gray-100 rounded-full w-fit px-2 py-0.5">
           Autor: {user.username}
         </div>
-        <div class="title"></div>
+        <div class="border-t pt-4"></div>
         <div
-          class="description w-full flex flex-col justify-start items-start gap-2 bg-gray-100 py-4 px-4 rounded-xl text-gray-600 overflow-auto"
+          class="description w-full flex flex-col justify-start items-start gap-2 rounded-xl text-gray-600 overflow-auto"
         >
-          <div class="edit flex flex-row justify-center items-center gap-2">
-            <h1 class="text-lg font-semibold text-grape-900">
-              {title}
-            </h1>
-            <div
-              class="edit mt-1 text-grape-900 hover:text-grape-800 text-sm flex flex-row gap-2"
-            >
-              <Icon icon="edit" size="1.2em" />
-
-              <WrappedPopover title="Editar" client:only="react">
-                <div class="flex flex-col items-center justify-start">
-                  <form
-                    method="post"
-                    action="/api/update-title"
-                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+        </div>
+        <div
+          class="edit flex flex-row justify-between items-center gap-2 w-full"
+        >
+          <h2 class="text-md font-semibold text-gray-900">Descripción</h2>
+          <div
+            class="text-sm rounded-md border border-gray-200 p-2 hover:bg-gray-100 cursor-pointer"
+          >
+            <WrappedPopover title="Editar descripción" client:only="react">
+              <div class="flex flex-col items-center justify-start">
+                <form
+                  method="post"
+                  action="/api/update-description"
+                  class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                >
+                  <label for="project-edit-title">Descripción de proyecto</label
                   >
-                    <label for="project-edit-title">Nombre de proyecto</label>
-                    <span class="text-gray-400 font-normal p-1 text-sm"
-                      >Modifica el nombre de tu proyecto</span
-                    >
-                    <hr class="h-px w-full text-gray-400 my-3" />
-                    <input
-                      type="text"
-                      name="project-edit-title"
-                      id="project-edit-title"
-                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
-                    />
-                    <input
-                      type="hidden"
-                      id="project-id-title"
-                      name="project-id-title"
-                      value={projectId}
-                    />
-                    <input
-                      type="hidden"
-                      name="current-url"
-                      id="current-url"
-                      value=`/projects/${projectId}`
-                    />
-                    <input
-                      type="submit"
-                      value="Cambiar"
-                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
-                    />
-                  </form>
-                </div>
-              </WrappedPopover>
-            </div>
-          </div>
-          <div class="edit flex flex-row justify-center items-center gap-2">
-            <h2 class="text-md font-semibold text-gray-600">Descripción</h2>
-            <div
-              class="edit mt-1 text-grape-900 hover:text-grape-800 text-sm flex flex-row gap-2"
-            >
-              <Icon icon="edit" size="1.2em" />
-              <WrappedPopover title="Editar descripción" client:only="react">
-                <div class="flex flex-col items-center justify-start">
-                  <form
-                    method="post"
-                    action="/api/update-description"
-                    class="rounded-lg w-full flex flex-col justify-center items-center text-grape-900 font-semibold"
+                  <span class="text-gray-400 font-normal p-1 text-sm"
+                    >Modifica la descripción de tu proyecto</span
                   >
-                    <label for="project-edit-title"
-                      >Descripción de proyecto</label
-                    >
-                    <span class="text-gray-400 font-normal p-1 text-sm"
-                      >Modifica la descripción de tu proyecto</span
-                    >
-                    <hr class="h-px w-full text-gray-400 my-3" />
-                    <input
-                      type="text"
-                      name="project-edit-description"
-                      id="project-edit-description"
-                      class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
-                    />
-                    <input
-                      type="hidden"
-                      id="project-id-description"
-                      name="project-id-description"
-                      value={projectId}
-                    />
-                    <input
-                      type="hidden"
-                      name="current-url"
-                      id="current-url"
-                      value=`/projects/${projectId}`
-                    />
-                    <input
-                      type="submit"
-                      value="Cambiar"
-                      class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
-                    />
-                  </form>
-                </div>
-              </WrappedPopover>
-            </div>
+                  <hr class="h-px w-full text-gray-400 my-3" />
+                  <input
+                    type="text"
+                    name="project-edit-description"
+                    id="project-edit-description"
+                    class="w-full shadow-inner p-2 rounded-lg border border-grape-700 bg-plum-100 outline-none focus:ring-1 focus:ring-grape-900 my-2"
+                  />
+                  <input
+                    type="hidden"
+                    id="project-id-description"
+                    name="project-id-description"
+                    value={id}
+                  />
+                  <input
+                    type="hidden"
+                    name="current-url"
+                    id="current-url"
+                    value=`/projects/${id}`
+                  />
+                  <input
+                    type="submit"
+                    value="Cambiar"
+                    class="w-full bg-grape-800 rounded-lg p-2 text-white cursor-pointer hover:bg-grape-900"
+                  />
+                </form>
+              </div>
+            </WrappedPopover>
           </div>
-          <p class="text-gray-600 w-full break-words">
-            {description}
-          </p>
         </div>
       </div>
+      <p class="text-gray-600 w-full break-words py-4 text-sm">
+        {description}
+      </p>
     </div>
+
     <div class="my-8 w-full max-w-7xl">
       <Board client:only="react" />
     </div>
 
     <script>
       const updateProjectById = async (
-        projectId: string,
+        id: string,
         title: string,
         description: string
       ) => {
         const response = await fetch(
-          `www.swifly.app/api/projects/${projectId}`,
+          `http://localhost:4321/api/projects/${id}`,
           {
             method: "PUT",
             headers: {
@@ -501,11 +496,9 @@ const userId = user.id;
         const projectEditTitle = document.querySelector(
           "#project-edit-title"
         ) as HTMLInputElement;
-        const projectId = document.querySelector(
-          "#project-id"
-        ) as HTMLInputElement;
+        const id = document.querySelector("#project-id") as HTMLInputElement;
         console.log(projectEditTitle.value);
-        await updateProjectById(projectId.value, projectEditTitle.value, null);
+        await updateProjectById(id.value, projectEditTitle.value, null);
       };
 
       document

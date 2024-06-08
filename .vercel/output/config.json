@@ -1,0 +1,192 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/_web-vitals(?:\\/(.*?))?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/auth(?:\\/(.*?))?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/400\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/404\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/about\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/addTask\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/callbacks\\/github\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/cards\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/createProject\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/email\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/github\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/password-reset\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/project-list\\/([^/]+?)\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/projects\\/([^/]+?)\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/reset\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/reset-password\\/([^/]+?)\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/sendContactEmail\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/sendEmail\\.json\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/signin\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/signout\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/signup\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/tasks\\/add\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/tasks\\/crud\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/tasks\\/delete\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/tasks\\/update\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/tasks\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/update-description\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/update-title\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/contact\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/cookies\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/dashboard\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/forgot\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/login\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/my-projects\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/password-reset-sent\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/privacy\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/projectTemplate\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/reset\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/settings\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/signup\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/signup-success\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "_render"
+		},
+		{
+			"src": "/.*",
+			"dest": "_render",
+			"status": 404
+		}
+	]
+}

@@ -1,20 +1,20 @@
 import type { APIContext } from "astro";
 import { db, Projects, Users, eq } from "astro:db";
 
-export const prerender = true;
+// export const prerender = true;
 
-export async function getStaticPaths() {
-  const projects = await db.select().from(Projects);
-  const paths = projects.map((project) => ({
-    params: { projectId: project.id },
-  }));
-  return paths;
-}
+// export async function getStaticPaths() {
+//   const projects = await db.select().from(Projects);
+//   const paths = projects.map((project) => ({
+//     params: { projectId: project.id },
+//   }));
+//   return paths;
+// }
 
 export async function GET({ params }: APIContext): Promise<Response> {
   const { projectId } = params;
 
-  const project = await (
+  const project = (
     await db.select().from(Projects).where(eq(Projects.id, projectId))
   ).at(0);
 

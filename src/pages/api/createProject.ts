@@ -44,12 +44,12 @@ export async function POST(context: APIContext): Promise<Response> {
   // console.log("Generated Project ID:", projectId);
 
   try {
-    // console.log("Inserting project with values:", {
-    //   id: projectId,
-    //   user_creator: sessionUserId, // user_creator should be the ID, not username
-    //   title: title,
-    //   description: null, // assuming description is optional
-    // });
+    console.log("Inserting project with values:", {
+      id: projectId,
+      user_creator: sessionUserId,
+      title: title,
+      description: description,
+    });
 
     await db.insert(Projects).values([
       {
